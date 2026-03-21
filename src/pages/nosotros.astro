@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Quiénes Somos"
+  description="Conoce la historia, misión y visión de Fundación ASISTEDCOS, organización salvadoreña de gestión socioambiental fundada en 1997."
+  image="/images/voluntaria-plantando.jpg"
+>
+
+  <!-- Encabezado -->
+  <section class="bg-verde-800 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-verde-300 text-sm font-semibold uppercase tracking-widest">Fundada en 1997</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mt-3 mb-4">Quiénes Somos</h1>
+      <p class="text-verde-200 text-lg max-w-2xl mx-auto">
+        Una organización apolítica y sin fines de lucro comprometida con la restauración ecológica y el desarrollo comunitario sostenible en El Salvador.
+      </p>
+    </div>
+  </section>
+
+  <!-- Historia -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="font-heading text-3xl font-bold text-verde-900 mb-6">Nuestra Historia</h2>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            <strong class="text-verde-800">ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra de El Salvador, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
+          </p>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            Bajo la coordinación de la <strong class="text-verde-800">Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Registrada oficialmente en el <strong class="text-verde-800">Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos socioambientales que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <img
+            src="/images/area-conservacion.jpg"
+            alt="Área de conservación Costa del Bálsamo, proyecto de ASISTEDCOS"
+            class="rounded-2xl shadow-lg w-full object-cover"
+            loading="lazy"
+          />
+          <div class="grid grid-cols-2 gap-4">
+            <img src="/images/voluntaria-plantando.jpg" alt="Voluntaria plantando en El Salvador" class="rounded-xl shadow w-full object-cover aspect-square" loading="lazy" />
+            <img src="/images/vivero-comunidad.jpg" alt="Vivero comunitario de ASISTEDCOS" class="rounded-xl shadow w-full object-cover aspect-square" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Misión, Visión, Valores -->
+  <section class="py-20 bg-verde-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: '🌱',
+            titulo: 'Misión',
+            texto: 'Proveer asistencia técnica especializada en gestión socioambiental a comunidades rurales, semi-rurales y urbanas de El Salvador, contribuyendo a la restauración de ecosistemas y al desarrollo sostenible de las familias.',
+          },
+          {
+            icon: '🔭',
+            titulo: 'Visión',
+            texto: 'Promover la autosuficiencia y resiliencia de las comunidades salvadoreñas mediante enfoques innovadores que impulsen su bienestar integral y el equilibrio ambiental del país.',
+          },
+          {
+            icon: '💚',
+            titulo: 'Valores',
+            texto: 'Integridad, transparencia, compromiso comunitario, respeto a la naturaleza, innovación técnica y colaboración entre sectores público, privado y sociedad civil.',
+          },
+        ].map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-verde-100">
+            <div class="text-4xl mb-4">{item.icon}</div>
+            <h3 class="font-heading text-xl font-bold text-verde-900 mb-3">{item.titulo}</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de trabajo -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-900">Áreas de Trabajo</h2>
+        <p class="text-gray-500 mt-2 max-w-lg mx-auto">Intervención integral desde la restauración ecológica hasta el fortalecimiento comunitario.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {[
+          { titulo: 'Restauración de Ecosistemas', desc: 'Rehabilitación de bosques, manglares y cuencas hidrográficas con especies nativas.' },
+          { titulo: 'Reforestación Comunitaria', desc: 'Producción y distribución de plántulas a familias campesinas para restaurar cobertura vegetal.' },
+          { titulo: 'Monitoreo Ambiental', desc: 'Seguimiento técnico de la salud de ríos, bosques y zonas costeras protegidas.' },
+          { titulo: 'Capacitación Técnica', desc: 'Formación de líderes comunitarios en gestión ambiental y prácticas agroecológicas.' },
+          { titulo: 'Gestión de Alianzas', desc: 'Articulación entre comunidades, empresas privadas, gobierno y cooperación internacional.' },
+          { titulo: 'Compensación Ambiental', desc: 'Implementación de programas de compensación ecológica en áreas protegidas.' },
+        ].map(area => (
+          <div class="flex gap-4 p-5 rounded-xl border border-verde-100 hover:border-verde-300 hover:bg-verde-50 transition-colors">
+            <div class="flex-shrink-0 w-2 h-2 rounded-full bg-verde-500 mt-2.5"></div>
+            <div>
+              <h3 class="font-semibold text-verde-900 mb-1">{area.titulo}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Marco Legal -->
+  <section class="py-16 bg-azul-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold mb-4">Transparencia y Marco Legal</h2>
+      <p class="text-azul-200 mb-8 max-w-2xl mx-auto">
+        Operamos bajo la <strong class="text-white">Ley de Asociaciones y Fundaciones Sin Fines de Lucro</strong> (D.L. No. 894, 1996) de El Salvador, con registro activo en el Ministerio de Gobernación y Desarrollo Territorial.
+      </p>
+      <div class="grid sm:grid-cols-3 gap-6 text-sm">
+        {[
+          { label: 'Registro', value: 'Ministerio de Gobernación de El Salvador' },
+          { label: 'Tipo de entidad', value: 'Fundación sin fines de lucro' },
+          { label: 'Donaciones', value: 'Deducibles de impuestos (Art. 32 Ley de Renta)' },
+        ].map(item => (
+          <div class="bg-azul-800/50 rounded-xl p-5">
+            <p class="text-azul-300 text-xs uppercase tracking-wider mb-1">{item.label}</p>
+            <p class="text-white font-medium">{item.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>

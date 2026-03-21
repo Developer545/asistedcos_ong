@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Nuestro Impacto"
+  description="Conoce el impacto de Fundación ASISTEDCOS: más de 27 años restaurando ecosistemas y transformando comunidades en El Salvador."
+  image="/images/distribucion-plantas.jpg"
+>
+
+  <!-- Encabezado -->
+  <section class="bg-verde-800 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-verde-300 text-sm font-semibold uppercase tracking-widest">Resultados reales</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mt-3 mb-4">Nuestro Impacto</h1>
+      <p class="text-verde-200 text-lg max-w-2xl mx-auto">
+        Más de 27 años de trabajo continuo han dejado huella en los ecosistemas y comunidades de El Salvador.
+      </p>
+    </div>
+  </section>
+
+  <!-- Métricas principales -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {[
+          { valor: '1997', label: 'Año de fundación', sub: '27+ años de experiencia' },
+          { valor: '+50', label: 'Comunidades', sub: 'Rurales y urbanas atendidas' },
+          { valor: '+10K', label: 'Árboles plantados', sub: 'Especies nativas' },
+          { valor: '3+', label: 'Áreas de conservación', sub: 'Ecosistemas protegidos' },
+        ].map(m => (
+          <div class="text-center p-6 rounded-2xl bg-verde-50 border border-verde-100">
+            <p class="font-heading text-4xl md:text-5xl font-extrabold text-verde-700">{m.valor}</p>
+            <p class="font-semibold text-verde-900 mt-1">{m.label}</p>
+            <p class="text-xs text-gray-400 mt-1">{m.sub}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de impacto -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-verde-900 text-center mb-12">Áreas de Impacto</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        {[
+          {
+            img: '/images/area-conservacion.jpg',
+            alt: 'Conservación de manglares en Costa del Bálsamo',
+            titulo: 'Conservación de Ecosistemas Costeros',
+            desc: 'Establecimiento y mantenimiento de áreas de conservación de manglares, ecosistemas clave para la pesca artesanal, protección costera y captura de carbono. El área Costa del Bálsamo es uno de nuestros logros más importantes.',
+          },
+          {
+            img: '/images/distribucion-plantas.jpg',
+            alt: 'Distribución de plántulas a familias rurales salvadoreñas',
+            titulo: 'Desarrollo Económico Comunitario',
+            desc: 'La distribución de plántulas nativas no solo restaura ecosistemas, sino que mejora directamente la economía familiar de comunidades rurales, generando recursos adicionales y fortaleciendo la soberanía alimentaria.',
+          },
+          {
+            img: '/images/monitoreo-rio.jpg',
+            alt: 'Monitoreo de ríos y cuencas en El Salvador',
+            titulo: 'Gestión Hídrica Sostenible',
+            desc: 'El monitoreo continuo de cuencas hidrográficas garantiza la disponibilidad de agua limpia para comunidades y ecosistemas. Nuestros datos técnicos informan políticas ambientales a nivel municipal y nacional.',
+          },
+          {
+            img: '/images/evento-playa.jpg',
+            alt: 'Jornada de reforestación comunitaria en playa salvadoreña',
+            titulo: 'Movilización Social y Voluntariado',
+            desc: 'Creamos cultura ambiental mediante jornadas participativas que involucran a ciudadanos, estudiantes, empresas y gobiernos locales. La conciencia ambiental es el cambio más duradero que podemos generar.',
+          },
+        ].map(area => (
+          <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row gap-0">
+            <div class="md:w-2/5 overflow-hidden">
+              <img src={area.img} alt={area.alt} class="w-full h-full object-cover min-h-48" loading="lazy" />
+            </div>
+            <div class="md:w-3/5 p-6 flex flex-col justify-center">
+              <h3 class="font-heading font-bold text-lg text-verde-900 mb-2">{area.titulo}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Aliados -->
+  <section class="py-16 bg-verde-50 border-y border-verde-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-verde-900 mb-3">Aliados Estratégicos</h2>
+      <p class="text-gray-500 mb-10">Trabajamos con empresas, instituciones y organismos internacionales para maximizar nuestro impacto.</p>
+      <div class="flex flex-wrap justify-center gap-6">
+        {['Concentrix', 'Ministerio de Medio Ambiente', 'Alcaldías Municipales', 'Cooperación Internacional', 'Comunidades Locales'].map(aliado => (
+          <span class="bg-white border border-verde-200 text-verde-800 font-semibold text-sm px-5 py-2.5 rounded-full shadow-sm">{aliado}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-verde-700 text-white text-center">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-3">Sé parte de este impacto</h2>
+      <p class="text-verde-200 mb-8">Cada donación amplifica nuestro trabajo en el territorio.</p>
+      <a href="/donar" class="inline-flex items-center gap-2 bg-white text-verde-800 hover:bg-verde-50 font-bold px-10 py-4 rounded-full transition-colors shadow">
+        ♥ Donar ahora
+      </a>
+    </div>
+  </section>
+
+</Layout>

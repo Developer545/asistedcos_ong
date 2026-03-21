@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Donar"
+  description="Apoya la misión de Fundación ASISTEDCOS. Tu donación restaura ecosistemas y transforma comunidades en El Salvador. Las donaciones son deducibles de impuestos."
+  image="/images/voluntaria-plantando.jpg"
+>
+
+  <!-- Encabezado -->
+  <section class="bg-gradient-to-br from-verde-700 to-verde-900 py-20 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-verde-500/30 rounded-full mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      </div>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Haz una Donación</h1>
+      <p class="text-verde-200 text-lg max-w-xl mx-auto">
+        Tu aporte financia directamente proyectos de reforestación, conservación y desarrollo comunitario en El Salvador.
+      </p>
+      <div class="mt-6 inline-block bg-verde-600/50 border border-verde-400 text-verde-100 text-sm px-5 py-2.5 rounded-full">
+        ★ Las donaciones son deducibles de impuestos en El Salvador (Art. 32, Ley de Renta)
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Qué logra tu donación? -->
+  <section class="py-16 bg-verde-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold text-verde-900 text-center mb-10">¿Qué logra tu donación?</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {[
+          { monto: '$10', logro: '5 plántulas nativas', desc: 'Para entregar a familias campesinas que reforestarán sus terrenos.' },
+          { monto: '$25', logro: '15 árboles plantados', desc: 'En zonas costeras degradadas que recuperan su cobertura vegetal.' },
+          { monto: '$50', logro: '1 jornada comunitaria', desc: 'Materiales y logística para un evento de reforestación con voluntarios.' },
+          { monto: '$100', logro: 'Monitoreo mensual', desc: 'Equipamiento y transporte para monitorear una cuenca hidrográfica.' },
+          { monto: '$250', logro: 'Establecer un vivero', desc: 'Infraestructura básica para que una comunidad produzca sus propias plántulas.' },
+          { monto: 'Tu monto', logro: 'Toda ayuda suma', desc: 'Cualquier cantidad marca la diferencia. No existe donación pequeña.' },
+        ].map(item => (
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-verde-100 text-center hover:border-verde-400 hover:shadow-md transition-all duration-200">
+            <p class="font-heading text-3xl font-extrabold text-verde-600 mb-1">{item.monto}</p>
+            <p class="font-semibold text-verde-900 mb-2">{item.logro}</p>
+            <p class="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Métodos de donación -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-verde-900 text-center mb-12">Cómo Donar</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- PayPal -->
+        <div class="rounded-2xl border-2 border-azul-200 p-8 hover:border-azul-400 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-azul-100 rounded-full flex items-center justify-center">
+              <svg class="h-5 w-5 text-azul-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .633-.546h7.549c2.555 0 4.37.56 5.394 1.664.987 1.065 1.288 2.62.894 4.626-.048.248-.1.499-.16.752-.892 4.006-3.949 5.385-7.849 5.385h-1.99a.64.64 0 0 0-.632.546l-.707 4.693z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-azul-900">PayPal</h3>
+          </div>
+          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+            Donación segura e inmediata desde cualquier parte del mundo. Acepta tarjetas de crédito/débito y saldo PayPal.
+          </p>
+          <a
+            href="https://www.paypal.com/donate"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full flex items-center justify-center gap-2 bg-azul-600 hover:bg-azul-700 text-white font-bold py-3.5 rounded-xl transition-colors"
+          >
+            Donar con PayPal
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Transferencia bancaria -->
+        <div class="rounded-2xl border-2 border-verde-200 p-8 hover:border-verde-400 transition-colors">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-verde-100 rounded-full flex items-center justify-center">
+              <svg class="h-5 w-5 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-verde-900">Transferencia Bancaria</h3>
+          </div>
+          <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+            Transferencia directa desde cualquier banco de El Salvador o internacional.
+          </p>
+          <div class="bg-verde-50 rounded-xl p-4 space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Beneficiario:</span>
+              <span class="font-semibold text-verde-900">Fundación ASISTEDCOS</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Banco:</span>
+              <span class="font-semibold text-verde-900">Contactar para detalles</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Concepto:</span>
+              <span class="font-semibold text-verde-900">Donación + tu nombre</span>
+            </div>
+          </div>
+          <a
+            href="/contacto"
+            class="mt-4 w-full flex items-center justify-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-bold py-3.5 rounded-xl transition-colors"
+          >
+            Solicitar datos bancarios
+          </a>
+        </div>
+      </div>
+
+      <!-- Nota de transparencia -->
+      <div class="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4">
+        <svg class="h-6 w-6 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+          <p class="font-semibold text-amber-800 mb-1">Transparencia total</p>
+          <p class="text-amber-700 text-sm leading-relaxed">
+            El 100% de las donaciones va directamente a proyectos de campo. Como fundación registrada en El Salvador, presentamos estados financieros anuales auditados ante el Ministerio de Gobernación. Si necesitas un recibo para deducción fiscal, escríbenos a <a href="mailto:info@asistedcos.org" class="underline">info@asistedcos.org</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Otras formas de apoyar -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold text-verde-900 text-center mb-8">Otras formas de apoyar</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {[
+          { emoji: '🌱', titulo: 'Voluntariado', desc: 'Únete a nuestras jornadas de reforestación. No se necesita experiencia, solo ganas de sembrar.' },
+          { emoji: '📢', titulo: 'Difunde', desc: 'Comparte nuestro trabajo en redes sociales y ayúdanos a llegar a más personas y donantes.' },
+          { emoji: '🤝', titulo: 'Alianza Empresarial', desc: 'Tu empresa puede ser parte de nuestros proyectos de compensación ambiental y RSE.' },
+        ].map(item => (
+          <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm">
+            <div class="text-4xl mb-3">{item.emoji}</div>
+            <h3 class="font-heading font-bold text-verde-900 mb-2">{item.titulo}</h3>
+            <p class="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+            <a href="/contacto" class="mt-4 inline-block text-verde-600 hover:text-verde-800 text-sm font-semibold transition-colors">
+              Contáctanos →
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
