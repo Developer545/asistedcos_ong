@@ -1,7 +1,22 @@
 ---
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro';
 
-const proyectos = [
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
+
+interface Proyecto {
+  img: string;
+  alt: string;
+  titulo: string;
+  ubicacion: string;
+  categoria: string;
+  estado: string;
+  desc: string;
+  logros: string[];
+}
+
+const fallbackProyectos: Proyecto[] = [
   {
     img: '/images/area-conservacion.jpg',
     alt: 'Área de conservación Costa del Bálsamo con señalización oficial',
@@ -64,7 +79,36 @@ const proyectos = [
   },
 ];
 
-const categorias = [...new Set(proyectos.map(p => p.categoria))];
+let proyectos: Proyecto[] = fallbackProyectos;
+
+try {
+  const res = await fetch(`${ADMIN_URL}/api/public/proyectos`);
+  if (res.ok) {
+    const json = await res.json();
+    const dbData = json.data ?? [];
+    if (dbData.length > 0) {
+      proyectos = dbData.map((p: {
+        coverImage?: string;
+        name?: string;
+        description?: string;
+        active?: boolean;
+        categoria?: string;
+        ubicacion?: string;
+      }) => ({
+        img: p.coverImage || '/images/reforestacion-aerea.jpg',
+        alt: p.name ?? 'Proyecto ASISTEDCOS',
+        titulo: p.name ?? 'Proyecto',
+        ubicacion: p.ubicacion ?? 'El Salvador',
+        categoria: p.categoria ?? 'Proyecto',
+        estado: p.active ? 'Activo' : 'Inactivo',
+        desc: p.description ?? '',
+        logros: [],
+      }));
+    }
+  }
+} catch {
+  // Silently fall back to hardcoded data
+}
 ---
 
 <Layout
@@ -113,19 +157,21 @@ const categorias = [...new Set(proyectos.map(p => p.categoria))];
               </div>
               <h2 class="font-heading font-bold text-lg text-verde-900 mb-2">{p.titulo}</h2>
               <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{p.desc}</p>
-              <div class="border-t border-gray-100 pt-4">
-                <p class="text-xs font-semibold text-verde-700 uppercase tracking-wider mb-2">Logros</p>
-                <ul class="space-y-1">
-                  {p.logros.map(logro => (
-                    <li class="flex items-center gap-2 text-xs text-gray-500">
-                      <svg class="h-3.5 w-3.5 text-verde-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {logro}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {p.logros.length > 0 && (
+                <div class="border-t border-gray-100 pt-4">
+                  <p class="text-xs font-semibold text-verde-700 uppercase tracking-wider mb-2">Logros</p>
+                  <ul class="space-y-1">
+                    {p.logros.map(logro => (
+                      <li class="flex items-center gap-2 text-xs text-gray-500">
+                        <svg class="h-3.5 w-3.5 text-verde-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                        {logro}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </article>
         ))}

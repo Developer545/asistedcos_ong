@@ -1,5 +1,41 @@
 ---
+export const prerender = false;
+
 import Layout from '../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
+
+interface ContenidoItem {
+  section: string;
+  key: string;
+  value: string;
+}
+
+const defaultStats = {
+  anos: '+27',
+  comunidades: '+50',
+  arboles: '+10K',
+  donaciones: '100%',
+};
+
+let stats = { ...defaultStats };
+
+try {
+  const res = await fetch(`${ADMIN_URL}/api/public/contenido`);
+  if (res.ok) {
+    const json = await res.json();
+    const contenido: ContenidoItem[] = json.data ?? [];
+    const statsItems = contenido.filter((item: ContenidoItem) => item.section === 'stats');
+    for (const item of statsItems) {
+      if (item.key === 'anos') stats.anos = item.value;
+      if (item.key === 'comunidades') stats.comunidades = item.value;
+      if (item.key === 'arboles') stats.arboles = item.value;
+      if (item.key === 'donaciones') stats.donaciones = item.value;
+    }
+  }
+} catch {
+  // Silently fall back to default stats
+}
 ---
 
 <Layout
@@ -69,10 +105,10 @@ import Layout from '../layouts/Layout.astro';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         {[
-          { valor: '+27', label: 'años de trabajo', color: 'text-verde-700' },
-          { valor: '+50', label: 'comunidades atendidas', color: 'text-verde-700' },
-          { valor: '+10K', label: 'árboles plantados', color: 'text-verde-700' },
-          { valor: '100%', label: 'sin fines de lucro', color: 'text-verde-700' },
+          { valor: stats.anos, label: 'años de trabajo', color: 'text-verde-700' },
+          { valor: stats.comunidades, label: 'comunidades atendidas', color: 'text-verde-700' },
+          { valor: stats.arboles, label: 'árboles plantados', color: 'text-verde-700' },
+          { valor: stats.donaciones, label: 'sin fines de lucro', color: 'text-verde-700' },
         ].map(item => (
           <div class="flex flex-col items-center">
             <span class={`font-heading text-4xl md:text-5xl font-extrabold ${item.color}`}>{item.valor}</span>

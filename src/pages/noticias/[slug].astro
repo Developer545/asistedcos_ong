@@ -1,0 +1,165 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
+
+const { slug } = Astro.params;
+
+interface News {
+  id: string | number;
+  title: string;
+  slug: string;
+  summary?: string;
+  coverImage?: string;
+  publishedAt?: string;
+  body?: string;
+}
+
+let noticia: News | null = null;
+let fetchError = false;
+
+try {
+  const res = await fetch(`${ADMIN_URL}/api/public/noticias/${slug}`);
+  if (res.status === 404) {
+    return Astro.redirect('/404');
+  }
+  if (res.ok) {
+    const json = await res.json();
+    noticia = json.data ?? null;
+    if (!noticia) {
+      return Astro.redirect('/404');
+    }
+  } else {
+    fetchError = true;
+  }
+} catch {
+  fetchError = true;
+}
+
+function formatDate(dateStr?: string): string {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+const bodyParagraphs = noticia?.body
+  ? noticia.body.split('\n').filter((line: string) => line.trim().length > 0)
+  : [];
+---
+
+<Layout
+  title={noticia ? noticia.title : 'Noticia'}
+  description={noticia?.summary ?? 'Noticias de Fundación ASISTEDCOS'}
+  image={noticia?.coverImage ?? '/images/reforestacion-aerea.jpg'}
+>
+
+  {fetchError && !noticia ? (
+    <!-- Error state -->
+    <section class="bg-verde-800 py-20">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h1 class="font-heading text-4xl font-extrabold text-white mb-4">Error al cargar</h1>
+        <p class="text-verde-200 mb-8">No pudimos cargar esta noticia. Intenta de nuevo más tarde.</p>
+        <a href="/noticias" class="inline-flex items-center gap-2 border-2 border-verde-300 text-verde-100 hover:bg-verde-300 hover:text-verde-900 font-semibold px-8 py-3 rounded-full transition-colors">
+          ← Volver a Noticias
+        </a>
+      </div>
+    </section>
+  ) : noticia ? (
+    <>
+      <!-- Hero con imagen de portada -->
+      {noticia.coverImage ? (
+        <section class="relative h-64 md:h-96 bg-verde-900 overflow-hidden">
+          <img
+            src={noticia.coverImage}
+            alt={noticia.title}
+            class="w-full h-full object-cover opacity-50"
+            fetchpriority="high"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-verde-900/80 to-transparent"></div>
+        </section>
+      ) : (
+        <section class="bg-verde-800 py-16"></section>
+      )}
+
+      <!-- Contenido principal -->
+      <section class="py-12 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <!-- Breadcrumb -->
+          <nav class="flex items-center gap-2 text-sm text-gray-400 mb-8" aria-label="Breadcrumb">
+            <a href="/" class="hover:text-verde-700 transition-colors">Inicio</a>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <a href="/noticias" class="hover:text-verde-700 transition-colors">Noticias</a>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <span class="text-gray-600 font-medium truncate max-w-xs">{noticia.title}</span>
+          </nav>
+
+          <!-- Metadatos -->
+          <div class="flex items-center gap-3 mb-6">
+            {noticia.publishedAt && (
+              <span class="inline-block bg-verde-100 text-verde-700 text-xs font-semibold px-3 py-1 rounded-full">
+                {formatDate(noticia.publishedAt)}
+              </span>
+            )}
+            <span class="inline-block bg-gray-100 text-gray-600 text-xs font-semibold px-3 py-1 rounded-full">
+              ASISTEDCOS
+            </span>
+          </div>
+
+          <!-- Título -->
+          <h1 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 leading-tight mb-6">
+            {noticia.title}
+          </h1>
+
+          <!-- Resumen destacado -->
+          {noticia.summary && (
+            <p class="text-xl text-gray-600 leading-relaxed border-l-4 border-verde-500 pl-5 mb-8 italic">
+              {noticia.summary}
+            </p>
+          )}
+
+          <!-- Cuerpo -->
+          <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-5">
+            {bodyParagraphs.length > 0 ? (
+              bodyParagraphs.map((parrafo: string) => (
+                <p>{parrafo}</p>
+              ))
+            ) : (
+              <p class="text-gray-400 italic">Contenido no disponible.</p>
+            )}
+          </div>
+
+          <!-- Separador -->
+          <hr class="my-12 border-gray-200" />
+
+          <!-- Botón volver -->
+          <div class="flex items-center justify-between">
+            <a
+              href="/noticias"
+              class="inline-flex items-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-semibold px-6 py-2.5 rounded-full transition-colors"
+            >
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+              </svg>
+              Volver a Noticias
+            </a>
+            <a
+              href="/donar"
+              class="inline-flex items-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-semibold px-6 py-2.5 rounded-full transition-colors shadow-sm"
+            >
+              ♥ Apoyar ASISTEDCOS
+            </a>
+          </div>
+
+        </div>
+      </section>
+    </>
+  ) : null}
+
+</Layout>

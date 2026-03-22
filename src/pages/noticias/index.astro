@@ -1,0 +1,140 @@
+---
+export const prerender = false;
+
+import Layout from '../../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
+
+interface News {
+  id: string | number;
+  title: string;
+  slug: string;
+  summary?: string;
+  coverImage?: string;
+  publishedAt?: string;
+  body?: string;
+}
+
+let noticias: News[] = [];
+let fetchError = false;
+
+try {
+  const res = await fetch(`${ADMIN_URL}/api/public/noticias?limit=20`);
+  if (res.ok) {
+    const json = await res.json();
+    noticias = json.data ?? [];
+  } else {
+    fetchError = true;
+  }
+} catch {
+  fetchError = true;
+}
+
+function formatDate(dateStr?: string): string {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout
+  title="Noticias"
+  description="Últimas noticias y novedades de Fundación ASISTEDCOS — proyectos, eventos y logros en la restauración de ecosistemas de El Salvador."
+  image="/images/reforestacion-aerea.jpg"
+>
+
+  <!-- Encabezado -->
+  <section class="bg-verde-800 py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="text-verde-300 text-sm font-semibold uppercase tracking-widest">Actualidad</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mt-3 mb-4">Noticias</h1>
+      <p class="text-verde-200 text-lg max-w-2xl mx-auto">
+        Entérate de los últimos avances, eventos y logros de nuestra fundación en El Salvador.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grid de noticias -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {fetchError || noticias.length === 0 ? (
+        <div class="text-center py-24">
+          <svg class="h-16 w-16 text-verde-300 mx-auto mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h6m-6-4h6" />
+          </svg>
+          <h2 class="font-heading text-2xl font-bold text-verde-900 mb-3">Próximamente</h2>
+          <p class="text-gray-500 max-w-sm mx-auto">
+            Estamos preparando noticias y novedades. Vuelve pronto para conocer las últimas actualizaciones de ASISTEDCOS.
+          </p>
+        </div>
+      ) : (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {noticias.map((noticia) => (
+            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col">
+              <!-- Imagen o placeholder -->
+              <div class="overflow-hidden aspect-[16/10]">
+                {noticia.coverImage ? (
+                  <img
+                    src={noticia.coverImage}
+                    alt={noticia.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-verde-700 to-verde-500 flex items-center justify-center">
+                    <svg class="h-12 w-12 text-verde-200 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              <div class="p-6 flex flex-col flex-1">
+                <!-- Badge de fecha -->
+                {noticia.publishedAt && (
+                  <span class="inline-block bg-verde-100 text-verde-700 text-xs font-semibold px-3 py-1 rounded-full mb-3 self-start">
+                    {formatDate(noticia.publishedAt)}
+                  </span>
+                )}
+
+                <h2 class="font-heading font-bold text-lg text-verde-900 mb-2 leading-snug">
+                  {noticia.title}
+                </h2>
+
+                {noticia.summary && (
+                  <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
+                    {noticia.summary}
+                  </p>
+                )}
+
+                <a
+                  href={`/noticias/${noticia.slug}`}
+                  class="inline-flex items-center gap-1.5 text-verde-700 font-semibold text-sm hover:text-verde-900 transition-colors mt-auto group/link"
+                >
+                  Leer más
+                  <svg class="h-4 w-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-verde-700 text-white text-center">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-3">¿Quieres apoyar nuestra labor?</h2>
+      <p class="text-verde-200 mb-8">Cada donación nos permite seguir restaurando ecosistemas y transformando comunidades.</p>
+      <a href="/donar" class="inline-flex items-center gap-2 bg-white text-verde-800 hover:bg-verde-50 font-bold px-10 py-4 rounded-full transition-colors shadow">
+        ♥ Donar ahora
+      </a>
+    </div>
+  </section>
+
+</Layout>
