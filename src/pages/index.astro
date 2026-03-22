@@ -4,27 +4,6 @@ import Layout from '../layouts/Layout.astro';
 
 const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
 
-// Fetch stats
-let statsData: Record<string, string> = {
-  anos: '+27',
-  comunidades: '+50',
-  arboles: '+10K',
-  donaciones: '100%',
-  label_anos: 'años de trabajo',
-  label_comunidades: 'comunidades atendidas',
-  label_arboles: 'árboles plantados',
-  label_donaciones: 'sin fines de lucro',
-};
-try {
-  const r = await fetch(`${ADMIN_URL}/api/public/contenido`, { signal: AbortSignal.timeout(4000) });
-  if (r.ok) {
-    const d = await r.json();
-    (d.data ?? []).forEach((b: { section: string; key: string; value: string }) => {
-      if (b.section === 'stats') statsData[b.key] = b.value;
-    });
-  }
-} catch { /* use defaults */ }
-
 // Fetch news
 type NewsItem = { id: string; title: string; slug: string; summary?: string; coverImage?: string; publishedAt?: string };
 let latestNews: NewsItem[] = [];
@@ -33,43 +12,81 @@ try {
   if (r.ok) { latestNews = (await r.json()).data ?? []; }
 } catch { /* no news */ }
 
-// Fetch projects
-type Proj = { id: string; name: string; description?: string; coverImage?: string };
-let apiProjects: Proj[] = [];
-try {
-  const r = await fetch(`${ADMIN_URL}/api/public/proyectos`, { signal: AbortSignal.timeout(4000) });
-  if (r.ok) { apiProjects = ((await r.json()).data ?? []).slice(0, 3); }
-} catch { /* fallback below */ }
-
-const fallbackProjects = [
+// Cause cards with fundraising data
+const causeCards = [
   {
     img: '/images/area-conservacion.jpg',
+    tag: 'Manglar',
     titulo: 'Conservación Costa del Bálsamo',
     desc: 'Protección y restauración del manglar en Playa San Diego, La Libertad, en alianza con Concentrix.',
-    tag: 'Manglar',
+    meta: 15000,
+    recaudado: 8550,
+    pct: 57,
   },
   {
     img: '/images/distribucion-plantas.jpg',
-    titulo: 'Distribución de Plántulas Nativas',
-    desc: 'Entregamos miles de plántulas nativas a familias rurales para reforestar sus terrenos.',
     tag: 'Reforestación',
+    titulo: 'Distribución de Plántulas Nativas',
+    desc: 'Entregamos miles de plántulas nativas a familias rurales para reforestar sus terrenos y recuperar biodiversidad.',
+    meta: 8000,
+    recaudado: 6560,
+    pct: 82,
   },
   {
     img: '/images/monitoreo-rio.jpg',
-    titulo: 'Monitoreo de Cuencas Hidrográficas',
-    desc: 'Vigilancia continua de ríos y cuerpos de agua para asegurar la salud hídrica de las comunidades.',
     tag: 'Agua',
+    titulo: 'Monitoreo de Cuencas Hidrográficas',
+    desc: 'Vigilancia continua de ríos y cuerpos de agua para asegurar la salud hídrica de las comunidades rurales.',
+    meta: 12000,
+    recaudado: 5160,
+    pct: 43,
   },
 ];
 
-const displayProjects = apiProjects.length > 0
-  ? apiProjects.map(p => ({
-      img: p.coverImage || '/images/reforestacion-aerea.jpg',
-      titulo: p.name,
-      desc: p.description || '',
-      tag: 'Proyecto',
-    }))
-  : fallbackProjects;
+const testimonials = [
+  {
+    quote: 'Gracias a ASISTEDCOS aprendimos a proteger los manglares que nos dan vida. El apoyo técnico fue fundamental para nuestra comunidad.',
+    name: 'María López',
+    role: 'Pescadora, La Libertad',
+    initials: 'ML',
+    color: 'bg-verde-700',
+  },
+  {
+    quote: 'Como empresa, nuestra alianza con ASISTEDCOS nos permitió recuperar el área de conservación en la Costa del Bálsamo. Un impacto real y medible.',
+    name: 'Representante Concentrix',
+    role: 'Aliado Estratégico',
+    initials: 'CO',
+    color: 'bg-amber-600',
+  },
+  {
+    quote: 'Los viveros comunitarios cambiaron nuestra forma de ver el territorio. Hoy somos guardianes del bosque.',
+    name: 'Juan García',
+    role: 'Comunidad Rural, La Libertad',
+    initials: 'JG',
+    color: 'bg-verde-500',
+  },
+];
+
+const teamMembers = [
+  {
+    initials: 'BJ',
+    nombre: 'Lic. Blanca Estela Juárez',
+    cargo: 'Directora Ejecutiva',
+    color: 'bg-verde-700',
+  },
+  {
+    initials: 'ET',
+    nombre: 'Equipo Técnico',
+    cargo: 'Especialistas en Gestión Ambiental',
+    color: 'bg-amber-600',
+  },
+  {
+    initials: '+20',
+    nombre: 'Voluntarios',
+    cargo: 'Colaboradores activos en campo',
+    color: 'bg-verde-500',
+  },
+];
 ---
 
 <Layout
@@ -78,43 +95,45 @@ const displayProjects = apiProjects.length > 0
 >
 
   <!-- ===== HERO ===== -->
-  <section class="relative min-h-screen flex items-center overflow-hidden">
+  <section class="relative overflow-hidden" style="height: 700px; max-height: 90vh;">
     <div class="absolute inset-0">
       <img src="/images/reforestacion-aerea.jpg" alt="Reforestación costera en El Salvador"
         class="w-full h-full object-cover" fetchpriority="high" />
     </div>
-    <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(8,21,9,0.92) 0%, rgba(17,43,20,0.78) 50%, rgba(26,71,33,0.45) 100%);"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(8,21,9,0.93) 0%, rgba(17,43,20,0.80) 55%, rgba(26,71,33,0.40) 100%);"></div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 pt-40">
-      <div class="max-w-3xl">
-        <div class="animate-fade-up">
-          <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6"
-            style="background-color: rgba(245,158,11,0.2); border: 1px solid rgba(251,191,36,0.4); color: #fcd34d;">
-            <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span>
-            Desde 1997 · El Salvador
-          </span>
-        </div>
-        <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 animate-fade-up-delay">
-          Recuperando<br />
-          <span class="text-amber-300">ecosistemas</span><br />
-          para la vida
-        </h1>
-        <p class="text-lg sm:text-xl leading-relaxed mb-10 max-w-xl animate-fade-up-delay-2" style="color: rgba(255,255,255,0.8);">
-          Trabajamos con comunidades rurales y urbanas de El Salvador para restaurar bosques, proteger manglares y construir un futuro sostenible.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 animate-fade-up-delay-2">
-          <a href="/donar"
-            class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-full text-base transition-all duration-200 shadow-xl hover:-translate-y-1">
-            ♥ Apoya nuestra misión
-          </a>
-          <a href="/proyectos"
-            class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-full text-base transition-all duration-200"
-            style="border: 2px solid rgba(255,255,255,0.4); color: white; backdrop-filter: blur(4px);">
-            Ver proyectos
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
+    <div class="relative h-full flex items-center">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="max-w-2xl">
+          <div class="animate-fade-up">
+            <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-sm mb-6"
+              style="background-color: rgba(245,158,11,0.2); border: 1px solid rgba(251,191,36,0.4); color: #fcd34d;">
+              <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span>
+              Desde 1997 · El Salvador
+            </span>
+          </div>
+          <h1 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 animate-fade-up-delay">
+            Recuperando<br/>
+            <span class="text-amber-400">ecosistemas</span><br/>
+            para la vida
+          </h1>
+          <p class="text-lg sm:text-xl leading-relaxed mb-10 max-w-xl animate-fade-up-delay-2" style="color: rgba(255,255,255,0.82);">
+            Trabajamos con comunidades rurales de El Salvador para restaurar bosques, proteger manglares y construir un futuro sostenible.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 animate-fade-up-delay-2">
+            <a href="/donar"
+              class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm text-base transition-all duration-200 shadow-xl hover:-translate-y-1">
+              ♥ Apoya nuestra misión
+            </a>
+            <a href="/proyectos"
+              class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-sm text-base transition-all duration-200 text-white"
+              style="border: 2px solid rgba(255,255,255,0.4);">
+              Ver proyectos
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -122,42 +141,80 @@ const displayProjects = apiProjects.length > 0
     <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="color: rgba(255,255,255,0.5);">
       <span class="text-xs tracking-widest uppercase font-medium">Descubrir</span>
-      <div class="w-px h-12 animate-bounce" style="background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);"></div>
+      <div class="w-px h-10 animate-bounce" style="background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);"></div>
     </div>
   </section>
 
-  <!-- ===== STATS ===== -->
-  <section class="py-14" style="background: linear-gradient(to right, #112b14, #1a4721);">
+  <!-- ===== WAYS TO HELP ===== -->
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Súmate</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">¿Cómo puedes ayudar?</h2>
+        <p class="text-gray-500 mt-3 max-w-xl mx-auto">Hay muchas formas de contribuir a la recuperación de nuestros ecosistemas.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
         {[
-          { valor: statsData.anos, label: statsData.label_anos },
-          { valor: statsData.comunidades, label: statsData.label_comunidades },
-          { valor: statsData.arboles, label: statsData.label_arboles },
-          { valor: statsData.donaciones, label: statsData.label_donaciones },
+          {
+            icon: `<svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>`,
+            titulo: 'Donar',
+            desc: 'Tu aporte financia proyectos de reforestación y protección de manglares en El Salvador.',
+            href: '/donar',
+            cta: 'Donar ahora',
+          },
+          {
+            icon: `<svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`,
+            titulo: 'Voluntariar',
+            desc: 'Únete a jornadas de trabajo comunitario, plantación y monitoreo de ecosistemas.',
+            href: '/contacto',
+            cta: 'Ser voluntario',
+          },
+          {
+            icon: `<svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
+            titulo: 'Aliarte',
+            desc: 'Las empresas que nos apoyan generan impacto ambiental real y medible en conservación.',
+            href: '/contacto',
+            cta: 'Ser aliado',
+          },
+          {
+            icon: `<svg class="w-9 h-9" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>`,
+            titulo: 'Difundir',
+            desc: 'Comparte nuestra misión en redes sociales y ayúdanos a llegar a más personas.',
+            href: 'https://www.facebook.com/FundacionAsistedcos',
+            cta: 'Compartir',
+          },
         ].map(item => (
-          <div class="flex flex-col items-center">
-            <span class="font-heading text-4xl md:text-5xl font-extrabold text-amber-400">{item.valor}</span>
-            <span class="text-sm mt-2 font-medium" style="color: #bde7c3;">{item.label}</span>
+          <div class="group flex flex-col items-center text-center p-8 rounded-lg border border-gray-100 hover:border-amber-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center mb-5 text-white transition-colors duration-300"
+              style="background-color: #2d7a3a;">
+              <Fragment set:html={item.icon} />
+            </div>
+            <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">{item.titulo}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed flex-1 mb-5">{item.desc}</p>
+            <a href={item.href}
+              class="text-sm font-bold text-verde-700 border-b-2 border-amber-400 pb-0.5 hover:text-amber-500 transition-colors">
+              {item.cta} →
+            </a>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ===== MISIÓN ===== -->
-  <section class="py-24 bg-white">
+  <!-- ===== ABOUT + STATS ===== -->
+  <section class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Image side -->
         <div class="relative">
-          <div class="absolute -top-4 -left-4 w-24 h-24 bg-amber-100 rounded-2xl -z-10"></div>
-          <div class="absolute -bottom-4 -right-4 w-32 h-32 rounded-2xl -z-10" style="background-color: #ddf3e0;"></div>
+          <div class="absolute -top-4 -left-4 w-24 h-24 bg-amber-100 rounded-lg -z-10"></div>
+          <div class="absolute -bottom-4 -right-4 w-32 h-32 rounded-lg -z-10" style="background-color: #ddf3e0;"></div>
           <img src="/images/voluntaria-plantando.jpg"
             alt="Voluntaria de ASISTEDCOS plantando árboles"
-            class="rounded-2xl shadow-2xl w-full object-cover aspect-[4/3]" />
-          <div class="absolute -bottom-5 -left-5 bg-white rounded-2xl px-5 py-4 shadow-xl border border-gray-100">
+            class="rounded-lg shadow-2xl w-full object-cover aspect-[4/3]" />
+          <div class="absolute -bottom-5 -left-5 bg-white rounded-lg px-5 py-4 shadow-xl border border-gray-100">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg" style="background-color: #2d7a3a;">97</div>
+              <div class="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg" style="background-color: #2d7a3a;">97</div>
               <div>
                 <p class="font-bold text-sm" style="color: #112b14;">Fundada en 1997</p>
                 <p class="text-xs text-gray-500">+27 años transformando El Salvador</p>
@@ -165,45 +222,110 @@ const displayProjects = apiProjects.length > 0
             </div>
           </div>
         </div>
+        <!-- Text + counters -->
         <div>
           <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestra misión</span>
           <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-3 mb-6 leading-tight" style="color: #112b14;">
             Ecosistemas saludables,<br/>comunidades prósperas
           </h2>
           <p class="text-gray-600 leading-relaxed mb-4">
-            ASISTEDCOS nació en 1997 para atender las secuelas ambientales y sociales de la guerra civil en El Salvador. A través de asistencia técnica especializada, promovemos la autogestión comunitaria y la restauración ecológica.
+            ASISTEDCOS nació en 1997 para atender las secuelas ambientales y sociales de la posguerra en El Salvador. A través de asistencia técnica especializada, promovemos la autogestión comunitaria y la restauración ecológica.
           </p>
           <p class="text-gray-600 leading-relaxed mb-8">
             Trabajamos con comunidades rurales, semi-rurales y urbanas, facilitando la cooperación entre el sector público, privado y organismos internacionales.
           </p>
-          <div class="space-y-3 mb-8">
+          <!-- Counters 2x2 grid -->
+          <div class="grid grid-cols-2 gap-4 mb-8" id="counters-section">
             {[
-              'Restauración de bosques y manglares',
-              'Asistencia técnica a comunidades rurales',
-              'Monitoreo de cuencas hidrográficas',
-              'Formación de viveros comunitarios',
+              { count: 27,    suffix: '',    label: 'Años de trabajo' },
+              { count: 50,    suffix: '+',   label: 'Comunidades' },
+              { count: 10000, suffix: '+',   label: 'Árboles plantados' },
+              { count: 6,     suffix: '',    label: 'Proyectos activos' },
             ].map(item => (
-              <div class="flex items-center gap-3">
-                <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background-color: #ddf3e0;">
-                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #2d7a3a;">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                  </svg>
+              <div class="bg-white rounded-lg p-5 shadow-sm border border-gray-100 text-center">
+                <div class="font-heading text-3xl font-extrabold text-amber-500 flex items-baseline justify-center gap-0.5">
+                  <span data-count={item.count} class="counter-num">0</span>
+                  <span>{item.suffix}</span>
                 </div>
-                <span class="text-gray-700 text-sm font-medium">{item}</span>
+                <p class="text-xs text-gray-500 font-medium mt-1">{item.label}</p>
               </div>
             ))}
           </div>
           <a href="/nosotros"
-            class="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-full transition-colors"
-            style="background-color: #2d7a3a;"
-            onmouseover="this.style.backgroundColor='#245f2e'"
-            onmouseout="this.style.backgroundColor='#2d7a3a'">
+            class="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-sm transition-colors"
+            style="background-color: #2d7a3a;">
             Conoce nuestra historia
             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CAUSE CARDS WITH PROGRESS BARS ===== -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Lo que hacemos</span>
+          <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-2" style="color: #112b14;">Causas que impulsamos</h2>
+          <p class="text-gray-500 mt-2 max-w-lg">Proyectos activos con metas de financiamiento. Tu aporte hace la diferencia.</p>
+        </div>
+        <a href="/proyectos" class="inline-flex items-center gap-2 font-semibold text-sm group flex-shrink-0 transition-colors" style="color: #245f2e;">
+          Ver todos los proyectos
+          <svg class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        {causeCards.map(p => (
+          <article class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100">
+            <!-- Image -->
+            <div class="relative overflow-hidden h-52">
+              <img src={p.img} alt={p.titulo}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <div class="absolute top-3 left-3">
+                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 uppercase tracking-wide">{p.tag}</span>
+              </div>
+            </div>
+            <!-- Content -->
+            <div class="p-6">
+              <h3 class="font-heading font-bold text-xl text-gray-900 mb-2">{p.titulo}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">{p.desc}</p>
+              <!-- Progress bar -->
+              <div class="mb-5">
+                <div class="flex justify-between text-xs font-semibold mb-1.5">
+                  <span class="text-gray-600">Meta: <span class="text-verde-700">${p.meta.toLocaleString()}</span></span>
+                  <span class="text-amber-500 font-bold">{p.pct}%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2.5">
+                  <div class="bg-amber-500 h-2.5 rounded-full transition-all duration-1000" style={`width: ${p.pct}%`}></div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-400 mt-1.5">
+                  <span>Recaudado: ${p.recaudado.toLocaleString()}</span>
+                  <span>Restante: ${(p.meta - p.recaudado).toLocaleString()}</span>
+                </div>
+              </div>
+              <!-- Buttons -->
+              <div class="flex gap-2">
+                <a href="/donar"
+                  class="flex-1 text-center bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold py-2.5 rounded-sm transition-colors">
+                  ♥ Donar
+                </a>
+                <a href="/proyectos"
+                  class="flex-1 text-center border-2 text-sm font-bold py-2.5 rounded-sm transition-colors hover:text-white"
+                  style="border-color: #2d7a3a; color: #2d7a3a;"
+                  onmouseover="this.style.backgroundColor='#2d7a3a'; this.style.color='white';"
+                  onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2d7a3a';">
+                  Saber más
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -220,104 +342,125 @@ const displayProjects = apiProjects.length > 0
         {[
           {
             num: '01',
-            emoji: '🔍',
             titulo: 'Identificamos',
             desc: 'Realizamos diagnósticos ambientales y sociales para entender las necesidades específicas de cada comunidad y ecosistema.',
-            bg: 'linear-gradient(135deg, #2d7a3a, #245f2e)',
+            iconColor: '#2d7a3a',
+            icon: `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
           },
           {
             num: '02',
-            emoji: '🌱',
             titulo: 'Actuamos',
             desc: 'Implementamos proyectos de reforestación, conservación y desarrollo comunitario con participación local activa.',
-            bg: 'linear-gradient(135deg, #f59e0b, #d97706)',
+            iconColor: '#f59e0b',
+            icon: `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>`,
           },
           {
             num: '03',
-            emoji: '📊',
             titulo: 'Medimos',
             desc: 'Monitoreamos y evaluamos el impacto de cada intervención para garantizar resultados tangibles y sostenibles.',
-            bg: 'linear-gradient(135deg, #245f2e, #1a4721)',
+            iconColor: '#245f2e',
+            icon: `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
           },
         ].map(step => (
-          <div class="relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100">
-            <div class="inline-flex w-14 h-14 items-center justify-center rounded-2xl text-white text-2xl mb-5 shadow-lg"
-              style={`background: ${step.bg};`}>
-              {step.emoji}
+          <div class="relative bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100">
+            <div class="absolute top-6 right-6 font-heading font-extrabold text-7xl leading-none select-none" style="color: #f3f4f6;">{step.num}</div>
+            <div class="relative">
+              <div class="inline-flex w-16 h-16 items-center justify-center rounded-full text-white mb-5 shadow-md"
+                style={`background-color: ${step.iconColor};`}>
+                <Fragment set:html={step.icon} />
+              </div>
+              <h3 class="font-heading font-bold text-xl mb-3" style="color: #112b14;">{step.titulo}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
             </div>
-            <div class="absolute top-6 right-6 font-heading font-extrabold text-5xl leading-none select-none" style="color: #f3f4f6;">{step.num}</div>
-            <h3 class="font-heading font-bold text-xl mb-3" style="color: #112b14;">{step.titulo}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ===== PROYECTOS ===== -->
-  <section class="py-24 bg-white">
+  <!-- ===== DONATION CTA WITH AMOUNT BUTTONS ===== -->
+  <section class="py-20" style="background-color: #112b14;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm mb-5"
+        style="background-color: rgba(245,158,11,0.2); color: #fcd34d; border: 1px solid rgba(251,191,36,0.3);">
+        Haz la diferencia hoy
+      </span>
+      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-4">
+        Tu donación restaura ecosistemas
+      </h2>
+      <p class="mb-2 max-w-lg mx-auto text-lg" style="color: #bde7c3;">
+        Cada aporte nos permite plantar más árboles, proteger más manglares y acompañar más comunidades.
+      </p>
+      <p class="text-sm font-semibold mb-10 text-amber-400">
+        ★ Donaciones deducibles de impuestos — Art. 32 Ley de Renta El Salvador
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 mb-8">
+        {['$10', '$25', '$50', '$100', '$250', 'Otro monto'].map(amount => (
+          <a href="/donar"
+            class="amount-btn font-bold px-7 py-3 rounded-sm transition-all duration-200 text-sm text-white border"
+            style="background-color: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2);">
+            {amount}
+          </a>
+        ))}
+      </div>
+      <a href="/donar"
+        class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-12 py-4 rounded-sm transition-all duration-200 shadow-xl hover:-translate-y-1 text-base">
+        ♥ Donar ahora
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-        <div>
-          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Lo que hacemos</span>
-          <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-2" style="color: #112b14;">Proyectos en acción</h2>
-        </div>
-        <a href="/proyectos" class="inline-flex items-center gap-2 font-semibold hover:text-verde-900 text-sm group flex-shrink-0 transition-colors" style="color: #245f2e;">
-          Ver todos los proyectos
-          <svg class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </a>
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Testimonios</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">Lo que dice nuestra comunidad</h2>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        {displayProjects.map(p => (
-          <article class="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1">
-            <div class="overflow-hidden aspect-[16/10] relative">
-              <img src={p.img} alt={p.titulo}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-              <div class="absolute top-3 left-3">
-                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">{p.tag}</span>
+        {testimonials.map(t => (
+          <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 flex flex-col">
+            <!-- Large quote mark -->
+            <div class="text-6xl font-heading font-extrabold leading-none mb-4" style="color: #f3f4f6;">"</div>
+            <p class="text-gray-600 text-sm leading-relaxed flex-1 mb-6 -mt-4">{t.quote}</p>
+            <div class="flex items-center gap-4 border-t border-gray-100 pt-5">
+              <div class={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ${t.color}`}>
+                {t.initials}
+              </div>
+              <div>
+                <p class="font-bold text-gray-900 text-sm">{t.name}</p>
+                <p class="text-gray-400 text-xs">{t.role}</p>
               </div>
             </div>
-            <div class="p-6">
-              <h3 class="font-heading font-bold text-lg mb-2" style="color: #112b14;">{p.titulo}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">{p.desc}</p>
-            </div>
-          </article>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ===== QUOTE / CTA IMPACTO ===== -->
-  <section class="py-24 relative overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/evento-playa.jpg" alt="" class="w-full h-full object-cover" aria-hidden="true" />
-      <div class="absolute inset-0" style="background-color: rgba(17,43,20,0.87);"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <svg class="h-12 w-12 text-amber-400 mx-auto mb-6 opacity-80" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-      </svg>
-      <p class="text-3xl md:text-4xl font-heading font-bold text-white leading-tight mb-6">
-        "La conservación de la naturaleza solo es efectiva cuando las comunidades son parte activa de la solución."
-      </p>
-      <p class="mb-10 font-medium" style="color: #bde7c3;">— Lic. Blanca Estela Juárez, Directora de ASISTEDCOS</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/donar"
-          class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-10 py-4 rounded-full transition-all hover:-translate-y-1 shadow-xl">
-          ♥ Donar ahora
-        </a>
-        <a href="/contacto"
-          class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-full transition-all"
-          style="border: 2px solid rgba(255,255,255,0.4); color: white; backdrop-filter: blur(4px);">
-          Ser voluntario
-        </a>
+  <!-- ===== TEAM ===== -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Equipo</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-gray-900 mt-2">Nuestro equipo</h2>
+        <p class="text-gray-500 mt-3">Las personas detrás de cada árbol plantado y comunidad apoyada.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        {teamMembers.map(m => (
+          <div class="flex flex-col items-center text-center p-8 rounded-lg border border-gray-100 hover:border-verde-200 hover:shadow-lg transition-all duration-300">
+            <div class={`w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-xl mb-5 shadow-lg ${m.color}`}>
+              {m.initials}
+            </div>
+            <h3 class="font-heading font-bold text-lg text-gray-900 mb-1">{m.nombre}</h3>
+            <p class="text-gray-500 text-sm">{m.cargo}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ===== NOTICIAS ===== -->
+  <!-- ===== NEWS (dynamic) ===== -->
   {latestNews.length > 0 && (
     <section class="py-24 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -335,7 +478,7 @@ const displayProjects = apiProjects.length > 0
         </div>
         <div class="grid md:grid-cols-3 gap-8">
           {latestNews.map(item => (
-            <a href={`/noticias/${item.slug}`} class="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:-translate-y-1">
+            <a href={`/noticias/${item.slug}`} class="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:-translate-y-1">
               <div class="aspect-[16/10] overflow-hidden relative" style="background-color: #ddf3e0;">
                 {item.coverImage
                   ? <img src={item.coverImage} alt={item.title}
@@ -347,15 +490,15 @@ const displayProjects = apiProjects.length > 0
                     </div>
                 }
                 {item.publishedAt && (
-                  <div class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full" style="background-color: rgba(255,255,255,0.9); backdrop-filter: blur(4px); color: #1a4721;">
+                  <div class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-sm" style="background-color: rgba(255,255,255,0.92); color: #1a4721;">
                     {new Date(item.publishedAt).toLocaleDateString('es-SV', { day: 'numeric', month: 'short', year: 'numeric' })}
                   </div>
                 )}
               </div>
               <div class="p-5">
-                <h3 class="font-heading font-bold text-base mb-2 line-clamp-2 transition-colors group-hover:text-verde-600" style="color: #112b14;">{item.title}</h3>
+                <h3 class="font-heading font-bold text-base mb-2 line-clamp-2 group-hover:text-verde-600 transition-colors" style="color: #112b14;">{item.title}</h3>
                 {item.summary && <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">{item.summary}</p>}
-                <div class="mt-3 font-semibold text-xs flex items-center gap-1 transition-all" style="color: #2d7a3a;">
+                <div class="mt-3 font-semibold text-xs flex items-center gap-1" style="color: #2d7a3a;">
                   Leer más
                   <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -369,80 +512,18 @@ const displayProjects = apiProjects.length > 0
     </section>
   )}
 
-  <!-- ===== DONACIÓN CTA ===== -->
-  <section class="py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl p-10 md:p-16 text-center relative overflow-hidden" style="background: linear-gradient(135deg, #1a4721, #112b14);">
-        <div class="absolute top-0 right-0 w-64 h-64 rounded-full -translate-y-1/2 translate-x-1/2" style="background-color: rgba(45,122,58,0.3);"></div>
-        <div class="absolute bottom-0 left-0 w-48 h-48 rounded-full translate-y-1/2 -translate-x-1/2" style="background-color: rgba(245,158,11,0.1);"></div>
-        <div class="relative">
-          <span class="inline-block text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4" style="background-color: rgba(245,158,11,0.2); color: #fcd34d;">
-            Haz la diferencia hoy
-          </span>
-          <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-4">
-            Tu donación restaura ecosistemas
-          </h2>
-          <p class="mb-3 max-w-lg mx-auto" style="color: #bde7c3;">
-            Cada aporte nos permite plantar más árboles, proteger más manglares y acompañar más comunidades.
-          </p>
-          <p class="text-sm font-semibold mb-8 text-amber-300">
-            ★ Donaciones deducibles de impuestos — Art. 32 Ley de Renta El Salvador
-          </p>
-          <div class="flex flex-wrap justify-center gap-3 mb-8">
-            {['$10', '$25', '$50', '$100', '$250'].map(amount => (
-              <a href="/donar"
-                class="font-bold px-6 py-3 rounded-full transition-all duration-200 text-sm hover:-translate-y-0.5 text-white"
-                style="background-color: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);"
-                onmouseover="this.style.backgroundColor='#f59e0b'; this.style.borderColor='#f59e0b';"
-                onmouseout="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.2)';">
-                {amount}
-              </a>
-            ))}
-          </div>
-          <a href="/donar"
-            class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-200 shadow-xl hover:-translate-y-1">
-            ♥ Donar ahora
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== GALERÍA ===== -->
-  <section class="py-20 bg-gray-50 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestro trabajo en imágenes</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold mt-2" style="color: #112b14;">El campo, nuestra oficina</h2>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          { src: '/images/vivero-comunidad.jpg', alt: 'Comunidad trabajando en vivero de plantas' },
-          { src: '/images/transporte-plantas.jpg', alt: 'Transporte de plantas en La Libertad' },
-          { src: '/images/evento-playa.jpg', alt: 'Evento de plantación en playa con bandera salvadoreña' },
-          { src: '/images/reforestacion-aerea.jpg', alt: 'Vista aérea de zona reforestada' },
-        ].map(img => (
-          <div class="overflow-hidden rounded-2xl aspect-square group">
-            <img src={img.src} alt={img.alt}
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== ALIADOS ===== -->
+  <!-- ===== PARTNERS ===== -->
   <section class="py-14 bg-white border-t border-gray-100">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-gray-400 text-sm font-semibold uppercase tracking-wider mb-8">Aliados estratégicos</p>
-      <div class="flex flex-wrap items-center justify-center gap-10">
+      <p class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-10">Aliados que nos respaldan</p>
+      <div class="flex flex-wrap items-center justify-center gap-12">
         {[
           { nombre: 'CONCENTRIX', sub: 'Aliado Costa del Bálsamo' },
           { nombre: 'MINISTERIO DE GOBERNACIÓN', sub: 'Registro oficial' },
           { nombre: 'COMUNIDADES RURALES', sub: '+50 comunidades activas' },
         ].map(a => (
-          <div class="flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
-            <span class="font-heading font-extrabold text-xl text-gray-700">{a.nombre}</span>
+          <div class="flex flex-col items-center gap-1 opacity-50 hover:opacity-100 transition-opacity duration-300">
+            <span class="font-heading font-extrabold text-xl text-gray-700 tracking-tight">{a.nombre}</span>
             <span class="text-xs text-gray-400">{a.sub}</span>
           </div>
         ))}
@@ -450,4 +531,72 @@ const displayProjects = apiProjects.length > 0
     </div>
   </section>
 
+  <!-- ===== NEWSLETTER ===== -->
+  <section class="bg-amber-500 py-14">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="font-heading text-2xl md:text-3xl font-bold text-white mb-3">Mantente informado</h2>
+      <p class="text-amber-100 mb-7 text-base">Recibe noticias de nuestros proyectos y cómo puedes ayudar</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="return false;">
+        <input
+          type="email"
+          placeholder="Tu correo electrónico"
+          class="flex-1 px-4 py-3 rounded-sm text-gray-800 text-sm font-medium outline-none focus:ring-2 focus:ring-verde-600"
+        />
+        <button type="submit"
+          class="font-bold px-8 py-3 rounded-sm transition-colors text-sm text-white"
+          style="background-color: #1a4721;"
+          onmouseover="this.style.backgroundColor='#112b14';"
+          onmouseout="this.style.backgroundColor='#1a4721';">
+          Suscribirse
+        </button>
+      </form>
+      <p class="text-amber-200 text-xs mt-4">Sin spam. Solo contenido relevante sobre conservación y comunidades.</p>
+    </div>
+  </section>
+
 </Layout>
+
+<script>
+  // Counter animation with IntersectionObserver
+  function animateCounters() {
+    const counters = document.querySelectorAll<HTMLElement>('[data-count]');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target as HTMLElement;
+          const target = parseInt(el.dataset.count || '0');
+          const duration = 2000;
+          const start = performance.now();
+          function update(now: number) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target).toLocaleString();
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            } else {
+              el.textContent = target.toLocaleString();
+            }
+          }
+          requestAnimationFrame(update);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => observer.observe(c));
+  }
+
+  // Amount button hover effect
+  const amountBtns = document.querySelectorAll<HTMLElement>('.amount-btn');
+  amountBtns.forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+      btn.style.backgroundColor = '#f59e0b';
+      btn.style.borderColor = '#f59e0b';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.backgroundColor = 'rgba(255,255,255,0.08)';
+      btn.style.borderColor = 'rgba(255,255,255,0.2)';
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', animateCounters);
+</script>

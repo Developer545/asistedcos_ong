@@ -8,20 +8,42 @@ const navLinks = [
   { href: '/contacto',  label: 'Contacto' },
 ];
 const current = Astro.url.pathname;
-const isHome = current === '/';
 ---
 
-<header id="main-header" class={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isHome ? 'bg-transparent' : 'bg-white shadow-md'}`}>
+<!-- Top info bar -->
+<div class="bg-gray-900 text-gray-300 text-xs py-2 hidden md:block">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <span class="italic text-gray-400">"Ningún ecosistema prospera sin la participación de su comunidad"</span>
+    <div class="flex items-center gap-6">
+      <a href="mailto:info@asistedcos.org" class="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+        <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        info@asistedcos.org
+      </a>
+      <a href="https://wa.me/50378412413" class="flex items-center gap-1.5 hover:text-amber-400 transition-colors">
+        <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+        </svg>
+        +503 7841-2413
+      </a>
+      <a href="https://www.facebook.com/FundacionAsistedcos" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors" aria-label="Facebook">
+        <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main header — always white, shadow on scroll -->
+<header id="main-header" class="sticky top-0 z-50 bg-white border-b border-gray-100 transition-shadow duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-20">
 
       <!-- Logo -->
       <a href="/" class="flex-shrink-0" aria-label="Fundación ASISTEDCOS — Inicio">
-        <img src="/images/logo.png" alt="Fundación ASISTEDCOS"
-          id="header-logo"
-          class="h-12 w-auto transition-all duration-300"
-          style={isHome ? 'filter: brightness(0) invert(1);' : ''}
-        />
+        <img src="/images/logo.png" alt="Fundación ASISTEDCOS" class="h-14 w-auto" />
       </a>
 
       <!-- Nav desktop -->
@@ -30,10 +52,8 @@ const isHome = current === '/';
           <a href={link.href}
             class={`text-sm font-semibold transition-colors duration-200 ${
               current === link.href
-                ? 'text-amber-400'
-                : isHome
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-gray-700 hover:text-verde-700'
+                ? 'text-verde-600 border-b-2 border-verde-500 pb-0.5'
+                : 'text-gray-700 hover:text-verde-600'
             }`}>
             {link.label}
           </a>
@@ -41,16 +61,14 @@ const isHome = current === '/';
       </nav>
 
       <!-- CTA -->
-      <div class="hidden md:flex items-center gap-3">
-        <a href="/donar"
-          class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold px-6 py-2.5 rounded-full transition-all duration-200 shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5">
-          ♥ Donar ahora
-        </a>
-      </div>
+      <a href="/donar"
+        class="hidden md:inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white text-sm font-bold px-6 py-2.5 rounded-sm transition-colors shadow-sm">
+        ♥ Donar ahora
+      </a>
 
       <!-- Mobile hamburger -->
       <button id="menu-btn"
-        class={`md:hidden p-2 rounded-md transition ${isHome ? 'text-white' : 'text-gray-700'}`}
+        class="md:hidden p-2 text-gray-700"
         aria-label="Abrir menú"
         aria-expanded="false"
         aria-controls="mobile-menu">
@@ -65,11 +83,11 @@ const isHome = current === '/';
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg border-t border-gray-100">
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
     <nav class="flex flex-col px-4 py-3 gap-1" aria-label="Navegación móvil">
       {navLinks.map(link => (
         <a href={link.href}
-          class={`px-3 py-2.5 rounded-md text-sm font-semibold ${
+          class={`px-3 py-2.5 text-sm font-semibold rounded-md ${
             current === link.href
               ? 'bg-verde-50 text-verde-700'
               : 'text-gray-700 hover:bg-verde-50 hover:text-verde-700'
@@ -78,71 +96,19 @@ const isHome = current === '/';
         </a>
       ))}
       <a href="/donar"
-        class="mt-2 flex items-center justify-center gap-2 bg-amber-500 text-white text-sm font-bold px-5 py-3 rounded-full">
+        class="mt-2 text-center bg-amber-500 text-white text-sm font-bold px-5 py-3 rounded-sm">
         ♥ Donar ahora
       </a>
     </nav>
   </div>
 </header>
 
-<!-- Spacer for non-home pages -->
-{!isHome && <div class="h-20"></div>}
-
 <script>
-  const header = document.getElementById('main-header') as HTMLElement | null;
-  const logo = document.getElementById('header-logo') as HTMLImageElement | null;
-  const isHome = window.location.pathname === '/';
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('shadow-md', window.scrollY > 10);
+  }, { passive: true });
 
-  if (isHome && header) {
-    function updateHeader() {
-      const scrolled = window.scrollY > 80;
-      if (!header) return;
-
-      if (scrolled) {
-        header.classList.remove('bg-transparent');
-        header.classList.add('bg-white', 'shadow-md');
-      } else {
-        header.classList.add('bg-transparent');
-        header.classList.remove('bg-white', 'shadow-md');
-      }
-
-      // Update nav link colors
-      const navLinks = header.querySelectorAll('nav a');
-      navLinks.forEach(link => {
-        if (!link.classList.contains('text-amber-400')) {
-          if (scrolled) {
-            link.classList.remove('text-white/90');
-            link.classList.add('text-gray-700');
-          } else {
-            link.classList.add('text-white/90');
-            link.classList.remove('text-gray-700');
-          }
-        }
-      });
-
-      // Logo filter
-      if (logo) {
-        logo.style.filter = scrolled ? '' : 'brightness(0) invert(1)';
-      }
-
-      // Mobile button color
-      const btn = document.getElementById('menu-btn');
-      if (btn) {
-        if (scrolled) {
-          btn.classList.remove('text-white');
-          btn.classList.add('text-gray-700');
-        } else {
-          btn.classList.add('text-white');
-          btn.classList.remove('text-gray-700');
-        }
-      }
-    }
-
-    window.addEventListener('scroll', updateHeader, { passive: true });
-    updateHeader();
-  }
-
-  // Mobile menu toggle
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
