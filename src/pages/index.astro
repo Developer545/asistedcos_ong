@@ -2,7 +2,7 @@
 export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 
-const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcos-admin.vercel.app';
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
 
 type NewsItem = { id: string; title: string; slug: string; summary?: string; coverImage?: string; publishedAt?: string };
 type CauseItem = { id: string; titulo: string; descripcion?: string; tag?: string; coverImage?: string; meta: number; recaudado: number };
