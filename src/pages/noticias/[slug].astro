@@ -16,6 +16,15 @@ interface News {
   publishedAt?: string;
   categoria?: string;
   body?: string;
+  related?: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    summary?: string;
+    coverImage?: string;
+    publishedAt?: string;
+    categoria?: string;
+  }>;
 }
 
 let noticia: News | null = null;
@@ -247,7 +256,7 @@ const shareTitle = noticia?.title ?? 'Noticia de Fundación ASISTEDCOS';
         </div>
       </section>
 
-      <!-- Related articles placeholder -->
+      <!-- Related articles - dynamic -->
       <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between mb-8">
@@ -260,23 +269,34 @@ const shareTitle = noticia?.title ?? 'Noticia de Fundación ASISTEDCOS';
               <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
-          <div class="grid md:grid-cols-3 gap-6">
-            {[
-              { img: '/images/reforestacion-aerea.jpg', title: 'Visita nuestra sección de noticias', sub: 'para descubrir más actualizaciones' },
-              { img: '/images/distribucion-plantas.jpg', title: 'Explora nuestros proyectos', sub: 'y conoce el trabajo en campo' },
-              { img: '/images/evento-playa.jpg', title: '¿Quieres participar?', sub: 'Únete como voluntario o donante' },
-            ].map((item, i) => (
-              <a href={i === 0 ? '/noticias' : i === 1 ? '/proyectos' : '/donar'} class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden">
-                <div class="h-36 overflow-hidden">
-                  <img src={item.img} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                </div>
-                <div class="p-4">
-                  <h4 class="font-heading font-bold text-verde-900 text-sm group-hover:text-verde-600 transition-colors">{item.title}</h4>
-                  <p class="text-gray-400 text-xs mt-1">{item.sub}</p>
-                </div>
+          {noticia.related && noticia.related.length > 0 ? (
+            <div class="grid md:grid-cols-3 gap-6">
+              {noticia.related.map(rel => (
+                <a href={`/noticias/${rel.slug}`} class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden">
+                  <div class="h-40 overflow-hidden">
+                    {rel.coverImage ? (
+                      <img src={rel.coverImage} alt={rel.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    ) : (
+                      <div class="w-full h-full bg-gradient-to-br from-verde-800 to-verde-600 flex items-center justify-center">
+                        <svg class="h-10 w-10 opacity-30 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                      </div>
+                    )}
+                  </div>
+                  <div class="p-4">
+                    {rel.categoria && <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">{rel.categoria}</span>}
+                    <h4 class="font-heading font-bold text-verde-900 text-sm mt-1 group-hover:text-verde-600 transition-colors line-clamp-2">{rel.title}</h4>
+                    {rel.publishedAt && <p class="text-gray-400 text-xs mt-1">{new Date(rel.publishedAt).toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+                  </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-8">
+              <a href="/noticias" class="inline-flex items-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-6 py-3 rounded-sm transition-colors">
+                Ver todas las noticias
               </a>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
       </section>
     </>
