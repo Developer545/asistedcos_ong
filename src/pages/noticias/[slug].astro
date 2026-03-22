@@ -21,7 +21,7 @@ let noticia: News | null = null;
 let fetchError = false;
 
 try {
-  const res = await fetch(`${ADMIN_URL}/api/public/noticias/${slug}`);
+  const res = await fetch(`${ADMIN_URL}/api/public/noticias/${slug}`, { signal: AbortSignal.timeout(5000) });
   if (res.status === 404) {
     return Astro.redirect('/404');
   }
@@ -56,12 +56,13 @@ const bodyParagraphs = noticia?.body
 >
 
   {fetchError && !noticia ? (
-    <!-- Error state -->
-    <section class="bg-verde-800 py-20">
-      <div class="max-w-4xl mx-auto px-4 text-center">
+    <section class="py-32 text-center" style="background: linear-gradient(135deg, #1a4721, #112b14);">
+      <div class="max-w-2xl mx-auto px-4">
         <h1 class="font-heading text-4xl font-extrabold text-white mb-4">Error al cargar</h1>
-        <p class="text-verde-200 mb-8">No pudimos cargar esta noticia. Intenta de nuevo más tarde.</p>
-        <a href="/noticias" class="inline-flex items-center gap-2 border-2 border-verde-300 text-verde-100 hover:bg-verde-300 hover:text-verde-900 font-semibold px-8 py-3 rounded-full transition-colors">
+        <p class="mb-8" style="color: #bde7c3;">No pudimos cargar esta noticia. Intenta de nuevo más tarde.</p>
+        <a href="/noticias"
+          class="inline-flex items-center gap-2 font-semibold px-8 py-3 rounded-full transition-colors text-white"
+          style="border: 2px solid rgba(255,255,255,0.4);">
           ← Volver a Noticias
         </a>
       </div>
@@ -70,17 +71,26 @@ const bodyParagraphs = noticia?.body
     <>
       <!-- Hero con imagen de portada -->
       {noticia.coverImage ? (
-        <section class="relative h-64 md:h-96 bg-verde-900 overflow-hidden">
+        <section class="relative h-64 md:h-[28rem] overflow-hidden" style="background-color: #112b14;">
           <img
             src={noticia.coverImage}
             alt={noticia.title}
-            class="w-full h-full object-cover opacity-50"
+            class="w-full h-full object-cover"
+            style="opacity: 0.55;"
             fetchpriority="high"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-verde-900/80 to-transparent"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(17,43,20,0.85) 0%, transparent 60%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+            {noticia.publishedAt && (
+              <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3"
+                style="background-color: rgba(245,158,11,0.25); color: #fcd34d; border: 1px solid rgba(251,191,36,0.4);">
+                {formatDate(noticia.publishedAt)}
+              </span>
+            )}
+          </div>
         </section>
       ) : (
-        <section class="bg-verde-800 py-16"></section>
+        <section class="py-16" style="background: linear-gradient(135deg, #1a4721, #112b14);"></section>
       )}
 
       <!-- Contenido principal -->
@@ -103,7 +113,7 @@ const bodyParagraphs = noticia?.body
           <!-- Metadatos -->
           <div class="flex items-center gap-3 mb-6">
             {noticia.publishedAt && (
-              <span class="inline-block bg-verde-100 text-verde-700 text-xs font-semibold px-3 py-1 rounded-full">
+              <span class="inline-block text-xs font-semibold px-3 py-1 rounded-full" style="background-color: #ddf3e0; color: #245f2e;">
                 {formatDate(noticia.publishedAt)}
               </span>
             )}
@@ -113,13 +123,14 @@ const bodyParagraphs = noticia?.body
           </div>
 
           <!-- Título -->
-          <h1 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 leading-tight mb-6">
+          <h1 class="font-heading text-3xl md:text-4xl font-extrabold leading-tight mb-6" style="color: #112b14;">
             {noticia.title}
           </h1>
 
           <!-- Resumen destacado -->
           {noticia.summary && (
-            <p class="text-xl text-gray-600 leading-relaxed border-l-4 border-verde-500 pl-5 mb-8 italic">
+            <p class="text-xl text-gray-600 leading-relaxed pl-5 mb-8 italic"
+              style="border-left: 4px solid #2d7a3a;">
               {noticia.summary}
             </p>
           )}
@@ -138,11 +149,12 @@ const bodyParagraphs = noticia?.body
           <!-- Separador -->
           <hr class="my-12 border-gray-200" />
 
-          <!-- Botón volver -->
-          <div class="flex items-center justify-between">
+          <!-- Botones -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <a
               href="/noticias"
-              class="inline-flex items-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-semibold px-6 py-2.5 rounded-full transition-colors"
+              class="inline-flex items-center gap-2 font-semibold px-6 py-2.5 rounded-full transition-colors"
+              style="border: 2px solid #2d7a3a; color: #245f2e;"
             >
               <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -151,12 +163,30 @@ const bodyParagraphs = noticia?.body
             </a>
             <a
               href="/donar"
-              class="inline-flex items-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-semibold px-6 py-2.5 rounded-full transition-colors shadow-sm"
+              class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-6 py-2.5 rounded-full transition-colors shadow-md"
             >
               ♥ Apoyar ASISTEDCOS
             </a>
           </div>
 
+        </div>
+      </section>
+
+      <!-- CTA al final -->
+      <section class="py-14 text-center" style="background-color: #f9fafb;">
+        <div class="max-w-2xl mx-auto px-4">
+          <p class="text-gray-500 text-sm mb-4">¿Te gustó este contenido? Apoya la misión de ASISTEDCOS</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/donar"
+              class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-3 rounded-full transition-colors">
+              ♥ Donar ahora
+            </a>
+            <a href="/noticias"
+              class="inline-flex items-center justify-center gap-2 font-semibold px-8 py-3 rounded-full transition-colors"
+              style="border: 2px solid #2d7a3a; color: #245f2e;">
+              Más noticias
+            </a>
+          </div>
         </div>
       </section>
     </>
