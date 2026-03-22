@@ -5,136 +5,46 @@ import Layout from '../layouts/Layout.astro';
 
 const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
 
-interface ProyectoBase {
-  img: string;
-  alt: string;
+interface Causa {
+  id: string;
   titulo: string;
-  ubicacion: string;
-  categoria: string;
+  descripcion?: string;
+  tag?: string;
+  coverImage?: string;
+  ubicacion?: string;
   estado: string;
-  desc: string;
-}
-
-interface ProyectoFallback extends ProyectoBase {
   meta: number;
   recaudado: number;
-  pct: number;
-  fromDB?: false;
+  active: boolean;
+  order: number;
 }
 
-interface ProyectoDB extends ProyectoBase {
-  fromDB: true;
-}
-
-type Proyecto = ProyectoFallback | ProyectoDB;
-
-const fallbackProyectos: ProyectoFallback[] = [
-  {
-    img: '/images/area-conservacion.jpg',
-    alt: 'Área de conservación Costa del Bálsamo con señalización oficial',
-    titulo: 'Conservación Costa del Bálsamo',
-    ubicacion: 'Playa San Diego, La Libertad',
-    categoria: 'Manglar',
-    estado: 'Activo',
-    desc: 'Protección y restauración del ecosistema de manglar en la Costa del Bálsamo. Este proyecto, en alianza con Concentrix, establece un área de conservación que protege la biodiversidad costera, previene inundaciones y preserva los medios de vida de comunidades pesqueras.',
-    meta: 15000,
-    recaudado: 8550,
-    pct: 57,
-  },
-  {
-    img: '/images/distribucion-plantas.jpg',
-    alt: 'Comunidad recibiendo plantas para reforestación',
-    titulo: 'Distribución de Plántulas Nativas',
-    ubicacion: 'La Libertad, San Juan Buena Vista',
-    categoria: 'Reforestación',
-    estado: 'Activo',
-    desc: 'Producción y entrega gratuita de plántulas de especies nativas a familias rurales para reforestar sus terrenos. El proyecto mejora la economía familiar al combinar restauración ecológica con producción agroforestal sostenible.',
-    meta: 8000,
-    recaudado: 6560,
-    pct: 82,
-  },
-  {
-    img: '/images/reforestacion-aerea.jpg',
-    alt: 'Vista aérea de zona reforestada junto a la costa salvadoreña',
-    titulo: 'Reforestación Costera',
-    ubicacion: 'Costa de El Salvador',
-    categoria: 'Ecosistemas',
-    estado: 'Activo',
-    desc: 'Reforestación de zonas costeras degradadas con especies autóctonas. Las vistas aéreas documentan la recuperación de la cobertura vegetal y su impacto en la estabilización de suelos y reducción de la erosión costera.',
-    meta: 20000,
-    recaudado: 9800,
-    pct: 49,
-  },
-  {
-    img: '/images/monitoreo-rio.jpg',
-    alt: 'Equipo técnico monitoreando cuencas fluviales en bote',
-    titulo: 'Monitoreo de Cuencas Hidrográficas',
-    ubicacion: 'Ríos de La Libertad',
-    categoria: 'Agua',
-    estado: 'Continuo',
-    desc: 'Vigilancia técnica permanente de la calidad y salud de ríos y cuerpos de agua. El monitoreo identifica amenazas, mide indicadores de biodiversidad acuática y orienta acciones de restauración para garantizar agua limpia a las comunidades.',
-    meta: 12000,
-    recaudado: 5160,
-    pct: 43,
-  },
-  {
-    img: '/images/vivero-comunidad.jpg',
-    alt: 'Comunidad trabajando en vivero de plantas nativas',
-    titulo: 'Viveros Comunitarios',
-    ubicacion: 'Comunidades rurales de El Salvador',
-    categoria: 'Comunidad',
-    estado: 'Activo',
-    desc: 'Establecimiento de viveros manejados por las propias comunidades para producir plántulas de especies nativas. El proyecto genera capacidades locales y fuentes de ingreso mientras contribuye a la restauración del paisaje.',
-    meta: 6000,
-    recaudado: 4200,
-    pct: 70,
-  },
-  {
-    img: '/images/evento-playa.jpg',
-    alt: 'Jornada de reforestación en playa con participación comunitaria',
-    titulo: 'Jornadas de Reforestación',
-    ubicacion: 'Playas de El Salvador',
-    categoria: 'Voluntariado',
-    estado: 'Periódico',
-    desc: 'Eventos participativos de plantación masiva que involucran a voluntarios, instituciones y comunidades costeras. Cada jornada fortalece el sentido de pertenencia ambiental y el compromiso colectivo con la conservación.',
-    meta: 4000,
-    recaudado: 3200,
-    pct: 80,
-  },
-];
-
-let proyectos: Proyecto[] = fallbackProyectos;
+let causas: Causa[] = [];
+let fetchError = false;
 
 try {
-  const res = await fetch(`${ADMIN_URL}/api/public/proyectos`);
+  const res = await fetch(`${ADMIN_URL}/api/public/causas`, { signal: AbortSignal.timeout(5000) });
   if (res.ok) {
     const json = await res.json();
-    const dbData = json.data ?? [];
-    if (dbData.length > 0) {
-      proyectos = dbData.map((p: {
-        coverImage?: string;
-        name?: string;
-        description?: string;
-        active?: boolean;
-        categoria?: string;
-        ubicacion?: string;
-      }) => ({
-        img: p.coverImage || '/images/reforestacion-aerea.jpg',
-        alt: p.name ?? 'Proyecto ASISTEDCOS',
-        titulo: p.name ?? 'Proyecto',
-        ubicacion: p.ubicacion ?? 'El Salvador',
-        categoria: p.categoria ?? 'Proyecto',
-        estado: p.active ? 'Activo' : 'Inactivo',
-        desc: p.description ?? '',
-        fromDB: true as const,
-      }));
-    }
+    causas = (json.data ?? []).filter((c: Causa) => c.active);
+  } else {
+    fetchError = true;
   }
 } catch {
-  // Silently fall back to hardcoded data
+  fetchError = true;
 }
 
-const categorias = ['Todos', ...Array.from(new Set(proyectos.map(p => p.categoria)))];
+// Calculate percentage for each cause
+function getPct(meta: number, recaudado: number): number {
+  if (!meta || meta === 0) return 0;
+  return Math.min(100, Math.round((recaudado / meta) * 100));
+}
+
+function fmtUSD(n: number): string {
+  return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+const categorias = ['Todos', ...Array.from(new Set(causas.map(c => c.tag ?? 'General').filter(Boolean)))];
 ---
 
 <Layout
@@ -163,117 +73,134 @@ const categorias = ['Todos', ...Array.from(new Set(proyectos.map(p => p.categori
     </div>
   </section>
 
-  <!-- Filter bar -->
-  <section class="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-none">
-        <span class="text-gray-500 text-sm font-medium mr-2 whitespace-nowrap flex-shrink-0">Filtrar:</span>
-        {categorias.map(cat => (
-          <button
-            class="filter-btn whitespace-nowrap flex-shrink-0 px-4 py-2 rounded-sm text-sm font-bold transition-all duration-200 border-2"
-            data-category={cat}
-            data-active={cat === 'Todos' ? 'true' : 'false'}
-          >
-            {cat}
-          </button>
-        ))}
+  {/* ── Filter bar ── */}
+  {causas.length > 0 && categorias.length > 2 && (
+    <section class="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-none">
+          <span class="text-gray-500 text-sm font-medium mr-2 whitespace-nowrap flex-shrink-0">Filtrar:</span>
+          {categorias.map(cat => (
+            <button
+              class="filter-btn whitespace-nowrap flex-shrink-0 px-4 py-2 rounded-sm text-sm font-bold transition-all duration-200 border-2"
+              data-category={cat}
+              data-active={cat === 'Todos' ? 'true' : 'false'}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- Grid de proyectos -->
+  {/* ── Projects grid ── */}
   <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {proyectos.map(p => (
-          <article
-            class="project-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col"
-            data-category={p.categoria}
-          >
-            <!-- Image -->
-            <div class="relative overflow-hidden aspect-[16/10]">
-              <img
-                src={p.img}
-                alt={p.alt}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <!-- Category badge overlay -->
-              <div class="absolute top-3 left-3">
-                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide">{p.categoria}</span>
-              </div>
-              <!-- Status badge -->
-              <div class="absolute top-3 right-3">
-                <span class={`text-xs font-bold px-2.5 py-1 rounded-sm ${p.estado === 'Activo' ? 'bg-green-500 text-white' : p.estado === 'Continuo' ? 'bg-blue-500 text-white' : 'bg-gray-500 text-white'}`}>
-                  {p.estado}
-                </span>
-              </div>
-            </div>
 
-            <!-- Content -->
-            <div class="p-6 flex flex-col flex-1">
-              <div class="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
-                <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                </svg>
-                {p.ubicacion}
-              </div>
-              <h2 class="font-heading font-extrabold text-lg text-verde-900 mb-2">{p.titulo}</h2>
-              <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{p.desc}</p>
-
-              {/* Progress bar — only for fallback projects */}
-              {'pct' in p && p.pct !== undefined && (
-                <div class="mb-5">
-                  <div class="flex justify-between text-xs font-semibold mb-1.5">
-                    <span class="text-gray-500">Recaudado: <span class="text-verde-700">${p.recaudado.toLocaleString()}</span></span>
-                    <span class="text-amber-600">{p.pct}%</span>
-                  </div>
-                  <div class="w-full bg-gray-100 rounded-full h-2.5">
-                    <div
-                      class="bg-amber-500 h-2.5 rounded-full transition-all"
-                      style={`width: ${p.pct}%`}
-                    ></div>
-                  </div>
-                  <div class="flex justify-between text-xs text-gray-400 mt-1">
-                    <span>Meta: ${p.meta.toLocaleString()}</span>
-                    <span class="text-verde-600 font-semibold">${(p.meta - p.recaudado).toLocaleString()} restantes</span>
-                  </div>
-                </div>
-              )}
-
-              <!-- Buttons -->
-              <div class="flex gap-2 mt-auto">
-                <a
-                  href="/donar"
-                  class="flex-1 text-center bg-amber-500 hover:bg-amber-400 text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm"
-                >
-                  Donar
-                </a>
-                <a
-                  href="/proyectos"
-                  class="flex-1 text-center border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm"
-                >
-                  Saber más
-                </a>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <!-- Empty state (hidden by default) -->
-      <div id="empty-state" class="hidden text-center py-16">
-        <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-          <svg class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+      {(fetchError || causas.length === 0) ? (
+        <div class="text-center py-24">
+          <div class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mx-auto mb-6">
+            <svg class="h-12 w-12 text-verde-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Próximamente</span>
+          <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-3">Estamos preparando proyectos</h2>
+          <p class="text-gray-500 max-w-sm mx-auto leading-relaxed">
+            Nuestros proyectos activos estarán disponibles pronto. Mientras tanto, puedes apoyar nuestra misión.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+            <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-6 py-3 rounded-sm transition-colors">
+              ♥ Donar ahora
+            </a>
+            <a href="/" class="inline-flex items-center justify-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-6 py-3 rounded-sm transition-colors">
+              Volver al inicio
+            </a>
+          </div>
         </div>
-        <p class="text-gray-500 font-medium">No hay proyectos en esta categoría.</p>
-      </div>
+      ) : (
+        <>
+          <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {causas.map(c => {
+              const pct = getPct(Number(c.meta), Number(c.recaudado));
+              const restante = Math.max(0, Number(c.meta) - Number(c.recaudado));
+              const img = c.coverImage || '/images/reforestacion-aerea.jpg';
+              const tag = c.tag ?? 'Proyecto';
+              const estado = c.estado ?? 'Activo';
+              const estadoColor = estado === 'Activo' ? 'bg-green-500' : estado === 'Continuo' ? 'bg-blue-500' : 'bg-gray-500';
+              return (
+                <article
+                  class="project-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col"
+                  data-category={tag}
+                >
+                  {/* Image */}
+                  <div class="relative overflow-hidden aspect-[16/10]">
+                    <img src={img} alt={c.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    <div class="absolute top-3 left-3">
+                      <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide">{tag}</span>
+                    </div>
+                    <div class="absolute top-3 right-3">
+                      <span class={`text-xs font-bold px-2.5 py-1 rounded-sm text-white ${estadoColor}`}>{estado}</span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div class="p-6 flex flex-col flex-1">
+                    {c.ubicacion && (
+                      <div class="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
+                        <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        </svg>
+                        {c.ubicacion}
+                      </div>
+                    )}
+                    <h2 class="font-heading font-extrabold text-lg text-verde-900 mb-2">{c.titulo}</h2>
+                    {c.descripcion && (
+                      <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{c.descripcion}</p>
+                    )}
+
+                    {/* Progress bar */}
+                    {Number(c.meta) > 0 && (
+                      <div class="mb-5">
+                        <div class="flex justify-between text-xs font-semibold mb-1.5">
+                          <span class="text-gray-500">Recaudado: <span class="text-verde-700">${fmtUSD(Number(c.recaudado))}</span></span>
+                          <span class="text-amber-600 font-bold">{pct}%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2.5">
+                          <div class="bg-amber-500 h-2.5 rounded-full transition-all" style={`width: ${pct}%`}></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                          <span>Meta: ${fmtUSD(Number(c.meta))}</span>
+                          <span class="text-verde-600 font-semibold">${fmtUSD(restante)} restantes</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Buttons */}
+                    <div class="flex gap-2 mt-auto">
+                      <a href="/donar" class="flex-1 text-center bg-amber-500 hover:bg-amber-400 text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm">
+                        ♥ Donar
+                      </a>
+                      <a href="/contacto" class="flex-1 text-center border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm">
+                        Saber más
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Empty filter state */}
+          <div id="empty-state" class="hidden text-center py-16">
+            <p class="text-gray-500 font-medium">No hay proyectos en esta categoría.</p>
+          </div>
+        </>
+      )}
     </div>
   </section>
 
-  <!-- CTA section -->
+  {/* ── CTA ── */}
   <section class="py-20 bg-gray-900 relative overflow-hidden">
     <div class="absolute inset-0">
       <img src="/images/evento-playa.jpg" alt="" class="w-full h-full object-cover opacity-20" />
@@ -323,23 +250,15 @@ const categorias = ['Todos', ...Array.from(new Set(proyectos.map(p => p.categori
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const category = btn.dataset.category ?? 'Todos';
-
-      // Update button states
       filterBtns.forEach(b => b.dataset.active = 'false');
       btn.dataset.active = 'true';
-
-      // Filter cards
       let visible = 0;
       cards.forEach(card => {
         const match = category === 'Todos' || card.dataset.category === category;
         card.style.display = match ? '' : 'none';
         if (match) visible++;
       });
-
-      // Show empty state if needed
-      if (emptyState) {
-        emptyState.classList.toggle('hidden', visible > 0);
-      }
+      if (emptyState) emptyState.classList.toggle('hidden', visible > 0);
     });
   });
 </script>
