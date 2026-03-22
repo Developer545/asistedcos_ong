@@ -25,3 +25,11 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Configuración local (no subir al repo)
+CLAUDE.md
+.env
+.env.*
+!.env.example
+
+.vercel
