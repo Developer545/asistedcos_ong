@@ -1,74 +1,86 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 
 const donationAmounts = [
-  { amount: '$10', logro: '5 plántulas nativas', desc: 'Para entregar a familias campesinas que reforestarán sus terrenos.' },
-  { amount: '$25', logro: '15 árboles plantados', desc: 'En zonas costeras degradadas que recuperan su cobertura vegetal.' },
-  { amount: '$50', logro: '1 jornada comunitaria', desc: 'Materiales y logística para un evento de reforestación con voluntarios.' },
-  { amount: '$100', logro: 'Monitoreo mensual', desc: 'Equipamiento y transporte para monitorear una cuenca hidrográfica.' },
-  { amount: '$250', logro: 'Establecer un vivero', desc: 'Infraestructura básica para que una comunidad produzca sus propias plántulas.' },
-  { amount: 'Tu monto', logro: 'Toda ayuda suma', desc: 'Cualquier cantidad marca la diferencia. No existe donación pequeña.' },
+  { amount: '$10', logro: '5 plántulas nativas', desc: 'Para entregar a familias campesinas que reforestarán sus terrenos.', icon: '🌱' },
+  { amount: '$25', logro: '15 árboles plantados', desc: 'En zonas costeras degradadas que recuperan su cobertura vegetal.', icon: '🌳' },
+  { amount: '$50', logro: '1 jornada comunitaria', desc: 'Materiales y logística para un evento de reforestación con voluntarios.', icon: '🤝' },
+  { amount: '$100', logro: 'Monitoreo mensual', desc: 'Equipamiento y transporte para monitorear una cuenca hidrográfica.', icon: '💧' },
+  { amount: '$250', logro: 'Establecer un vivero', desc: 'Infraestructura básica para que una comunidad produzca sus propias plántulas.', icon: '🏡' },
+  { amount: 'Tu monto', logro: 'Toda ayuda suma', desc: 'Cualquier cantidad marca la diferencia. No existe donación pequeña.', icon: '💚' },
 ];
 ---
 
 <Layout
   title="Donar"
   description="Apoya la misión de Fundación ASISTEDCOS. Tu donación restaura ecosistemas y transforma comunidades en El Salvador. Las donaciones son deducibles de impuestos."
-  image="/images/voluntaria-plantando.jpg"
+  image="/images/evento-playa.jpg"
 >
 
-  <!-- Encabezado -->
-  <section class="py-24 text-center relative overflow-hidden" style="background: linear-gradient(135deg, #1a4721, #112b14);">
-    <div class="absolute inset-0 opacity-10">
-      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+  <!-- Hero -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/evento-playa.jpg" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/92 to-gray-900/65"></div>
     </div>
-    <div class="relative max-w-3xl mx-auto px-4">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style="background-color: rgba(245,158,11,0.2);">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-white">Donar</span>
+      </div>
+      <!-- Heart icon -->
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/20 border-2 border-amber-500/40 mb-6">
+        <svg class="h-10 w-10 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
         </svg>
       </div>
       <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Haz una Donación</h1>
-      <p class="text-lg max-w-xl mx-auto mb-6" style="color: #bde7c3;">
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-6">
         Tu aporte financia directamente proyectos de reforestación, conservación y desarrollo comunitario en El Salvador.
       </p>
-      <div class="inline-block text-sm px-5 py-2.5 rounded-full" style="background-color: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.4); color: #fcd34d;">
-        ★ Las donaciones son deducibles de impuestos en El Salvador (Art. 32, Ley de Renta)
+      <div class="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/40 text-amber-300 text-sm px-5 py-2.5 rounded-sm">
+        <svg class="h-4 w-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        Las donaciones son deducibles de impuestos en El Salvador (Art. 32, Ley de Renta)
       </div>
     </div>
   </section>
 
   <!-- Selector de monto -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Elige tu impacto</span>
-        <h2 class="font-heading text-3xl font-extrabold mt-2" style="color: #112b14;">¿Cuánto quieres donar?</h2>
-        <p class="text-gray-500 mt-2">Selecciona un monto o elige el tuyo</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">¿Cuánto quieres donar?</h2>
+        <p class="text-gray-500 mt-2">Selecciona un monto o elige el tuyo propio</p>
       </div>
 
-      <!-- Amount buttons -->
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <!-- Amount cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-14">
         {['$10', '$25', '$50', '$100', '$250', 'Otro'].map(amount => (
           <button
-            class="amount-btn font-heading font-bold text-lg px-8 py-4 rounded-2xl transition-all duration-200 border-2 hover:-translate-y-0.5"
-            style="border-color: #2d7a3a; color: #2d7a3a; background: white;"
+            class="amount-btn flex flex-col items-center justify-center py-5 px-3 rounded-sm border-2 font-heading font-extrabold transition-all duration-200 hover:-translate-y-0.5"
             data-amount={amount}
           >
-            {amount}
+            <span class="text-2xl mb-1">{amount}</span>
+            <span class="text-xs font-normal opacity-70">{amount === 'Otro' ? 'Tu monto' : 'USD'}</span>
           </button>
         ))}
       </div>
 
-      <!-- ¿Qué logra tu donación? -->
-      <h3 class="font-heading text-xl font-bold text-center mb-8" style="color: #112b14;">¿Qué logra tu donación?</h3>
-      <div class="grid sm:grid-cols-3 gap-6">
+      <!-- Impact cards -->
+      <div class="text-center mb-8">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">¿Qué logra tu donación?</span>
+        <h3 class="font-heading text-2xl font-extrabold text-verde-900 mt-2">Tu impacto directo</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
         {donationAmounts.map(item => (
-          <div class="bg-white rounded-2xl p-6 shadow-sm text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
-            style="border: 2px solid #ddf3e0;">
-            <p class="font-heading text-3xl font-extrabold mb-1 text-amber-500">{item.amount}</p>
-            <p class="font-semibold mb-2" style="color: #112b14;">{item.logro}</p>
-            <p class="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-amber-300 hover:-translate-y-1 p-6 text-center">
+            <div class="text-4xl mb-3">{item.icon}</div>
+            <p class="font-heading text-3xl font-extrabold text-amber-500 mb-1">{item.amount}</p>
+            <p class="font-bold text-verde-900 mb-2 text-sm">{item.logro}</p>
+            <p class="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -80,72 +92,76 @@ const donationAmounts = [
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Métodos de pago</span>
-        <h2 class="font-heading text-3xl font-extrabold mt-2" style="color: #112b14;">Cómo Donar</h2>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Cómo Donar</h2>
+        <p class="text-gray-500 mt-2">Elige el método que más te convenga — todas las opciones son seguras</p>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
 
         <!-- PayPal -->
-        <div class="rounded-2xl bg-white p-8 shadow-sm hover:shadow-md transition-shadow" style="border: 2px solid #dbeafe;">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #eff6ff;">
-              <svg class="h-5 w-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+        <div class="bg-white rounded-lg shadow-md border-l-4 border-l-blue-500 p-8 hover:shadow-xl transition-all duration-300">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-14 h-14 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0">
+              <svg class="h-7 w-7 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .633-.546h7.549c2.555 0 4.37.56 5.394 1.664.987 1.065 1.288 2.62.894 4.626-.048.248-.1.499-.16.752-.892 4.006-3.949 5.385-7.849 5.385h-1.99a.64.64 0 0 0-.632.546l-.707 4.693z"/>
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-xl text-blue-900">PayPal</h3>
+            <div>
+              <h3 class="font-heading font-extrabold text-xl text-blue-900">PayPal</h3>
+              <p class="text-blue-500 text-sm">Internacional · Seguro · Inmediato</p>
+            </div>
           </div>
-          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
-            Donación segura e inmediata desde cualquier parte del mundo. Acepta tarjetas de crédito/débito y saldo PayPal.
+          <p class="text-gray-600 text-sm mb-6 leading-relaxed">
+            Donación segura e inmediata desde cualquier parte del mundo. Acepta tarjetas de crédito/débito y saldo PayPal sin necesidad de crear una cuenta.
           </p>
+          <ul class="space-y-2 text-sm text-gray-500 mb-6">
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Sin comisión adicional para el donante</li>
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Comprobante automático por correo</li>
+            <li class="flex items-center gap-2"><svg class="h-4 w-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Disponible en 200+ países</li>
+          </ul>
           <a
             href="https://www.paypal.com/donate"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-xl transition-colors"
-            style="background-color: #2563eb;"
-            onmouseover="this.style.backgroundColor='#1d4ed8'"
-            onmouseout="this.style.backgroundColor='#2563eb'"
+            class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-sm transition-colors"
           >
             Donar con PayPal
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
           </a>
         </div>
 
         <!-- Transferencia bancaria -->
-        <div class="rounded-2xl bg-white p-8 shadow-sm hover:shadow-md transition-shadow" style="border: 2px solid #ddf3e0;">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: #ddf3e0;">
-              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #2d7a3a;">
+        <div class="bg-white rounded-lg shadow-md border-l-4 border-l-verde-600 p-8 hover:shadow-xl transition-all duration-300">
+          <div class="flex items-center gap-4 mb-5">
+            <div class="w-14 h-14 rounded-lg bg-verde-50 flex items-center justify-center flex-shrink-0">
+              <svg class="h-7 w-7 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
             </div>
-            <h3 class="font-heading font-bold text-xl" style="color: #112b14;">Transferencia Bancaria</h3>
+            <div>
+              <h3 class="font-heading font-extrabold text-xl text-verde-900">Transferencia Bancaria</h3>
+              <p class="text-verde-600 text-sm">El Salvador · Directo · Sin intermediarios</p>
+            </div>
           </div>
-          <p class="text-gray-500 text-sm mb-4 leading-relaxed">
-            Transferencia directa desde cualquier banco de El Salvador o internacional.
+          <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+            Transferencia directa desde cualquier banco de El Salvador o internacional hacia la cuenta oficial de la fundación.
           </p>
-          <div class="rounded-xl p-4 space-y-2 text-sm mb-4" style="background-color: #f0faf1;">
-            <div class="flex justify-between">
-              <span class="text-gray-400">Beneficiario:</span>
-              <span class="font-semibold" style="color: #112b14;">Fundación ASISTEDCOS</span>
+          <div class="bg-verde-50 border border-verde-100 rounded-sm p-4 space-y-2.5 text-sm mb-6">
+            <div class="flex justify-between gap-4">
+              <span class="text-gray-500 flex-shrink-0">Beneficiario:</span>
+              <span class="font-semibold text-verde-900 text-right">Fundación ASISTEDCOS</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Banco:</span>
-              <span class="font-semibold" style="color: #112b14;">Contactar para detalles</span>
+            <div class="flex justify-between gap-4">
+              <span class="text-gray-500 flex-shrink-0">Banco:</span>
+              <span class="font-semibold text-verde-900 text-right">Contactar para detalles</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-gray-400">Concepto:</span>
-              <span class="font-semibold" style="color: #112b14;">Donación + tu nombre</span>
+            <div class="flex justify-between gap-4">
+              <span class="text-gray-500 flex-shrink-0">Concepto:</span>
+              <span class="font-semibold text-verde-900 text-right">Donación + tu nombre</span>
             </div>
           </div>
           <a
             href="/contacto"
-            class="w-full flex items-center justify-center gap-2 text-white font-bold py-3.5 rounded-xl transition-colors"
-            style="background-color: #2d7a3a;"
-            onmouseover="this.style.backgroundColor='#245f2e'"
-            onmouseout="this.style.backgroundColor='#2d7a3a'"
+            class="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold py-3.5 rounded-sm transition-colors"
           >
             Solicitar datos bancarios
           </a>
@@ -153,12 +169,12 @@ const donationAmounts = [
       </div>
 
       <!-- Nota de transparencia -->
-      <div class="mt-10 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex gap-4">
+      <div class="mt-10 bg-amber-50 border border-amber-200 rounded-lg p-6 flex gap-4">
         <svg class="h-6 w-6 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-          <p class="font-semibold text-amber-800 mb-1">Transparencia total</p>
+          <p class="font-bold text-amber-800 mb-1">Transparencia total</p>
           <p class="text-amber-700 text-sm leading-relaxed">
             El 100% de las donaciones va directamente a proyectos de campo. Como fundación registrada en El Salvador, presentamos estados financieros anuales auditados ante el Ministerio de Gobernación. Si necesitas un recibo para deducción fiscal, escríbenos a <a href="mailto:info@asistedcos.org" class="underline font-semibold">info@asistedcos.org</a>.
           </p>
@@ -167,28 +183,59 @@ const donationAmounts = [
     </div>
   </section>
 
+  <!-- Testimonial -->
+  <section class="py-16 bg-gray-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <svg class="h-10 w-10 text-amber-500 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+      </svg>
+      <blockquote class="font-heading text-xl md:text-2xl font-bold text-white leading-relaxed mb-6">
+        "Donar a ASISTEDCOS fue una de las mejores decisiones. Ver las fotos de los árboles plantados con mi contribución me llena de orgullo. Saber que mi dinero va directo al campo, sin burocracia, me da confianza total."
+      </blockquote>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
+          <svg class="h-6 w-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+        </div>
+        <div class="text-left">
+          <p class="text-white font-semibold">Carlos M.</p>
+          <p class="text-gray-400 text-sm">Donante desde 2021 — San Salvador</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Otras formas de apoyar -->
-  <section class="py-16 bg-white">
+  <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
+      <div class="text-center mb-12">
         <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Más formas de ayudar</span>
-        <h2 class="font-heading text-2xl font-bold mt-2" style="color: #112b14;">Otras formas de apoyar</h2>
+        <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 mt-2">Otras formas de apoyar</h2>
       </div>
       <div class="grid sm:grid-cols-3 gap-6">
         {[
-          { emoji: '🌱', titulo: 'Voluntariado', desc: 'Únete a nuestras jornadas de reforestación. No se necesita experiencia, solo ganas de sembrar.' },
-          { emoji: '📢', titulo: 'Difunde', desc: 'Comparte nuestro trabajo en redes sociales y ayúdanos a llegar a más personas y donantes.' },
-          { emoji: '🤝', titulo: 'Alianza Empresarial', desc: 'Tu empresa puede ser parte de nuestros proyectos de compensación ambiental y RSE.' },
+          {
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+            titulo: 'Voluntariado',
+            desc: 'Únete a nuestras jornadas de reforestación. No se necesita experiencia, solo ganas de sembrar.'
+          },
+          {
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>`,
+            titulo: 'Difunde',
+            desc: 'Comparte nuestro trabajo en redes sociales y ayúdanos a llegar a más personas y donantes.'
+          },
+          {
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+            titulo: 'Alianza Empresarial',
+            desc: 'Tu empresa puede ser parte de nuestros proyectos de compensación ambiental y RSE.'
+          },
         ].map(item => (
-          <div class="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
-            <div class="text-4xl mb-3">{item.emoji}</div>
-            <h3 class="font-heading font-bold mb-2" style="color: #112b14;">{item.titulo}</h3>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">{item.desc}</p>
-            <a href="/contacto" class="inline-flex items-center gap-1 text-sm font-semibold transition-colors" style="color: #2d7a3a;">
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-7 text-center">
+            <div class="flex justify-center mb-4" set:html={item.icon} />
+            <h3 class="font-heading font-extrabold text-verde-900 mb-2">{item.titulo}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-5">{item.desc}</p>
+            <a href="/contacto" class="inline-flex items-center gap-1.5 text-sm font-bold text-verde-700 hover:text-amber-500 transition-colors">
               Contáctanos
-              <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
         ))}
@@ -198,19 +245,29 @@ const donationAmounts = [
 
 </Layout>
 
+<style>
+  .amount-btn {
+    border-color: #e5e7eb;
+    color: #374151;
+    background: white;
+  }
+  .amount-btn:hover {
+    border-color: #f59e0b;
+    color: #d97706;
+  }
+  .amount-btn.selected {
+    background-color: #f59e0b;
+    color: white;
+    border-color: #f59e0b;
+  }
+</style>
+
 <script>
-  // Amount button selection UI
-  const buttons = document.querySelectorAll('.amount-btn');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.amount-btn');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => {
-        (b as HTMLElement).style.backgroundColor = 'white';
-        (b as HTMLElement).style.color = '#2d7a3a';
-        (b as HTMLElement).style.borderColor = '#2d7a3a';
-      });
-      (btn as HTMLElement).style.backgroundColor = '#2d7a3a';
-      (btn as HTMLElement).style.color = 'white';
-      (btn as HTMLElement).style.borderColor = '#2d7a3a';
+      buttons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
     });
   });
 </script>

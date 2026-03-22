@@ -12,6 +12,7 @@ interface News {
   summary?: string;
   coverImage?: string;
   publishedAt?: string;
+  categoria?: string;
   body?: string;
 }
 
@@ -35,6 +36,15 @@ function formatDate(dateStr?: string): string {
   const date = new Date(dateStr);
   return date.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+function formatDateShort(dateStr?: string): string {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const day = date.getDate();
+  const month = date.toLocaleDateString('es-SV', { month: 'short' }).toUpperCase();
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
 ---
 
 <Layout
@@ -43,45 +53,58 @@ function formatDate(dateStr?: string): string {
   image="/images/reforestacion-aerea.jpg"
 >
 
-  <!-- Encabezado -->
-  <section class="py-24 relative overflow-hidden" style="background: linear-gradient(135deg, #1a4721, #112b14);">
-    <div class="absolute inset-0 opacity-10">
-      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+  <!-- Hero -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
     </div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <span class="text-amber-400 text-sm font-bold uppercase tracking-widest">Actualidad</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mt-3 mb-4">Noticias</h1>
-      <p class="text-lg max-w-2xl mx-auto" style="color: #bde7c3;">
+      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-white">Noticias</span>
+      </div>
+      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Actualidad</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Noticias</h1>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
         Entérate de los últimos avances, eventos y logros de nuestra fundación en El Salvador.
       </p>
     </div>
   </section>
 
-  <!-- Grid de noticias -->
+  <!-- News grid -->
   <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       {fetchError || noticias.length === 0 ? (
+        <!-- Empty / error state -->
         <div class="text-center py-24">
-          <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style="background-color: #ddf3e0;">
-            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #2d7a3a;">
+          <div class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mx-auto mb-6">
+            <svg class="h-12 w-12 text-verde-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h6m-6-4h6" />
             </svg>
           </div>
-          <h2 class="font-heading text-2xl font-bold mb-3" style="color: #112b14;">Próximamente</h2>
-          <p class="text-gray-500 max-w-sm mx-auto">
+          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Próximamente</span>
+          <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-3">Estamos preparando contenido</h2>
+          <p class="text-gray-500 max-w-sm mx-auto leading-relaxed">
             Estamos preparando noticias y novedades. Vuelve pronto para conocer las últimas actualizaciones de ASISTEDCOS.
           </p>
-          <a href="/" class="mt-8 inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-full text-white transition-colors"
-            style="background-color: #2d7a3a;">
-            Volver al inicio
-          </a>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+            <a href="/" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-6 py-3 rounded-sm transition-colors">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              Volver al inicio
+            </a>
+            <a href="/proyectos" class="inline-flex items-center justify-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-6 py-3 rounded-sm transition-colors">
+              Ver proyectos
+            </a>
+          </div>
         </div>
       ) : (
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {noticias.map(noticia => (
-            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col hover:-translate-y-1">
-              <!-- Imagen o placeholder -->
+            <article class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
+              <!-- Cover image -->
               <div class="overflow-hidden aspect-[16/10] relative">
                 {noticia.coverImage ? (
                   <img
@@ -91,23 +114,38 @@ function formatDate(dateStr?: string): string {
                     loading="lazy"
                   />
                 ) : (
-                  <div class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, #1a4721, #389e4a);">
+                  <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-verde-800 to-verde-600">
                     <svg class="h-12 w-12 opacity-40 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
                 )}
+                <!-- Amber date badge -->
                 {noticia.publishedAt && (
-                  <div class="absolute top-3 left-3 text-xs font-semibold px-3 py-1 rounded-full" style="background-color: rgba(255,255,255,0.92); color: #1a4721;">
-                    {formatDate(noticia.publishedAt)}
+                  <div class="absolute top-3 left-3">
+                    <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide">
+                      {formatDateShort(noticia.publishedAt)}
+                    </span>
+                  </div>
+                )}
+                <!-- Category badge -->
+                {noticia.categoria && (
+                  <div class="absolute top-3 right-3">
+                    <span class="bg-white/90 text-verde-800 text-xs font-bold px-2.5 py-1 rounded-sm">
+                      {noticia.categoria}
+                    </span>
                   </div>
                 )}
               </div>
 
               <div class="p-6 flex flex-col flex-1">
-                <h2 class="font-heading font-bold text-lg mb-2 leading-snug transition-colors group-hover:text-verde-600" style="color: #112b14;">
+                <h2 class="font-heading font-extrabold text-lg mb-2 leading-snug text-verde-900 group-hover:text-verde-600 transition-colors">
                   {noticia.title}
                 </h2>
+
+                {noticia.publishedAt && (
+                  <p class="text-gray-400 text-xs mb-3">{formatDate(noticia.publishedAt)}</p>
+                )}
 
                 {noticia.summary && (
                   <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
@@ -117,8 +155,7 @@ function formatDate(dateStr?: string): string {
 
                 <a
                   href={`/noticias/${noticia.slug}`}
-                  class="inline-flex items-center gap-1.5 font-semibold text-sm hover:gap-2.5 transition-all mt-auto group/link"
-                  style="color: #2d7a3a;"
+                  class="inline-flex items-center gap-1.5 font-bold text-sm text-verde-700 hover:text-amber-500 transition-colors mt-auto group/link"
                 >
                   Leer más
                   <svg class="h-4 w-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -135,14 +172,23 @@ function formatDate(dateStr?: string): string {
   </section>
 
   <!-- CTA -->
-  <section class="py-16 text-white text-center" style="background: linear-gradient(135deg, #245f2e, #1a4721);">
-    <div class="max-w-2xl mx-auto px-4">
-      <h2 class="font-heading text-2xl md:text-3xl font-bold mb-3">¿Quieres apoyar nuestra labor?</h2>
-      <p class="mb-8" style="color: #bde7c3;">Cada donación nos permite seguir restaurando ecosistemas y transformando comunidades.</p>
-      <a href="/donar"
-        class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-10 py-4 rounded-full transition-colors shadow-lg">
-        ♥ Donar ahora
-      </a>
+  <section class="py-20 bg-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/area-conservacion.jpg" alt="" class="w-full h-full object-cover opacity-15" />
+    </div>
+    <div class="relative max-w-2xl mx-auto px-4 text-center">
+      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Apóyanos</span>
+      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">¿Quieres apoyar nuestra labor?</h2>
+      <p class="text-gray-300 mb-8">Cada donación nos permite seguir restaurando ecosistemas y transformando comunidades.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+          Donar ahora
+        </a>
+        <a href="/proyectos" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors">
+          Ver proyectos
+        </a>
+      </div>
     </div>
   </section>
 

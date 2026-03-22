@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -7,24 +8,96 @@ import Layout from '../layouts/Layout.astro';
   description="Comunícate con Fundación ASISTEDCOS. Estamos en La Libertad, El Salvador. Únete como voluntario, socio o donante."
 >
 
-  <!-- Encabezado -->
-  <section class="bg-verde-800 py-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <!-- Hero -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/distribucion-plantas.jpg" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-white">Contacto</span>
+      </div>
       <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Contáctanos</h1>
-      <p class="text-verde-200 text-lg max-w-xl mx-auto">
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
         ¿Quieres ser voluntario, formar una alianza o simplemente saber más sobre nuestro trabajo? Escríbenos.
       </p>
     </div>
   </section>
 
+  <!-- Main contact section -->
   <section class="py-20 bg-gray-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-5 gap-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-5 gap-12">
 
-        <!-- Formulario (3/5) -->
-        <div class="md:col-span-3">
-          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-            <h2 class="font-heading text-2xl font-bold text-verde-900 mb-6">Envíanos un mensaje</h2>
+        <!-- LEFT: Contact info -->
+        <div class="lg:col-span-2 space-y-5">
+          <div>
+            <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Información de contacto</span>
+            <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-6">Estamos aquí para ayudarte</h2>
+          </div>
+
+          <!-- Info cards -->
+          {[
+            {
+              icon: `<svg class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`,
+              titulo: 'Ubicación',
+              valor: 'La Libertad, El Salvador',
+              href: null,
+            },
+            {
+              icon: `<svg class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+              titulo: 'Correo electrónico',
+              valor: 'info@asistedcos.org',
+              href: 'mailto:info@asistedcos.org',
+            },
+            {
+              icon: `<svg class="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
+              titulo: 'WhatsApp',
+              valor: '+503 7841-2413',
+              href: 'https://wa.me/50378412413',
+            },
+            {
+              icon: `<svg class="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+              titulo: 'Facebook',
+              valor: 'Fundación ASISTEDCOS',
+              href: 'https://www.facebook.com/FundacionAsistedcos',
+            },
+          ].map(item => (
+            <div class="bg-white rounded-lg shadow-md border-l-4 border-l-amber-500 p-5 flex items-center gap-4 hover:shadow-lg transition-shadow">
+              <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0" set:html={item.icon} />
+              <div>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">{item.titulo}</p>
+                {item.href ? (
+                  <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" class="font-semibold text-verde-700 hover:text-amber-500 transition-colors">{item.valor}</a>
+                ) : (
+                  <p class="font-semibold text-gray-700">{item.valor}</p>
+                )}
+              </div>
+            </div>
+          ))}
+
+          <!-- Map placeholder -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <div class="bg-gray-200 h-44 flex items-center justify-center relative">
+              <img src="/images/area-conservacion.jpg" alt="La Libertad, El Salvador" class="w-full h-full object-cover opacity-60" />
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-white/90 rounded-lg p-3 flex items-center gap-2 shadow-md">
+                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  <span class="text-sm font-semibold text-gray-700">La Libertad, El Salvador</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Contact form -->
+        <div class="lg:col-span-3">
+          <div class="bg-white rounded-lg shadow-md border border-gray-100 p-8">
+            <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Formulario</span>
+            <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-6">Envíanos un mensaje</h2>
             <form
               name="contacto"
               method="POST"
@@ -35,35 +108,35 @@ import Layout from '../layouts/Layout.astro';
 
               <div class="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1.5">Nombre completo *</label>
+                  <label for="nombre" class="block text-sm font-bold text-gray-700 mb-2">Nombre completo <span class="text-amber-500">*</span></label>
                   <input
                     type="text"
                     id="nombre"
                     name="nombre"
                     required
                     placeholder="Tu nombre"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-verde-500 focus:ring-2 focus:ring-verde-200 outline-none transition text-sm"
+                    class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm"
                   />
                 </div>
                 <div>
-                  <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Correo electrónico *</label>
+                  <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Correo electrónico <span class="text-amber-500">*</span></label>
                   <input
                     type="email"
                     id="email"
                     name="email"
                     required
                     placeholder="tu@correo.com"
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-verde-500 focus:ring-2 focus:ring-verde-200 outline-none transition text-sm"
+                    class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label for="asunto" class="block text-sm font-medium text-gray-700 mb-1.5">Asunto</label>
+                <label for="asunto" class="block text-sm font-bold text-gray-700 mb-2">Asunto</label>
                 <select
                   id="asunto"
                   name="asunto"
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-verde-500 focus:ring-2 focus:ring-verde-200 outline-none transition text-sm bg-white"
+                  class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm bg-white"
                 >
                   <option value="">Selecciona un tema</option>
                   <option value="donacion">Quiero hacer una donación</option>
@@ -75,95 +148,88 @@ import Layout from '../layouts/Layout.astro';
               </div>
 
               <div>
-                <label for="mensaje" class="block text-sm font-medium text-gray-700 mb-1.5">Mensaje *</label>
+                <label for="mensaje" class="block text-sm font-bold text-gray-700 mb-2">Mensaje <span class="text-amber-500">*</span></label>
                 <textarea
                   id="mensaje"
                   name="mensaje"
                   required
                   rows="5"
                   placeholder="Cuéntanos en qué podemos ayudarte o cómo quieres colaborar..."
-                  class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-verde-500 focus:ring-2 focus:ring-verde-200 outline-none transition text-sm resize-none"
+                  class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm resize-none"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                class="w-full bg-verde-600 hover:bg-verde-700 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+                class="w-full bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-sm transition-colors flex items-center justify-center gap-2 text-base"
               >
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg>
                 Enviar mensaje
               </button>
+
+              <p class="text-gray-400 text-xs text-center">Respondemos en menos de 48 horas hábiles</p>
             </form>
           </div>
         </div>
 
-        <!-- Info de contacto (2/5) -->
-        <div class="md:col-span-2 space-y-6">
-          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-            <h3 class="font-heading font-bold text-verde-900 mb-4">Información de contacto</h3>
-            <ul class="space-y-4 text-sm">
-              <li class="flex items-start gap-3">
-                <div class="w-8 h-8 bg-verde-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="h-4 w-4 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium text-gray-700">Ubicación</p>
-                  <p class="text-gray-400">La Libertad, El Salvador</p>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-8 h-8 bg-verde-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="h-4 w-4 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium text-gray-700">Correo electrónico</p>
-                  <a href="mailto:info@asistedcos.org" class="text-verde-600 hover:underline">info@asistedcos.org</a>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-8 h-8 bg-verde-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <svg class="h-4 w-4 text-verde-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium text-gray-700">Facebook</p>
-                  <a href="https://www.facebook.com/FundacionAsistedcos" target="_blank" rel="noopener noreferrer" class="text-verde-600 hover:underline">Fundación ASISTEDCOS</a>
-                </div>
-              </li>
-            </ul>
-          </div>
+      </div>
+    </div>
+  </section>
 
-          <!-- Voluntariado -->
-          <div class="bg-verde-600 rounded-2xl p-6 text-white">
-            <h3 class="font-heading font-bold text-lg mb-2">¿Quieres ser voluntario/a?</h3>
-            <p class="text-verde-100 text-sm mb-4">
-              Únete a nuestras jornadas de reforestación. Solo necesitas entusiasmo y ganas de hacer el bien.
-            </p>
-            <ul class="text-sm text-verde-200 space-y-1 mb-4">
-              <li>✓ Sin experiencia previa necesaria</li>
-              <li>✓ Actividades fines de semana</li>
-              <li>✓ Impacto ambiental directo</li>
-            </ul>
-            <p class="text-xs text-verde-300">Escríbenos al correo indicando "Voluntario" en el asunto.</p>
+  <!-- Otras formas de colaborar -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Colabora con nosotros</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Otras formas de colaborar</h2>
+        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Hay muchas maneras de apoyar la misión de ASISTEDCOS más allá de la donación económica.</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {[
+          {
+            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
+            titulo: 'Donar',
+            desc: 'Tu aportación económica financia directamente proyectos de campo: reforestación, viveros y monitoreo ambiental.',
+            cta: 'Donar ahora',
+            href: '/donar',
+            bg: 'bg-amber-500',
+          },
+          {
+            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+            titulo: 'Voluntariar',
+            desc: 'Únete a nuestras jornadas de reforestación los fines de semana. Sin experiencia previa — solo entusiasmo y ganas.',
+            cta: 'Ser voluntario',
+            href: '/contacto',
+            bg: 'bg-verde-600',
+          },
+          {
+            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
+            titulo: 'Alianzas Empresariales',
+            desc: 'Tu empresa puede implementar programas de RSE y compensación ambiental con nosotros. Como Concentrix, nuestro socio en Costa del Bálsamo.',
+            cta: 'Contáctanos',
+            href: '/contacto',
+            bg: 'bg-gray-700',
+          },
+        ].map(item => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
+            <div class={`${item.bg} p-8 flex justify-center`}>
+              <div set:html={item.icon} />
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h3 class="font-heading font-extrabold text-xl text-verde-900 mb-3">{item.titulo}</h3>
+              <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{item.desc}</p>
+              <a
+                href={item.href}
+                class="inline-flex items-center gap-2 font-bold text-sm text-white bg-amber-500 hover:bg-amber-400 px-5 py-2.5 rounded-sm transition-colors"
+              >
+                {item.cta}
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
           </div>
-
-          <!-- Empresas -->
-          <div class="bg-azul-50 border border-azul-100 rounded-2xl p-6">
-            <h3 class="font-heading font-bold text-azul-900 mb-2">Alianzas Empresariales</h3>
-            <p class="text-azul-700 text-sm mb-3">
-              Implementamos programas de compensación ambiental y RSE adaptados a las necesidades de tu empresa.
-            </p>
-            <p class="text-xs text-azul-500">Como Concentrix, que apoya nuestra área de conservación Costa del Bálsamo.</p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>

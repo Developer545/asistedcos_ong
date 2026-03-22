@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -8,12 +9,21 @@ import Layout from '../layouts/Layout.astro';
   image="/images/voluntaria-plantando.jpg"
 >
 
-  <!-- Encabezado -->
-  <section class="bg-verde-800 py-20">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <span class="text-verde-300 text-sm font-semibold uppercase tracking-widest">Fundada en 1997</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mt-3 mb-4">Quiénes Somos</h1>
-      <p class="text-verde-200 text-lg max-w-2xl mx-auto">
+  <!-- Hero -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-white">Quiénes Somos</span>
+      </div>
+      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Fundada en 1997</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Quiénes Somos</h1>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
         Una organización apolítica y sin fines de lucro comprometida con la restauración ecológica y el desarrollo comunitario sostenible en El Salvador.
       </p>
     </div>
@@ -24,27 +34,30 @@ import Layout from '../layouts/Layout.astro';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid md:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 class="font-heading text-3xl font-bold text-verde-900 mb-6">Nuestra Historia</h2>
-          <p class="text-gray-600 leading-relaxed mb-4">
-            <strong class="text-verde-800">ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra de El Salvador, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
-          </p>
-          <p class="text-gray-600 leading-relaxed mb-4">
-            Bajo la coordinación de la <strong class="text-verde-800">Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
-          </p>
-          <p class="text-gray-600 leading-relaxed">
-            Registrada oficialmente en el <strong class="text-verde-800">Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos socioambientales que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
-          </p>
+          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestra historia</span>
+          <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2 mb-8">Más de 27 años transformando El Salvador</h2>
+          <div class="space-y-5">
+            <p class="text-gray-700 leading-relaxed pl-5 border-l-4 border-amber-500">
+              <strong class="text-verde-800">ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra de El Salvador, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              Bajo la coordinación de la <strong class="text-verde-800">Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
+            </p>
+            <p class="text-gray-700 leading-relaxed">
+              Registrada oficialmente en el <strong class="text-verde-800">Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos socioambientales que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
+            </p>
+          </div>
         </div>
         <div class="space-y-4">
           <img
             src="/images/area-conservacion.jpg"
             alt="Área de conservación Costa del Bálsamo, proyecto de ASISTEDCOS"
-            class="rounded-2xl shadow-lg w-full object-cover"
+            class="rounded-lg shadow-md w-full object-cover"
             loading="lazy"
           />
           <div class="grid grid-cols-2 gap-4">
-            <img src="/images/voluntaria-plantando.jpg" alt="Voluntaria plantando en El Salvador" class="rounded-xl shadow w-full object-cover aspect-square" loading="lazy" />
-            <img src="/images/vivero-comunidad.jpg" alt="Vivero comunitario de ASISTEDCOS" class="rounded-xl shadow w-full object-cover aspect-square" loading="lazy" />
+            <img src="/images/voluntaria-plantando.jpg" alt="Voluntaria plantando en El Salvador" class="rounded-lg shadow-md w-full object-cover aspect-square" loading="lazy" />
+            <img src="/images/vivero-comunidad.jpg" alt="Vivero comunitario de ASISTEDCOS" class="rounded-lg shadow-md w-full object-cover aspect-square" loading="lazy" />
           </div>
         </div>
       </div>
@@ -52,29 +65,33 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- Misión, Visión, Valores -->
-  <section class="py-20 bg-verde-50">
+  <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestro propósito</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Misión, Visión y Valores</h2>
+      </div>
       <div class="grid md:grid-cols-3 gap-8">
         {[
           {
-            icon: '🌱',
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
             titulo: 'Misión',
             texto: 'Proveer asistencia técnica especializada en gestión socioambiental a comunidades rurales, semi-rurales y urbanas de El Salvador, contribuyendo a la restauración de ecosistemas y al desarrollo sostenible de las familias.',
           },
           {
-            icon: '🔭',
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>`,
             titulo: 'Visión',
             texto: 'Promover la autosuficiencia y resiliencia de las comunidades salvadoreñas mediante enfoques innovadores que impulsen su bienestar integral y el equilibrio ambiental del país.',
           },
           {
-            icon: '💚',
+            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
             titulo: 'Valores',
             texto: 'Integridad, transparencia, compromiso comunitario, respeto a la naturaleza, innovación técnica y colaboración entre sectores público, privado y sociedad civil.',
           },
         ].map(item => (
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-verde-100">
-            <div class="text-4xl mb-4">{item.icon}</div>
-            <h3 class="font-heading text-xl font-bold text-verde-900 mb-3">{item.titulo}</h3>
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-8 border-t-4 border-t-amber-500">
+            <div class="mb-5" set:html={item.icon} />
+            <h3 class="font-heading text-xl font-extrabold text-verde-900 mb-3">{item.titulo}</h3>
             <p class="text-gray-600 leading-relaxed text-sm">{item.texto}</p>
           </div>
         ))}
@@ -86,22 +103,47 @@ import Layout from '../layouts/Layout.astro';
   <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 class="font-heading text-3xl md:text-4xl font-bold text-verde-900">Áreas de Trabajo</h2>
-        <p class="text-gray-500 mt-2 max-w-lg mx-auto">Intervención integral desde la restauración ecológica hasta el fortalecimiento comunitario.</p>
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Lo que hacemos</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Áreas de Trabajo</h2>
+        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Intervención integral desde la restauración ecológica hasta el fortalecimiento comunitario.</p>
       </div>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {[
-          { titulo: 'Restauración de Ecosistemas', desc: 'Rehabilitación de bosques, manglares y cuencas hidrográficas con especies nativas.' },
-          { titulo: 'Reforestación Comunitaria', desc: 'Producción y distribución de plántulas a familias campesinas para restaurar cobertura vegetal.' },
-          { titulo: 'Monitoreo Ambiental', desc: 'Seguimiento técnico de la salud de ríos, bosques y zonas costeras protegidas.' },
-          { titulo: 'Capacitación Técnica', desc: 'Formación de líderes comunitarios en gestión ambiental y prácticas agroecológicas.' },
-          { titulo: 'Gestión de Alianzas', desc: 'Articulación entre comunidades, empresas privadas, gobierno y cooperación internacional.' },
-          { titulo: 'Compensación Ambiental', desc: 'Implementación de programas de compensación ecológica en áreas protegidas.' },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
+            titulo: 'Restauración de Ecosistemas',
+            desc: 'Rehabilitación de bosques, manglares y cuencas hidrográficas con especies nativas.'
+          },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+            titulo: 'Reforestación Comunitaria',
+            desc: 'Producción y distribución de plántulas a familias campesinas para restaurar cobertura vegetal.'
+          },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>`,
+            titulo: 'Monitoreo Ambiental',
+            desc: 'Seguimiento técnico de la salud de ríos, bosques y zonas costeras protegidas.'
+          },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>`,
+            titulo: 'Capacitación Técnica',
+            desc: 'Formación de líderes comunitarios en gestión ambiental y prácticas agroecológicas.'
+          },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
+            titulo: 'Gestión de Alianzas',
+            desc: 'Articulación entre comunidades, empresas privadas, gobierno y cooperación internacional.'
+          },
+          {
+            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`,
+            titulo: 'Compensación Ambiental',
+            desc: 'Implementación de programas de compensación ecológica en áreas protegidas.'
+          },
         ].map(area => (
-          <div class="flex gap-4 p-5 rounded-xl border border-verde-100 hover:border-verde-300 hover:bg-verde-50 transition-colors">
-            <div class="flex-shrink-0 w-2 h-2 rounded-full bg-verde-500 mt-2.5"></div>
+          <div class="group flex gap-4 p-6 rounded-lg border border-gray-100 hover:border-amber-300 hover:shadow-md transition-all duration-300 bg-white">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde-600 group-hover:bg-amber-500 transition-colors duration-300 flex items-center justify-center" set:html={area.icon} />
             <div>
-              <h3 class="font-semibold text-verde-900 mb-1">{area.titulo}</h3>
+              <h3 class="font-heading font-bold text-verde-900 mb-1">{area.titulo}</h3>
               <p class="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
             </div>
           </div>
@@ -110,11 +152,49 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- Timeline -->
+  <section class="py-20 bg-gray-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestra trayectoria</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2">Historia de Impacto</h2>
+      </div>
+      <div class="relative">
+        <!-- Vertical line -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-verde-700"></div>
+        <div class="space-y-12">
+          {[
+            { year: '1997', title: 'Fundación', desc: 'ASISTEDCOS nace en el período de posguerra de El Salvador para atender los problemas socioambientales que dejó el conflicto armado en comunidades rurales.' },
+            { year: '2000s', title: 'Primeros Proyectos', desc: 'Inicio de programas de reforestación comunitaria y distribución de plántulas nativas a familias rurales de La Libertad y zonas aledañas.' },
+            { year: '2010s', title: 'Expansión y Alianzas', desc: 'Establecimiento de alianzas estratégicas con empresas privadas, municipalidades y organismos internacionales para ampliar el alcance territorial.' },
+            { year: '2020', title: 'Costa del Bálsamo', desc: 'Lanzamiento del área de conservación de manglares Costa del Bálsamo en alianza con Concentrix, uno de los proyectos más emblemáticos.' },
+            { year: 'Hoy', title: 'Más de 27 Años', desc: 'Continuamos restaurando ecosistemas, formando comunidades y construyendo un El Salvador más verde y resiliente para las generaciones futuras.' },
+          ].map((item, index) => (
+            <div class={`flex items-center gap-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+              <div class={`w-5/12 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                <div class="bg-gray-800 border border-gray-700 rounded-lg p-5 inline-block text-left hover:border-amber-500 transition-colors duration-300">
+                  <span class="text-amber-500 font-bold text-sm">{item.year}</span>
+                  <h3 class="font-heading font-extrabold text-white mt-1 mb-2">{item.title}</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+              <div class="flex-shrink-0 w-2/12 flex justify-center">
+                <div class="w-5 h-5 rounded-full bg-amber-500 border-4 border-gray-900 z-10"></div>
+              </div>
+              <div class="w-5/12"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Marco Legal -->
-  <section class="py-16 bg-azul-900 text-white">
+  <section class="py-16 bg-verde-900 text-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl font-bold mb-4">Transparencia y Marco Legal</h2>
-      <p class="text-azul-200 mb-8 max-w-2xl mx-auto">
+      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Transparencia</span>
+      <h2 class="font-heading text-2xl md:text-3xl font-extrabold mt-2 mb-4">Marco Legal</h2>
+      <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
         Operamos bajo la <strong class="text-white">Ley de Asociaciones y Fundaciones Sin Fines de Lucro</strong> (D.L. No. 894, 1996) de El Salvador, con registro activo en el Ministerio de Gobernación y Desarrollo Territorial.
       </p>
       <div class="grid sm:grid-cols-3 gap-6 text-sm">
@@ -123,9 +203,9 @@ import Layout from '../layouts/Layout.astro';
           { label: 'Tipo de entidad', value: 'Fundación sin fines de lucro' },
           { label: 'Donaciones', value: 'Deducibles de impuestos (Art. 32 Ley de Renta)' },
         ].map(item => (
-          <div class="bg-azul-800/50 rounded-xl p-5">
-            <p class="text-azul-300 text-xs uppercase tracking-wider mb-1">{item.label}</p>
-            <p class="text-white font-medium">{item.value}</p>
+          <div class="bg-white/10 border border-white/20 rounded-lg p-5">
+            <p class="text-amber-400 text-xs uppercase tracking-wider mb-1">{item.label}</p>
+            <p class="text-white font-semibold">{item.value}</p>
           </div>
         ))}
       </div>
