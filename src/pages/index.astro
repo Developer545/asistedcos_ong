@@ -29,15 +29,6 @@ await Promise.allSettled([
     .then(r => r.ok ? r.json() : null).then(d => { if (d) partners = d.data ?? []; }),
 ]);
 
-// Fallback cause cards if API is unavailable
-if (causeCards.length === 0) {
-  causeCards = [
-    { id: '1', titulo: 'Conservación Costa del Bálsamo', descripcion: 'Protección y restauración del manglar en Playa San Diego, La Libertad.', tag: 'Manglar', meta: 15000, recaudado: 8550 },
-    { id: '2', titulo: 'Distribución de Plántulas Nativas', descripcion: 'Entregamos plántulas nativas a familias rurales para reforestar sus terrenos.', tag: 'Reforestación', meta: 8000, recaudado: 6560 },
-    { id: '3', titulo: 'Monitoreo de Cuencas Hidrográficas', descripcion: 'Vigilancia continua de ríos y cuerpos de agua para asegurar la salud hídrica.', tag: 'Agua', meta: 12000, recaudado: 5160 },
-  ];
-}
-
 const testimonials = [
   {
     quote: 'Gracias a ASISTEDCOS aprendimos a proteger los manglares que nos dan vida. El apoyo técnico fue fundamental para nuestra comunidad.',

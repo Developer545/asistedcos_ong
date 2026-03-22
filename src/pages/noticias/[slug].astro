@@ -29,20 +29,31 @@ interface News {
 
 let noticia: News | null = null;
 let fetchError = false;
+let relatedNews: Array<{ id: string; title: string; slug: string; summary?: string; coverImage?: string; publishedAt?: string }> = [];
 
 try {
-  const res = await fetch(`${ADMIN_URL}/api/public/noticias/${slug}`, { signal: AbortSignal.timeout(5000) });
-  if (res.status === 404) {
-    return Astro.redirect('/404');
-  }
-  if (res.ok) {
-    const json = await res.json();
-    noticia = json.data ?? null;
-    if (!noticia) {
-      return Astro.redirect('/404');
+  const [mainRes, relatedRes] = await Promise.allSettled([
+    fetch(`${ADMIN_URL}/api/public/noticias/${slug}`, { signal: AbortSignal.timeout(5000) }),
+    fetch(`${ADMIN_URL}/api/public/noticias?limit=4`, { signal: AbortSignal.timeout(5000) }),
+  ]);
+
+  if (mainRes.status === 'fulfilled') {
+    const res = mainRes.value;
+    if (res.status === 404) return Astro.redirect('/404');
+    if (res.ok) {
+      const json = await res.json();
+      noticia = json.data ?? null;
+      if (!noticia) return Astro.redirect('/404');
+    } else {
+      fetchError = true;
     }
   } else {
     fetchError = true;
+  }
+
+  if (relatedRes.status === 'fulfilled' && relatedRes.value.ok) {
+    const json = await relatedRes.value.json();
+    relatedNews = (json.data ?? []).filter((n: { slug: string }) => n.slug !== slug).slice(0, 3);
   }
 } catch {
   fetchError = true;
@@ -269,9 +280,9 @@ const shareTitle = noticia?.title ?? 'Noticia de Fundación ASISTEDCOS';
               <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>
           </div>
-          {noticia.related && noticia.related.length > 0 ? (
+          {relatedNews.length > 0 ? (
             <div class="grid md:grid-cols-3 gap-6">
-              {noticia.related.map(rel => (
+              {relatedNews.map(rel => (
                 <a href={`/noticias/${rel.slug}`} class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden">
                   <div class="h-40 overflow-hidden">
                     {rel.coverImage ? (
@@ -283,9 +294,9 @@ const shareTitle = noticia?.title ?? 'Noticia de Fundación ASISTEDCOS';
                     )}
                   </div>
                   <div class="p-4">
-                    {rel.categoria && <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">{rel.categoria}</span>}
                     <h4 class="font-heading font-bold text-verde-900 text-sm mt-1 group-hover:text-verde-600 transition-colors line-clamp-2">{rel.title}</h4>
-                    {rel.publishedAt && <p class="text-gray-400 text-xs mt-1">{new Date(rel.publishedAt).toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
+                    {rel.summary && <p class="text-gray-400 text-xs mt-1 line-clamp-2">{rel.summary}</p>}
+                    {rel.publishedAt && <p class="text-amber-500 text-xs mt-2 font-semibold">{new Date(rel.publishedAt).toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })}</p>}
                   </div>
                 </a>
               ))}
