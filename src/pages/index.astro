@@ -15,6 +15,7 @@ let causeCards: CauseItem[] = [];
 let faqItems: FaqItem[] = [];
 let galleryItems: GalleryItem[] = [];
 let partners: PartnerItem[] = [];
+let siteContent: Record<string, string> = {};
 
 await Promise.allSettled([
   fetch(`${ADMIN_URL}/api/public/noticias?limit=3`, { signal: AbortSignal.timeout(5000) })
@@ -27,6 +28,15 @@ await Promise.allSettled([
     .then(r => r.ok ? r.json() : null).then(d => { if (d) galleryItems = d.data ?? []; }),
   fetch(`${ADMIN_URL}/api/public/aliados`, { signal: AbortSignal.timeout(5000) })
     .then(r => r.ok ? r.json() : null).then(d => { if (d) partners = d.data ?? []; }),
+  fetch(`${ADMIN_URL}/api/public/contenido`, { signal: AbortSignal.timeout(5000) })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (d?.data) {
+        d.data.forEach((item: { section: string; key: string; value: string }) => {
+          siteContent[`${item.section}__${item.key}`] = item.value;
+        });
+      }
+    }),
 ]);
 
 const testimonials = [
@@ -83,7 +93,7 @@ const teamMembers = [
   <!-- ===== HERO ===== -->
   <section class="relative overflow-hidden" style="height: 700px; max-height: 90vh;">
     <div class="absolute inset-0">
-      <img src="/images/reforestacion-aerea.jpg" alt="Reforestación costera en El Salvador"
+      <img src={siteContent['hero__imagen'] || '/images/reforestacion-aerea.jpg'} alt="Reforestación costera en El Salvador"
         class="w-full h-full object-cover" fetchpriority="high" />
     </div>
     <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(8,21,9,0.93) 0%, rgba(17,43,20,0.80) 55%, rgba(26,71,33,0.40) 100%);"></div>
@@ -195,7 +205,7 @@ const teamMembers = [
         <div class="relative">
           <div class="absolute -top-4 -left-4 w-24 h-24 bg-amber-100 rounded-lg -z-10"></div>
           <div class="absolute -bottom-4 -right-4 w-32 h-32 rounded-lg -z-10" style="background-color: #ddf3e0;"></div>
-          <img src="/images/voluntaria-plantando.jpg"
+          <img src={siteContent['about__imagen'] || '/images/voluntaria-plantando.jpg'}
             alt="Voluntaria de ASISTEDCOS plantando árboles"
             class="rounded-lg shadow-2xl w-full object-cover aspect-[4/3]" />
           <div class="absolute -bottom-5 -left-5 bg-white rounded-lg px-5 py-4 shadow-xl border border-gray-100">
