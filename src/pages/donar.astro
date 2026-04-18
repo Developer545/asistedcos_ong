@@ -92,22 +92,22 @@ const impactos = [
         </div>
 
         <!-- Resumen + botón -->
-        <div class="p-6 bg-verde-700">
+        <div class="p-6 bg-white border-t border-gray-100">
           <div class="flex items-center justify-between mb-5">
             <div>
-              <p class="text-verde-200 text-sm">Total a donar</p>
-              <p id="amount-display" class="font-heading text-4xl font-extrabold text-white">$0.00</p>
+              <p class="text-gray-400 text-sm">Total a donar</p>
+              <p id="amount-display" class="font-heading text-4xl font-extrabold text-verde-900">$0.00</p>
             </div>
             <div class="text-right">
-              <p class="text-verde-200 text-xs">Procesado por</p>
-              <p class="text-white font-bold text-sm">Wompi · Banco Agrícola</p>
+              <p class="text-gray-400 text-xs">Procesado por</p>
+              <p class="text-gray-700 font-bold text-sm">Wompi · Banco Agrícola</p>
             </div>
           </div>
 
           <button
             id="wompi-btn"
             disabled
-            class="w-full flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-4 rounded-lg transition-all duration-200 text-lg shadow-lg"
+            class="w-full flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 rounded-lg transition-all duration-200 text-lg shadow-md"
           >
             <svg id="wompi-icon" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
@@ -119,11 +119,11 @@ const impactos = [
             <span id="wompi-label">Selecciona un monto para continuar</span>
           </button>
 
-          <p id="wompi-error" class="hidden text-red-300 text-sm mt-3 text-center font-semibold"></p>
+          <p id="wompi-error" class="hidden text-red-500 text-sm mt-3 text-center font-semibold"></p>
 
-          <div class="flex items-center justify-center gap-4 mt-4 text-verde-300 text-xs">
+          <div class="flex items-center justify-center gap-4 mt-4 text-gray-400 text-xs">
             <span class="flex items-center gap-1">
-              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <svg class="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
               Pago seguro SSL
             </span>
             <span>·</span>

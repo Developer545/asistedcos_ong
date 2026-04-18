@@ -59,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
         configuracion: {
           urlRedirect:                 `${BASE_URL}/gracias?donated=true`,
           notificarTransaccionCliente: true,
-          emailsNotificacion:          ['info@asistedcos.org'],
+          emailsNotificacion:          'info@asistedcos.org',
         },
       }),
     });
