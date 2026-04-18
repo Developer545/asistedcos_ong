@@ -85,29 +85,51 @@ const donationAmounts = [
         </div>
       </div>
 
-      <!-- Botón Stripe -->
-      <div class="mb-14">
-        <button
-          id="stripe-btn"
-          disabled
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-10 py-4 rounded-sm transition-all duration-200 text-lg shadow-lg"
-        >
-          <svg id="stripe-icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-          </svg>
-          <svg id="stripe-spinner" class="hidden animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
-          </svg>
-          <span id="stripe-btn-label">Selecciona un monto</span>
-        </button>
-        <p class="text-xs text-gray-400 mt-3 flex items-center gap-1.5">
-          <svg class="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-          </svg>
-          Pago seguro con Stripe · Acepta Visa, Mastercard, Amex
-        </p>
-        <p id="stripe-error" class="hidden text-red-500 text-sm mt-2 font-semibold"></p>
+      <!-- Botones de pago -->
+      <div class="mb-14 flex flex-col sm:flex-row gap-4 items-start flex-wrap">
+
+        <!-- Stripe -->
+        <div class="flex flex-col gap-1">
+          <button id="stripe-btn" disabled
+            class="inline-flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-8 py-4 rounded-sm transition-all duration-200 text-base shadow-lg"
+          >
+            <svg id="stripe-icon" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
+            <svg id="stripe-spinner" class="hidden animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+            </svg>
+            <span id="stripe-btn-label">Donar con Stripe</span>
+          </button>
+          <p class="text-xs text-gray-400 flex items-center gap-1">
+            <svg class="h-3 w-3 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Visa · Mastercard · Amex (internacional)
+          </p>
+          <p id="stripe-error" class="hidden text-red-500 text-xs font-semibold"></p>
+        </div>
+
+        <!-- Wompi -->
+        <div class="flex flex-col gap-1">
+          <button id="wompi-btn" disabled
+            class="inline-flex items-center justify-center gap-3 bg-verde-700 hover:bg-verde-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold px-8 py-4 rounded-sm transition-all duration-200 text-base shadow-lg"
+          >
+            <svg id="wompi-icon" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
+            <svg id="wompi-spinner" class="hidden animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+            </svg>
+            <span id="wompi-btn-label">Donar con Wompi</span>
+          </button>
+          <p class="text-xs text-gray-400 flex items-center gap-1">
+            <svg class="h-3 w-3 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            Visa · Mastercard · Cuotas Agrícola (El Salvador)
+          </p>
+          <p id="wompi-error" class="hidden text-red-500 text-xs font-semibold"></p>
+        </div>
+
       </div>
 
       <!-- Impact cards -->
@@ -333,22 +355,28 @@ const donationAmounts = [
   const buttons = document.querySelectorAll<HTMLButtonElement>('.amount-btn');
   const customWrap = document.getElementById('custom-amount-wrap') as HTMLDivElement;
   const customInput = document.getElementById('custom-amount-input') as HTMLInputElement;
-  const stripeBtn = document.getElementById('stripe-btn') as HTMLButtonElement;
+  const stripeBtn      = document.getElementById('stripe-btn') as HTMLButtonElement;
   const stripeBtnLabel = document.getElementById('stripe-btn-label') as HTMLSpanElement;
-  const stripeIcon = document.getElementById('stripe-icon') as SVGElement;
-  const stripeSpinner = document.getElementById('stripe-spinner') as SVGElement;
-  const stripeError = document.getElementById('stripe-error') as HTMLParagraphElement;
+  const stripeIcon     = document.getElementById('stripe-icon') as SVGElement;
+  const stripeSpinner  = document.getElementById('stripe-spinner') as SVGElement;
+  const stripeError    = document.getElementById('stripe-error') as HTMLParagraphElement;
 
   let selectedAmount: number | null = null;
 
   function setAmount(amount: number | null, label: string) {
     selectedAmount = amount;
+    const wompiB = document.getElementById('wompi-btn') as HTMLButtonElement;
+    const wompiL = document.getElementById('wompi-btn-label') as HTMLSpanElement;
     if (amount) {
       stripeBtn.disabled = false;
-      stripeBtnLabel.textContent = `Donar $${amount} USD con tarjeta`;
+      wompiB.disabled = false;
+      stripeBtnLabel.textContent = `Donar $${amount} con Stripe`;
+      wompiL.textContent = `Donar $${amount} con Wompi`;
     } else {
       stripeBtn.disabled = true;
-      stripeBtnLabel.textContent = 'Selecciona un monto';
+      wompiB.disabled = true;
+      stripeBtnLabel.textContent = 'Donar con Stripe';
+      wompiL.textContent = 'Donar con Wompi';
     }
     stripeError.classList.add('hidden');
   }
@@ -379,33 +407,43 @@ const donationAmounts = [
     }
   });
 
-  stripeBtn.addEventListener('click', async () => {
+  async function handlePayment(endpoint: string, btnEl: HTMLButtonElement, iconEl: Element, spinnerEl: Element, labelEl: Element, errorEl: HTMLElement, loadingText: string) {
     if (!selectedAmount) return;
-
-    stripeBtn.disabled = true;
-    stripeIcon.classList.add('hidden');
-    stripeSpinner.classList.remove('hidden');
-    stripeBtnLabel.textContent = 'Redirigiendo a Stripe...';
-    stripeError.classList.add('hidden');
-
+    btnEl.disabled = true;
+    iconEl.classList.add('hidden');
+    spinnerEl.classList.remove('hidden');
+    labelEl.textContent = loadingText;
+    errorEl.classList.add('hidden');
     try {
-      const res = await fetch('/api/checkout', {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: selectedAmount }),
       });
       const data = await res.json();
-
       if (!res.ok || !data.url) throw new Error(data.error ?? 'Error desconocido');
-
       window.location.href = data.url;
-    } catch (err: any) {
-      stripeError.textContent = 'No pudimos procesar tu donación. Intenta de nuevo.';
-      stripeError.classList.remove('hidden');
-      stripeBtn.disabled = false;
-      stripeIcon.classList.remove('hidden');
-      stripeSpinner.classList.add('hidden');
-      stripeBtnLabel.textContent = `Donar $${selectedAmount} USD con tarjeta`;
+    } catch {
+      errorEl.textContent = 'No pudimos procesar tu donación. Intenta de nuevo.';
+      errorEl.classList.remove('hidden');
+      btnEl.disabled = false;
+      iconEl.classList.remove('hidden');
+      spinnerEl.classList.add('hidden');
+      labelEl.textContent = `Donar $${selectedAmount} USD`;
     }
-  });
+  }
+
+  stripeBtn.addEventListener('click', () =>
+    handlePayment('/api/checkout', stripeBtn, stripeIcon, stripeSpinner, stripeBtnLabel, stripeError, 'Redirigiendo a Stripe...')
+  );
+
+  const wompiBtn      = document.getElementById('wompi-btn') as HTMLButtonElement;
+  const wompiBtnLabel = document.getElementById('wompi-btn-label') as HTMLSpanElement;
+  const wompiIcon     = document.getElementById('wompi-icon') as SVGElement;
+  const wompiSpinner  = document.getElementById('wompi-spinner') as SVGElement;
+  const wompiError    = document.getElementById('wompi-error') as HTMLParagraphElement;
+
+  wompiBtn.addEventListener('click', () =>
+    handlePayment('/api/checkout-wompi', wompiBtn, wompiIcon, wompiSpinner, wompiBtnLabel, wompiError, 'Redirigiendo a Wompi...')
+  );
 </script>
