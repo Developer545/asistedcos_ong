@@ -6,7 +6,7 @@ const testimonios = [
   {
     nombre: 'María Elena Ramos',
     rol: 'Voluntaria — Jornada de reforestación',
-    img: '',
+    img: '/images/voluntaria-plantando.jpg',
     initials: 'MR',
     texto:
       'Participar en la jornada de reforestación con ASISTEDCOS fue una experiencia que cambió mi perspectiva. Ver a toda la comunidad unida plantando árboles nativos me llenó de esperanza. Ahora vuelvo cada año y traigo a mis hijos para que aprendan a cuidar la naturaleza.',
@@ -15,7 +15,7 @@ const testimonios = [
   {
     nombre: 'Carlos Mejía',
     rol: 'Agricultor — Comunidad de Sonsonate',
-    img: '',
+    img: '/images/distribucion-plantas.jpg',
     initials: 'CM',
     texto:
       'Gracias a las plántulas que nos distribuyeron mis parcelas ahora tienen más sombra y el suelo retiene mejor el agua. Mis cultivos mejoraron notablemente y pude generar ingresos adicionales vendiendo las plantas que sobraron. ASISTEDCOS no solo planta árboles, transforma vidas.',
@@ -24,7 +24,7 @@ const testimonios = [
   {
     nombre: 'Ana Sofía Villanueva',
     rol: 'Estudiante universitaria — Biología',
-    img: '',
+    img: '/images/monitoreo-rio.jpg',
     initials: 'AV',
     texto:
       'Realicé mis horas sociales monitoreando cuencas hidrográficas con el equipo técnico. La metodología que aplican es rigurosa y el impacto real. Me enseñaron a identificar especies indicadoras de calidad del agua. Fue la mejor experiencia de mi carrera universitaria.',
@@ -33,7 +33,7 @@ const testimonios = [
   {
     nombre: 'Roberto Castillo',
     rol: 'Empresario — Sector privado',
-    img: '',
+    img: '/images/evento-playa.jpg',
     initials: 'RC',
     texto:
       'Nuestra empresa apoya a ASISTEDCOS desde 2021 y el retorno en imagen y propósito es invaluable. Pero más allá del negocio, ver a nuestros empleados involucrados en las jornadas de limpieza de playa y sintiéndose parte del cambio es lo que más nos enorgullece.',
@@ -42,7 +42,7 @@ const testimonios = [
   {
     nombre: 'Dra. Lucía Hernández',
     rol: 'Investigadora ambiental',
-    img: '',
+    img: '/images/area-conservacion.jpg',
     initials: 'LH',
     texto:
       'He colaborado con muchas ONGs ambientales en Centroamérica, y ASISTEDCOS destaca por su seriedad técnica y su profundo arraigo comunitario. Sus datos de monitoreo son confiables y han servido de referencia para tesis doctorales y reportes gubernamentales.',
@@ -51,7 +51,7 @@ const testimonios = [
   {
     nombre: 'Familia López-Guardado',
     rol: 'Beneficiarios — Programa plántulas',
-    img: '',
+    img: '/images/vivero-comunidad.jpg',
     initials: 'FL',
     texto:
       'Recibimos 50 plántulas de árboles frutales y maderables. Nos enseñaron cómo cuidarlas y ahora tenemos un pequeño vivero en casa. Nuestros hijos aprendieron el valor de la naturaleza y nosotros tenemos frutas frescas cada temporada. Estamos muy agradecidos.',
@@ -63,6 +63,29 @@ const alianzas = [
   { nombre: 'Concentrix', tipo: 'Empresa aliada', testimonio: 'Un socio comprometido con el medio ambiente y las comunidades de El Salvador.' },
   { nombre: 'Ministerio de Medio Ambiente', tipo: 'Entidad gubernamental', testimonio: 'ASISTEDCOS aporta datos técnicos clave para las políticas ambientales nacionales.' },
   { nombre: 'Universidades locales', tipo: 'Academia', testimonio: 'Espacio invaluable para la formación práctica de nuevas generaciones de ambientalistas.' },
+];
+
+const videos = [
+  {
+    youtubeId: 'X_y7B2hi6i4',
+    titulo: 'Nuestro trabajo en el territorio',
+    descripcion: 'Un vistazo al impacto real de Fundación ASISTEDCOS en las comunidades de El Salvador.',
+  },
+  {
+    youtubeId: 'TQhCGhQF5H0',
+    titulo: 'Jornada de reforestación comunitaria',
+    descripcion: 'Voluntarios y comunidades unidas plantando árboles nativos para restaurar ecosistemas.',
+  },
+  {
+    youtubeId: 'YmH2SopQWVo',
+    titulo: 'Conservación y medio ambiente',
+    descripcion: 'Conoce nuestras iniciativas de conservación de manglares y cuencas hidrográficas.',
+  },
+  {
+    youtubeId: '7O5_4ns1ot8',
+    titulo: 'Impacto en las comunidades',
+    descripcion: 'Familias y comunidades transformadas gracias a los programas de Fundación ASISTEDCOS.',
+  },
 ];
 ---
 
@@ -92,14 +115,14 @@ const alianzas = [
     </div>
   </section>
 
-  <!-- Intro stat strip -->
+  <!-- Stat strip -->
   <section class="py-10 bg-verde-700">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-3 gap-4 text-center text-white">
         {[
           { value: '+500', label: 'Voluntarios formados' },
-          { value: '+50', label: 'Comunidades beneficiadas' },
-          { value: '27+', label: 'Años de confianza' },
+          { value: '+50',  label: 'Comunidades beneficiadas' },
+          { value: '27+',  label: 'Años de confianza' },
         ].map(stat => (
           <div>
             <p class="font-heading text-3xl md:text-4xl font-extrabold text-amber-400">{stat.value}</p>
@@ -121,25 +144,37 @@ const alianzas = [
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {testimonios.map(t => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-8 flex flex-col">
-            <!-- Quote icon -->
-            <svg class="h-8 w-8 text-amber-300 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-            </svg>
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
+            <!-- Photo -->
+            <div class="relative h-44 overflow-hidden">
+              <img
+                src={t.img}
+                alt={`Foto de actividad — ${t.nombre}`}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
+              <span class="absolute bottom-3 right-3 text-xs text-white font-semibold bg-amber-500 px-2 py-0.5 rounded-full">{t.año}</span>
+            </div>
 
-            <!-- Text -->
-            <p class="text-gray-600 text-sm leading-relaxed flex-1">"{t.texto}"</p>
+            <div class="p-6 flex flex-col flex-1">
+              <!-- Quote icon -->
+              <svg class="h-6 w-6 text-amber-300 mb-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
 
-            <!-- Footer -->
-            <div class="mt-6 flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-verde-100 flex items-center justify-center flex-shrink-0">
-                <span class="text-verde-700 font-bold text-sm">{t.initials}</span>
+              <p class="text-gray-600 text-sm leading-relaxed flex-1">"{t.texto}"</p>
+
+              <!-- Author -->
+              <div class="mt-5 flex items-center gap-3 pt-4 border-t border-gray-100">
+                <div class="w-9 h-9 rounded-full bg-verde-100 flex items-center justify-center flex-shrink-0">
+                  <span class="text-verde-700 font-bold text-xs">{t.initials}</span>
+                </div>
+                <div>
+                  <p class="font-bold text-verde-900 text-sm">{t.nombre}</p>
+                  <p class="text-xs text-gray-400">{t.rol}</p>
+                </div>
               </div>
-              <div>
-                <p class="font-bold text-verde-900 text-sm">{t.nombre}</p>
-                <p class="text-xs text-gray-400">{t.rol}</p>
-              </div>
-              <span class="ml-auto text-xs text-amber-500 font-semibold bg-amber-50 px-2 py-0.5 rounded-full">{t.año}</span>
             </div>
           </div>
         ))}
@@ -161,8 +196,40 @@ const alianzas = [
     </div>
   </section>
 
-  <!-- Alianzas testimonios -->
+  <!-- Videos YouTube -->
   <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestro trabajo en video</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Míralo con tus propios ojos</h2>
+        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Documentamos cada jornada para que el impacto sea visible para toda la comunidad.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {videos.map(v => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
+            <div class="relative aspect-video bg-gray-900">
+              <iframe
+                src={`https://www.youtube.com/embed/${v.youtubeId}`}
+                title={v.titulo}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                class="w-full h-full"
+              />
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading font-extrabold text-verde-900 text-base mb-1">{v.titulo}</h3>
+              <p class="text-gray-500 text-sm">{v.descripcion}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Alianzas -->
+  <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-14">
         <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Aliados que nos respaldan</span>
@@ -170,7 +237,7 @@ const alianzas = [
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         {alianzas.map(a => (
-          <div class="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 p-6">
+          <div class="bg-gray-50 rounded-lg border border-gray-100 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 p-6">
             <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-4">
               <svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
@@ -185,7 +252,7 @@ const alianzas = [
     </div>
   </section>
 
-  <!-- CTA — Comparte tu historia -->
+  <!-- CTA -->
   <section class="py-20 bg-gray-900 relative overflow-hidden">
     <div class="absolute inset-0">
       <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover opacity-15" />
