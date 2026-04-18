@@ -57,8 +57,9 @@ export const POST: APIRoute = async ({ request }) => {
           permitePagoQuickPay:          false,
         },
         configuracion: {
-          urlRedirect:                `${BASE_URL}/gracias?donated=true`,
+          urlRedirect:                 `${BASE_URL}/gracias?donated=true`,
           notificarTransaccionCliente: true,
+          emailsNotificacion:          ['info@asistedcos.org'],
         },
       }),
     });
