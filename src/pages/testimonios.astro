@@ -1,0 +1,213 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+
+const testimonios = [
+  {
+    nombre: 'María Elena Ramos',
+    rol: 'Voluntaria — Jornada de reforestación',
+    img: '',
+    initials: 'MR',
+    texto:
+      'Participar en la jornada de reforestación con ASISTEDCOS fue una experiencia que cambió mi perspectiva. Ver a toda la comunidad unida plantando árboles nativos me llenó de esperanza. Ahora vuelvo cada año y traigo a mis hijos para que aprendan a cuidar la naturaleza.',
+    año: '2024',
+  },
+  {
+    nombre: 'Carlos Mejía',
+    rol: 'Agricultor — Comunidad de Sonsonate',
+    img: '',
+    initials: 'CM',
+    texto:
+      'Gracias a las plántulas que nos distribuyeron mis parcelas ahora tienen más sombra y el suelo retiene mejor el agua. Mis cultivos mejoraron notablemente y pude generar ingresos adicionales vendiendo las plantas que sobraron. ASISTEDCOS no solo planta árboles, transforma vidas.',
+    año: '2023',
+  },
+  {
+    nombre: 'Ana Sofía Villanueva',
+    rol: 'Estudiante universitaria — Biología',
+    img: '',
+    initials: 'AV',
+    texto:
+      'Realicé mis horas sociales monitoreando cuencas hidrográficas con el equipo técnico. La metodología que aplican es rigurosa y el impacto real. Me enseñaron a identificar especies indicadoras de calidad del agua. Fue la mejor experiencia de mi carrera universitaria.',
+    año: '2024',
+  },
+  {
+    nombre: 'Roberto Castillo',
+    rol: 'Empresario — Sector privado',
+    img: '',
+    initials: 'RC',
+    texto:
+      'Nuestra empresa apoya a ASISTEDCOS desde 2021 y el retorno en imagen y propósito es invaluable. Pero más allá del negocio, ver a nuestros empleados involucrados en las jornadas de limpieza de playa y sintiéndose parte del cambio es lo que más nos enorgullece.',
+    año: '2023',
+  },
+  {
+    nombre: 'Dra. Lucía Hernández',
+    rol: 'Investigadora ambiental',
+    img: '',
+    initials: 'LH',
+    texto:
+      'He colaborado con muchas ONGs ambientales en Centroamérica, y ASISTEDCOS destaca por su seriedad técnica y su profundo arraigo comunitario. Sus datos de monitoreo son confiables y han servido de referencia para tesis doctorales y reportes gubernamentales.',
+    año: '2022',
+  },
+  {
+    nombre: 'Familia López-Guardado',
+    rol: 'Beneficiarios — Programa plántulas',
+    img: '',
+    initials: 'FL',
+    texto:
+      'Recibimos 50 plántulas de árboles frutales y maderables. Nos enseñaron cómo cuidarlas y ahora tenemos un pequeño vivero en casa. Nuestros hijos aprendieron el valor de la naturaleza y nosotros tenemos frutas frescas cada temporada. Estamos muy agradecidos.',
+    año: '2024',
+  },
+];
+
+const alianzas = [
+  { nombre: 'Concentrix', tipo: 'Empresa aliada', testimonio: 'Un socio comprometido con el medio ambiente y las comunidades de El Salvador.' },
+  { nombre: 'Ministerio de Medio Ambiente', tipo: 'Entidad gubernamental', testimonio: 'ASISTEDCOS aporta datos técnicos clave para las políticas ambientales nacionales.' },
+  { nombre: 'Universidades locales', tipo: 'Academia', testimonio: 'Espacio invaluable para la formación práctica de nuevas generaciones de ambientalistas.' },
+];
+---
+
+<Layout
+  title="Testimonios"
+  description="Conoce las historias de voluntarios, comunidades y aliados que han sido transformados por el trabajo de Fundación ASISTEDCOS en El Salvador."
+  image="/images/voluntaria-plantando.jpg"
+>
+
+  <!-- Hero -->
+  <section class="relative py-28 overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
+        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
+        <span>›</span>
+        <span class="text-white">Testimonios</span>
+      </div>
+      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Voces reales</span>
+      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Lo que dice nuestra comunidad</h1>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+        Voluntarios, familias, investigadores y aliados comparten cómo el trabajo de ASISTEDCOS ha transformado su relación con el medio ambiente.
+      </p>
+    </div>
+  </section>
+
+  <!-- Intro stat strip -->
+  <section class="py-10 bg-verde-700">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-3 gap-4 text-center text-white">
+        {[
+          { value: '+500', label: 'Voluntarios formados' },
+          { value: '+50', label: 'Comunidades beneficiadas' },
+          { value: '27+', label: 'Años de confianza' },
+        ].map(stat => (
+          <div>
+            <p class="font-heading text-3xl md:text-4xl font-extrabold text-amber-400">{stat.value}</p>
+            <p class="text-sm text-verde-100 mt-1">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial cards grid -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Historias de impacto</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Ellos lo vivieron</h2>
+        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Cada testimonio es una muestra del impacto que generamos juntos en El Salvador.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {testimonios.map(t => (
+          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-8 flex flex-col">
+            <!-- Quote icon -->
+            <svg class="h-8 w-8 text-amber-300 mb-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+
+            <!-- Text -->
+            <p class="text-gray-600 text-sm leading-relaxed flex-1">"{t.texto}"</p>
+
+            <!-- Footer -->
+            <div class="mt-6 flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-verde-100 flex items-center justify-center flex-shrink-0">
+                <span class="text-verde-700 font-bold text-sm">{t.initials}</span>
+              </div>
+              <div>
+                <p class="font-bold text-verde-900 text-sm">{t.nombre}</p>
+                <p class="text-xs text-gray-400">{t.rol}</p>
+              </div>
+              <span class="ml-auto text-xs text-amber-500 font-semibold bg-amber-50 px-2 py-0.5 rounded-full">{t.año}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured quote -->
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <svg class="h-12 w-12 text-amber-300 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+      </svg>
+      <blockquote class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 leading-snug mb-6">
+        "Cuando una comunidad cuida su entorno, el entorno cuida a la comunidad. ASISTEDCOS nos enseñó que la conservación empieza por las personas."
+      </blockquote>
+      <p class="text-amber-600 font-bold">Ing. Jorge Flores</p>
+      <p class="text-gray-400 text-sm">Coordinador municipal de medio ambiente — La Libertad</p>
+    </div>
+  </section>
+
+  <!-- Alianzas testimonios -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Aliados que nos respaldan</span>
+        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Lo que dicen nuestros socios</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        {alianzas.map(a => (
+          <div class="bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 p-6">
+            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-4">
+              <svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">"{a.testimonio}"</p>
+            <p class="font-bold text-verde-900 text-sm">{a.nombre}</p>
+            <p class="text-xs text-gray-400">{a.tipo}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — Comparte tu historia -->
+  <section class="py-20 bg-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover opacity-15" />
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 text-center">
+      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Tu voz importa</span>
+      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">¿Tienes una historia que compartir?</h2>
+      <p class="text-gray-300 text-lg mb-8">
+        Si has participado en nuestros proyectos o tu comunidad ha sido beneficiada, nos encantaría escucharte y compartir tu experiencia.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contacto" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg text-lg">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          Escríbenos
+        </a>
+        <a href="/donar" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors text-lg">
+          ♥ Donar ahora
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
