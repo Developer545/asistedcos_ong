@@ -33,8 +33,8 @@ export const POST: APIRoute = async ({ request }) => {
         },
       ],
       mode: 'payment',
-      success_url: 'https://asistedcos.org/gracias?donated=true',
-      cancel_url: 'https://asistedcos.org/donar',
+      success_url: 'https://asistedcosong.vercel.app/gracias?donated=true',
+      cancel_url: 'https://asistedcosong.vercel.app/donar',
       metadata: { source: 'website_donation' },
     });
 
