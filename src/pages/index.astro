@@ -768,9 +768,7 @@ const teamMembers = [
   ══════════════════════════════════════ */
   .ds-hero {
     position: relative; overflow: hidden;
-    background:
-      linear-gradient(to right, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.65) 55%, rgba(255,255,255,0.40) 100%),
-      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center center / cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center center / cover no-repeat;
     padding: 7rem 0 5rem;
     min-height: 90vh; display: flex; align-items: center;
   }
@@ -785,7 +783,13 @@ const teamMembers = [
   }
   @media(max-width:900px){ .ds-hero-inner{ grid-template-columns:1fr; } }
 
-  .ds-hero-text {}
+  .ds-hero-text {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 2.5rem 2rem;
+    border-left: 4px solid var(--ds-accent);
+  }
   .ds-hero-sub {
     font-size: 1.05rem; color: var(--ds-gray);
     line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem;
