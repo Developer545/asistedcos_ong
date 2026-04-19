@@ -4,17 +4,17 @@ import Layout from '../layouts/Layout.astro';
 
 const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
 
-type NewsItem     = { id: string; title: string; slug: string; summary?: string; coverImage?: string; publishedAt?: string };
-type CauseItem    = { id: string; titulo: string; descripcion?: string; tag?: string; coverImage?: string; meta: number; recaudado: number };
-type FaqItem      = { id: string; question: string; answer: string };
-type GalleryItem  = { id: string; title?: string; url: string; category?: string };
-type PartnerItem  = { id: string; name: string; logo?: string; url?: string };
+type NewsItem    = { id: string; title: string; slug: string; summary?: string; coverImage?: string; publishedAt?: string };
+type CauseItem   = { id: string; titulo: string; descripcion?: string; tag?: string; coverImage?: string; meta: number; recaudado: number };
+type FaqItem     = { id: string; question: string; answer: string };
+type GalleryItem = { id: string; title?: string; url: string; category?: string };
+type PartnerItem = { id: string; name: string; logo?: string; url?: string };
 
-let latestNews: NewsItem[]    = [];
-let causeCards: CauseItem[]   = [];
-let faqItems: FaqItem[]       = [];
+let latestNews: NewsItem[]     = [];
+let causeCards: CauseItem[]    = [];
+let faqItems: FaqItem[]        = [];
 let galleryItems: GalleryItem[] = [];
-let partners: PartnerItem[]   = [];
+let partners: PartnerItem[]    = [];
 let siteContent: Record<string, string> = {};
 
 await Promise.allSettled([
@@ -47,8 +47,9 @@ const testimonials = [
 
 const teamMembers = [
   { initials: 'BJ', nombre: 'Lic. Blanca Estela Juárez', cargo: 'Directora Ejecutiva' },
-  { initials: 'ET', nombre: 'Equipo Técnico', cargo: 'Especialistas en Gestión Ambiental' },
-  { initials: '+20', nombre: 'Voluntarios', cargo: 'Colaboradores activos en campo' },
+  { initials: 'ET', nombre: 'Equipo Técnico', cargo: 'Gestión Ambiental' },
+  { initials: 'CM', nombre: 'Campo y Monitoreo', cargo: 'Reforestación' },
+  { initials: '+20', nombre: 'Voluntarios', cargo: 'Colaboradores activos' },
 ];
 ---
 
@@ -57,289 +58,216 @@ const teamMembers = [
   description="Recuperando ecosistemas para la biodiversidad y la humanidad en El Salvador desde 1997."
 >
 
-<!-- ===================== HERO ===================== -->
-<section class="hero-section relative overflow-hidden" style="background-color:#081509; height:100vh; min-height:620px; max-height:960px;">
+<!-- ══════════════════════════════════════════════
+     HERO  — split layout + collage + deco number
+══════════════════════════════════════════════════ -->
+<section class="ds-hero">
+  <!-- Decorative number -->
+  <div class="ds-deco-num" aria-hidden="true">.01</div>
 
-  <!-- Background image with blend -->
-  <div class="absolute inset-0">
-    <img
-      src={siteContent['hero__imagen'] || '/images/reforestacion-aerea.jpg'}
-      alt="Reforestación costera El Salvador"
-      class="w-full h-full object-cover"
-      fetchpriority="high"
-      style="opacity:0.35; mix-blend-mode: luminosity;"
-    />
-  </div>
-  <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(8,21,9,0.98) 35%, rgba(8,21,9,0.55) 70%, rgba(8,21,9,0.20) 100%);"></div>
+  <div class="ds-container ds-hero-inner">
 
-  <!-- Slide counter — right side vertical (Desart pattern) -->
-  <div class="absolute right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3" style="writing-mode: vertical-rl; transform: translateY(-50%) rotate(180deg);">
-    <span class="text-amber-500 font-bold text-xs tracking-[0.3em]">01 / 01</span>
-    <div class="w-px h-16 bg-white/20"></div>
-    <span class="text-white/30 text-xs tracking-[0.3em] uppercase">Inicio</span>
-  </div>
-
-  <!-- Content -->
-  <div class="relative h-full flex items-center">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
-      <div class="max-w-3xl">
-
-        <!-- Section tag -->
-        <div class="flex items-center gap-4 mb-8 animate-fade-up">
-          <div class="w-12 h-px bg-amber-500"></div>
-          <span class="text-amber-500 text-xs font-bold uppercase tracking-[0.35em]">Desde 1997 &middot; El Salvador</span>
-        </div>
-
-        <!-- Heading -->
-        <h1 class="font-heading font-extrabold text-white leading-none mb-8 animate-fade-up-delay hero-title">
-          Recuperando<br/>
-          <em class="not-italic text-amber-400">ecosistemas</em><br/>
-          para la vida
-        </h1>
-
-        <!-- Subtitle -->
-        <p class="mb-10 max-w-lg leading-relaxed animate-fade-up-delay-2" style="color:rgba(255,255,255,0.65); font-size:1.15rem;">
-          Trabajamos con comunidades rurales de El Salvador para restaurar bosques, proteger manglares y construir un futuro sostenible.
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 animate-fade-up-delay-2">
-          <a href="/donar" class="hero-btn-primary inline-flex items-center justify-center gap-3 font-bold text-sm uppercase tracking-wider px-10 py-4 transition-all duration-300">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            Apoya la misión
-          </a>
-          <a href="/proyectos" class="hero-btn-secondary inline-flex items-center justify-center gap-3 font-bold text-sm uppercase tracking-wider px-10 py-4 transition-all duration-300 text-white">
-            Ver proyectos
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
-        </div>
-
+    <!-- Left: text -->
+    <div class="ds-hero-text animate-fade-up">
+      <p class="ds-eyebrow">ONG Ambiental &mdash; El Salvador, desde 1997</p>
+      <h1 class="ds-h1">
+        Recuperando<br/>
+        <span class="ds-accent">ecosistemas</span><br/>
+        para la vida
+      </h1>
+      <p class="ds-hero-sub">
+        Trabajamos con comunidades rurales de El Salvador para restaurar bosques, proteger manglares y construir un futuro sostenible.
+      </p>
+      <div class="ds-hero-actions">
+        <a href="/donar" class="ds-btn">Apoya la misión</a>
+        <a href="/proyectos" class="ds-btn-ghost">Ver proyectos &rarr;</a>
       </div>
     </div>
-  </div>
 
-  <!-- Stats strip -->
-  <div class="absolute bottom-0 left-0 right-0" style="background:rgba(0,0,0,0.5); border-top:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px);">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-2 md:grid-cols-4">
-        {[
-          { num: '27+',  label: 'Años de trabajo' },
-          { num: '50+',  label: 'Comunidades' },
-          { num: '10K+', label: 'Árboles plantados' },
-          { num: '6',    label: 'Proyectos activos' },
-        ].map((s, i) => (
-          <div class={`px-6 py-5 text-center ${i < 3 ? 'border-r border-white/10' : ''}`}>
-            <div class="font-heading text-2xl font-extrabold text-amber-400">{s.num}</div>
-            <div class="text-xs uppercase tracking-wider mt-1" style="color:rgba(255,255,255,0.40);">{s.label}</div>
-          </div>
-        ))}
+    <!-- Right: photo collage -->
+    <div class="ds-hero-collage animate-fade-up-delay">
+      <div class="ds-collage-main">
+        <img
+          src={siteContent['hero__imagen'] || '/images/reforestacion-aerea.jpg'}
+          alt="Reforestación costera El Salvador"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="ds-collage-over">
+        <img
+          src={siteContent['about__imagen'] || '/images/voluntaria-plantando.jpg'}
+          alt="Voluntaria plantando"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== CÓMO AYUDAR ===================== -->
-<section class="section-lg bg-white">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-      <div>
-        <div class="section-label mb-4">
-          <span class="label-line"></span>
-          <span>¿Cómo puedes ayudar?</span>
-        </div>
-        <h2 class="section-title">Formas de<br/><span class="text-amber-500">contribuir</span></h2>
-      </div>
-      <p class="text-gray-500 max-w-sm leading-relaxed text-sm md:text-right">
-        Hay muchas formas de contribuir a la recuperación de nuestros ecosistemas. Encuentra la que se ajuste a ti.
-      </p>
-    </div>
-
-    <!-- Cards grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- ══════════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════════════ -->
+<section class="ds-stats-bar">
+  <div class="ds-container">
+    <div class="ds-stats-grid" id="counters-section">
       {[
-        {
-          num: '01',
-          icon: `<svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
-          titulo: 'Donar',
-          desc: 'Tu aporte financia proyectos de reforestación y protección de manglares en El Salvador.',
-          href: '/donar', cta: 'Donar ahora',
-        },
-        {
-          num: '02',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
-          titulo: 'Voluntariar',
-          desc: 'Únete a jornadas de trabajo comunitario, plantación y monitoreo de ecosistemas.',
-          href: '/contacto', cta: 'Ser voluntario',
-        },
-        {
-          num: '03',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
-          titulo: 'Aliarte',
-          desc: 'Las empresas que nos apoyan generan impacto ambiental real y medible en conservación.',
-          href: '/contacto', cta: 'Ser aliado',
-        },
-        {
-          num: '04',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>`,
-          titulo: 'Difundir',
-          desc: 'Comparte nuestra misión en redes sociales y ayúdanos a llegar a más personas.',
-          href: 'https://www.facebook.com/FundacionAsistedcos', cta: 'Compartir',
-        },
-      ].map(item => (
-        <div class="service-card group">
-          <div class="service-card-num">{item.num}</div>
-          <div class="service-card-icon text-amber-500 mb-5">
-            <Fragment set:html={item.icon} />
+        { count: 125,  suffix: '',  label: 'Comunidades apoyadas' },
+        { count: 27,   suffix: '+', label: 'Años de trayectoria' },
+        { count: 10000,suffix: '+', label: 'Árboles plantados' },
+        { count: 6,    suffix: '',  label: 'Proyectos activos' },
+      ].map(s => (
+        <div class="ds-stat">
+          <div class="ds-stat-num">
+            <span data-count={s.count} class="counter-num">0</span>
+            <span class="ds-stat-suffix">{s.suffix}</span>
           </div>
-          <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">{item.titulo}</h3>
-          <p class="text-gray-500 text-sm leading-relaxed flex-1 mb-6" style="font-size:0.95rem;">{item.desc}</p>
-          <a href={item.href} class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider transition-colors duration-300" style="color:#2d7a3a;">
-            {item.cta}
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </a>
+          <div class="ds-stat-label">{s.label}</div>
         </div>
       ))}
     </div>
   </div>
 </section>
 
-<!-- ===================== ABOUT + COUNTERS ===================== -->
-<section class="section-lg" style="background-color:#f7f7f7;">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
+<!-- ══════════════════════════════════════════════
+     ABOUT  — text left + overlapping photos right
+══════════════════════════════════════════════════ -->
+<section class="ds-section ds-about">
+  <!-- Decorative number -->
+  <div class="ds-deco-num ds-deco-right" aria-hidden="true">.02</div>
 
-      <!-- Image stack -->
-      <div class="relative">
-        <div class="about-img-main">
-          <img
-            src={siteContent['about__imagen'] || '/images/voluntaria-plantando.jpg'}
-            alt="Voluntaria de ASISTEDCOS plantando árboles"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        <!-- Shadow block Desart style -->
-        <div class="about-img-shadow"></div>
-        <!-- Year badge -->
-        <div class="absolute bottom-6 right-6 bg-white px-6 py-5 shadow-card">
-          <div class="font-heading text-4xl font-extrabold" style="color:#081509;">27<span class="text-amber-500">+</span></div>
-          <div class="text-xs uppercase tracking-wider text-gray-500 mt-1">Años de experiencia</div>
-        </div>
+  <div class="ds-container ds-about-inner">
+
+    <!-- Left text -->
+    <div class="ds-about-text">
+      <p class="ds-eyebrow">Quiénes somos</p>
+      <h2 class="ds-h2">
+        Somos el equipo<br/>
+        que cuida el<br/>
+        <span class="ds-accent">planeta</span>
+      </h2>
+      <p class="ds-body">
+        ASISTEDCOS nació en 1997 para atender las secuelas ambientales y sociales de la posguerra en El Salvador. A través de asistencia técnica especializada, promovemos la autogestión comunitaria y la restauración ecológica.
+      </p>
+      <p class="ds-body">
+        Trabajamos con comunidades rurales, semi-rurales y urbanas, facilitando la cooperación entre el sector público, privado y organismos internacionales.
+      </p>
+      <a href="/nosotros" class="ds-btn ds-btn-sm">Conoce nuestra historia</a>
+    </div>
+
+    <!-- Right: overlapping photos -->
+    <div class="ds-about-collage">
+      <div class="ds-about-img-back">
+        <img
+          src={siteContent['about__imagen'] || '/images/voluntaria-plantando.jpg'}
+          alt="Trabajo comunitario ASISTEDCOS"
+          loading="lazy"
+        />
       </div>
-
-      <!-- Text -->
-      <div>
-        <div class="section-label mb-5">
-          <span class="label-line"></span>
-          <span>Nuestra misión</span>
-        </div>
-        <h2 class="section-title mb-6">
-          Ecosistemas<br/>saludables,<br/><span class="text-amber-500">comunidades</span><br/>prósperas
-        </h2>
-        <p class="text-gray-500 leading-relaxed mb-4" style="font-size:1rem;">
-          ASISTEDCOS nació en 1997 para atender las secuelas ambientales y sociales de la posguerra en El Salvador. A través de asistencia técnica especializada, promovemos la autogestión comunitaria y la restauración ecológica.
-        </p>
-        <p class="text-gray-500 leading-relaxed mb-10" style="font-size:1rem;">
-          Trabajamos con comunidades rurales, semi-rurales y urbanas, facilitando la cooperación entre el sector público, privado y organismos internacionales.
-        </p>
-
-        <!-- Counters 2×2 -->
-        <div class="grid grid-cols-2 gap-6 mb-10" id="counters-section">
-          {[
-            { count: 27,    suffix: '+', label: 'Años de trabajo' },
-            { count: 50,    suffix: '+', label: 'Comunidades apoyadas' },
-            { count: 10000, suffix: '+', label: 'Árboles plantados' },
-            { count: 6,     suffix: '',  label: 'Proyectos activos' },
-          ].map(item => (
-            <div class="counter-box">
-              <div class="font-heading text-4xl font-extrabold flex items-baseline gap-0.5" style="color:#081509;">
-                <span data-count={item.count} class="counter-num">0</span>
-                <span class="text-amber-500">{item.suffix}</span>
-              </div>
-              <div class="w-8 h-0.5 bg-amber-500 mt-2 mb-2"></div>
-              <p class="text-xs uppercase tracking-wider text-gray-400">{item.label}</p>
-            </div>
-          ))}
-        </div>
-
-        <a href="/nosotros" class="btn-primary inline-flex items-center gap-3">
-          Conoce nuestra historia
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
+      <div class="ds-about-img-front">
+        <img
+          src={siteContent['hero__imagen'] || '/images/reforestacion-aerea.jpg'}
+          alt="Reforestación en El Salvador"
+          loading="lazy"
+          style="filter: grayscale(30%);"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== CAUSAS ===================== -->
-<section class="section-lg bg-white">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-      <div>
-        <div class="section-label mb-4">
-          <span class="label-line"></span>
-          <span>Lo que hacemos</span>
-        </div>
-        <h2 class="section-title">Causas que<br/><span class="text-amber-500">impulsamos</span></h2>
-      </div>
-      <a href="/proyectos" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider group transition-colors duration-300" style="color:#2d7a3a;">
-        Ver todos los proyectos
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-      </a>
+<!-- ══════════════════════════════════════════════
+     SERVICIOS / CÓMO AYUDAR  — minimal icon cards
+══════════════════════════════════════════════════ -->
+<section class="ds-section" style="background:#f7f7f7;">
+  <div class="ds-deco-num ds-deco-left" aria-hidden="true">.03</div>
+  <div class="ds-container">
+    <div class="ds-section-head ds-center">
+      <p class="ds-eyebrow">Súmate</p>
+      <h2 class="ds-h2">¿Cómo puedes<br/><span class="ds-accent">ayudar</span>?</h2>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="ds-services-grid">
+      {[
+        {
+          icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+          titulo: 'Donar',
+          desc: 'Tu aporte financia proyectos de reforestación y protección de manglares en El Salvador.',
+          href: '/donar', cta: 'Donar ahora',
+        },
+        {
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+          titulo: 'Voluntariar',
+          desc: 'Únete a jornadas de trabajo comunitario, plantación y monitoreo de ecosistemas.',
+          href: '/contacto', cta: 'Ser voluntario',
+        },
+        {
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`,
+          titulo: 'Aliarte',
+          desc: 'Las empresas que nos apoyan generan impacto ambiental real y medible en conservación.',
+          href: '/contacto', cta: 'Ser aliado',
+        },
+        {
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>`,
+          titulo: 'Difundir',
+          desc: 'Comparte nuestra misión en redes sociales y ayúdanos a llegar a más personas.',
+          href: 'https://www.facebook.com/FundacionAsistedcos', cta: 'Compartir',
+        },
+      ].map(s => (
+        <div class="ds-service group">
+          <div class="ds-service-icon">{<Fragment set:html={s.icon} />}</div>
+          <h3 class="ds-service-title">{s.titulo}</h3>
+          <p class="ds-service-desc">{s.desc}</p>
+          <a href={s.href} class="ds-link">{s.cta} &rarr;</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CAUSAS  — portfolio grid
+══════════════════════════════════════════════════ -->
+{causeCards.length > 0 && (
+<section class="ds-section bg-white">
+  <div class="ds-container">
+    <div class="ds-section-head">
+      <div>
+        <p class="ds-eyebrow">Lo que hacemos</p>
+        <h2 class="ds-h2">Causas que<br/><span class="ds-accent">impulsamos</span></h2>
+      </div>
+      <a href="/proyectos" class="ds-link ds-link-lg">Ver todos los proyectos &rarr;</a>
+    </div>
+
+    <div class="ds-causes-grid">
       {causeCards.map(cause => {
         const meta = Number(cause.meta);
         const rec  = Number(cause.recaudado);
         const pct  = meta > 0 ? Math.round((rec / meta) * 100) : 0;
         return (
-          <div class="cause-card group">
-            <!-- Image -->
-            <div class="cause-img-wrap">
+          <div class="ds-cause group">
+            <div class="ds-cause-img">
               <img
                 src={cause.coverImage || '/images/reforestacion-aerea.jpg'}
                 alt={cause.titulo}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                class="group-hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
-              {cause.tag && (
-                <span class="cause-tag">{cause.tag}</span>
-              )}
-              <span class="cause-pct">{pct}%</span>
+              {cause.tag && <span class="ds-cause-tag">{cause.tag}</span>}
             </div>
-            <!-- Body -->
-            <div class="p-6">
-              <h3 class="font-heading font-bold text-lg text-gray-900 mb-2 leading-snug">{cause.titulo}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed mb-5" style="font-size:0.9rem;">{cause.descripcion}</p>
-              <!-- Progress bar -->
-              <div class="mb-4">
-                <div class="flex justify-between text-xs font-bold mb-2">
-                  <span class="text-gray-400 uppercase tracking-wider">Progreso</span>
-                  <span style="color:#2d7a3a;">{pct}%</span>
+            <div class="ds-cause-body">
+              <h3 class="ds-cause-title">{cause.titulo}</h3>
+              <p class="ds-cause-desc">{cause.descripcion}</p>
+              <!-- progress -->
+              <div class="ds-progress-wrap">
+                <div class="ds-progress-bar">
+                  <div class="ds-progress-fill" style={`width:${Math.min(pct,100)}%`}></div>
                 </div>
-                <div class="w-full h-1.5 bg-gray-100">
-                  <div class="h-1.5 bg-amber-500 transition-all duration-1000" style={`width:${Math.min(pct, 100)}%;`}></div>
-                </div>
-              </div>
-              <!-- Stats row -->
-              <div class="grid grid-cols-3 text-center border-t border-gray-100 pt-4 mb-5">
-                <div>
-                  <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">Meta</div>
-                  <div class="font-bold text-sm text-gray-800">${(meta/1000).toFixed(0)}k</div>
-                </div>
-                <div class="border-x border-gray-100">
-                  <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">Logrado</div>
-                  <div class="font-bold text-sm" style="color:#2d7a3a;">${rec.toLocaleString()}</div>
-                </div>
-                <div>
-                  <div class="text-xs text-gray-400 uppercase tracking-wider mb-1">Faltante</div>
-                  <div class="font-bold text-sm text-amber-500">${Math.max(0, meta - rec).toLocaleString()}</div>
+                <div class="ds-progress-meta">
+                  <span class="ds-progress-pct">{pct}% logrado</span>
+                  <span class="ds-progress-goal">Meta: <strong>${(meta/1000).toFixed(0)}k</strong></span>
                 </div>
               </div>
-              <a href="/donar" class="btn-primary block text-center text-sm">Donar a esta causa</a>
+              <a href="/donar" class="ds-btn ds-btn-sm ds-btn-block">Donar a esta causa</a>
             </div>
           </div>
         );
@@ -347,175 +275,141 @@ const teamMembers = [
     </div>
   </div>
 </section>
-
-<!-- ===================== GALERÍA ===================== -->
-{galleryItems.length > 0 && (
-  <section class="section-lg" style="background-color:#081509;">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-        <div>
-          <div class="section-label mb-4" style="--label-color:#f59e0b; --label-text:rgba(255,255,255,0.5);">
-            <span class="label-line" style="background:#f59e0b;"></span>
-            <span style="color:rgba(255,255,255,0.5);">Nuestro trabajo</span>
-          </div>
-          <h2 class="section-title text-white">Galería de<br/><span class="text-amber-400">impacto</span></h2>
-        </div>
-        <p class="text-white/40 text-sm max-w-xs leading-relaxed">Imágenes de nuestros proyectos en el campo, documentando el cambio real.</p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {galleryItems.slice(0, 6).map(item => (
-          <div class="gallery-item group" style="aspect-ratio:4/3;">
-            <img
-              src={item.url}
-              alt={item.title || 'Galería ASISTEDCOS'}
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-              loading="lazy"
-            />
-            <div class="gallery-overlay">
-              {item.title && (
-                <div class="p-5">
-                  <p class="text-white text-sm font-semibold">{item.title}</p>
-                  {item.category && <p class="text-amber-400 text-xs mt-1 uppercase tracking-wider">{item.category}</p>}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 )}
 
-<!-- ===================== CÓMO TRABAJAMOS ===================== -->
-<section class="section-lg bg-white">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div class="text-center mb-16">
-      <div class="section-label justify-center mb-4">
-        <span class="label-line"></span>
-        <span>Nuestro proceso</span>
-        <span class="label-line"></span>
+<!-- ══════════════════════════════════════════════
+     CTA BANNER OSCURO  — Desart style dark band
+══════════════════════════════════════════════════ -->
+<section class="ds-cta-band">
+  <!-- Foto que sangra a la derecha -->
+  <div class="ds-cta-img">
+    <img
+      src={siteContent['about__imagen'] || '/images/voluntaria-plantando.jpg'}
+      alt="Voluntaria ASISTEDCOS"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="ds-container ds-cta-inner">
+    <div class="ds-cta-content">
+      <p class="ds-eyebrow ds-eyebrow-light">Haz la diferencia hoy</p>
+      <h2 class="ds-h2 text-white">
+        Tu donación<br/>
+        <span class="ds-accent">restaura ecosistemas</span>
+      </h2>
+      <p class="ds-cta-sub">Cada aporte nos permite plantar más árboles, proteger más manglares y acompañar más comunidades.</p>
+      <p class="ds-cta-legal">
+        <svg class="inline w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Donaciones deducibles &mdash; Art. 32 Ley de Renta El Salvador
+      </p>
+      <!-- Amount buttons -->
+      <div class="ds-amounts">
+        {['$10','$25','$50','$100','$250','Otro monto'].map(a => (
+          <a href="/donar" class="ds-amount-btn amount-btn">{a}</a>
+        ))}
       </div>
-      <h2 class="section-title mx-auto">¿Cómo <span class="text-amber-500">trabajamos</span>?</h2>
-      <p class="text-gray-500 mt-4 max-w-xl mx-auto leading-relaxed" style="font-size:0.95rem;">Un proceso metodológico que garantiza impacto real y sostenible en cada comunidad.</p>
+      <div class="ds-cta-btns">
+        <a href="/donar" class="ds-btn">Donar ahora</a>
+        <a href="/contacto" class="ds-btn-ghost-light">Ser voluntario &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     GALERÍA
+══════════════════════════════════════════════════ -->
+{galleryItems.length > 0 && (
+<section class="ds-section" style="background:#f7f7f7;">
+  <div class="ds-container">
+    <div class="ds-section-head ds-center">
+      <p class="ds-eyebrow">Nuestro trabajo</p>
+      <h2 class="ds-h2">Galería de <span class="ds-accent">impacto</span></h2>
+    </div>
+    <div class="ds-gallery-grid">
+      {galleryItems.slice(0,6).map(item => (
+        <div class="ds-gallery-item group">
+          <img
+            src={item.url}
+            alt={item.title || 'Galería ASISTEDCOS'}
+            class="group-hover:scale-110 transition-transform duration-700"
+            loading="lazy"
+          />
+          <div class="ds-gallery-overlay">
+            {item.title && <p class="ds-gallery-title">{item.title}</p>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+)}
+
+<!-- ══════════════════════════════════════════════
+     CÓMO TRABAJAMOS  — 3 steps horizontal
+══════════════════════════════════════════════════ -->
+<section class="ds-section bg-white">
+  <div class="ds-deco-num ds-deco-right" aria-hidden="true">.04</div>
+  <div class="ds-container">
+    <div class="ds-section-head ds-center">
+      <p class="ds-eyebrow">Nuestro proceso</p>
+      <h2 class="ds-h2">¿Cómo <span class="ds-accent">trabajamos</span>?</h2>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-0 border border-gray-100">
+    <div class="ds-process-grid">
       {[
         {
-          num: '01',
-          titulo: 'Identificamos',
+          num: '01', titulo: 'Identificamos',
           desc: 'Realizamos diagnósticos ambientales y sociales para entender las necesidades específicas de cada comunidad y ecosistema.',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
         },
         {
-          num: '02',
-          titulo: 'Actuamos',
+          num: '02', titulo: 'Actuamos',
           desc: 'Implementamos proyectos de reforestación, conservación y desarrollo comunitario con participación local activa.',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
         },
         {
-          num: '03',
-          titulo: 'Medimos',
+          num: '03', titulo: 'Medimos',
           desc: 'Monitoreamos y evaluamos el impacto de cada intervención para garantizar resultados tangibles y sostenibles.',
-          icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
+          icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>`,
         },
       ].map((step, i) => (
-        <div class={`process-step group ${i < 2 ? 'border-r border-gray-100' : ''}`}>
-          <div class="process-num">{step.num}</div>
-          <div class="text-amber-500 mb-5">
-            <Fragment set:html={step.icon} />
-          </div>
-          <h3 class="font-heading font-bold text-xl text-gray-900 mb-3">{step.titulo}</h3>
-          <p class="text-gray-500 leading-relaxed" style="font-size:0.9rem;">{step.desc}</p>
+        <div class={`ds-process-step ${i < 2 ? 'ds-process-divider' : ''}`}>
+          <div class="ds-process-num">{step.num}</div>
+          <div class="ds-process-icon"><Fragment set:html={step.icon} /></div>
+          <h3 class="ds-process-title">{step.titulo}</h3>
+          <p class="ds-process-desc">{step.desc}</p>
         </div>
       ))}
     </div>
   </div>
 </section>
 
-<!-- ===================== CTA DONACIÓN (dark) ===================== -->
-<section class="section-lg relative overflow-hidden" style="background-color:#081509;">
-  <!-- Large decorative text -->
-  <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-    <span class="font-heading font-extrabold text-white select-none" style="font-size:18vw; opacity:0.03; line-height:1;">DONAR</span>
-  </div>
-
-  <div class="relative max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-    <div class="section-label justify-center mb-6">
-      <span class="label-line" style="background:#f59e0b;"></span>
-      <span style="color:rgba(255,255,255,0.4);">Haz la diferencia</span>
-      <span class="label-line" style="background:#f59e0b;"></span>
+<!-- ══════════════════════════════════════════════
+     TESTIMONIOS
+══════════════════════════════════════════════════ -->
+<section class="ds-section" style="background:#f7f7f7;">
+  <div class="ds-container">
+    <div class="ds-section-head ds-center">
+      <p class="ds-eyebrow">Testimonios</p>
+      <h2 class="ds-h2">Lo que dice<br/><span class="ds-accent">nuestra comunidad</span></h2>
     </div>
 
-    <h2 class="font-heading font-extrabold text-white leading-none mb-6" style="font-size:clamp(2.5rem,6vw,4rem);">
-      Tu donación restaura<br/>
-      <span class="text-amber-400">ecosistemas</span>
-    </h2>
-
-    <p class="mb-3 max-w-lg mx-auto leading-relaxed" style="color:rgba(189,231,195,0.75); font-size:1.05rem;">
-      Cada aporte nos permite plantar más árboles, proteger más manglares y acompañar más comunidades.
-    </p>
-    <p class="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider mb-10 text-amber-500">
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Donaciones deducibles — Art. 32 Ley de Renta El Salvador
-    </p>
-
-    <!-- Amount selector -->
-    <div class="flex flex-wrap justify-center gap-3 mb-10">
-      {['$10', '$25', '$50', '$100', '$250', 'Otro monto'].map(amount => (
-        <a href="/donar" class="amount-btn text-sm font-bold uppercase tracking-wider px-7 py-3 transition-all duration-300 text-white" style="border:1px solid rgba(255,255,255,0.15);">
-          {amount}
-        </a>
-      ))}
-    </div>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/donar" class="btn-primary inline-flex items-center justify-center gap-3">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        Donar ahora
-      </a>
-      <a href="/contacto" class="btn-outline-white inline-flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider px-9 py-4">
-        Ser voluntario
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== TESTIMONIOS ===================== -->
-<section class="section-lg" style="background-color:#f7f7f7;">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-
-    <div class="text-center mb-16">
-      <div class="section-label justify-center mb-4">
-        <span class="label-line"></span>
-        <span>Testimonios</span>
-        <span class="label-line"></span>
-      </div>
-      <h2 class="section-title mx-auto">Lo que dice<br/><span class="text-amber-500">nuestra comunidad</span></h2>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="ds-testi-grid">
       {testimonials.map(t => (
-        <div class="testimonial-card group">
+        <div class="ds-testi group">
           <!-- Stars -->
-          <div class="flex gap-1 mb-6">
+          <div class="ds-stars">
             {[1,2,3,4,5].map(() => (
-              <svg class="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="ds-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
             ))}
           </div>
-          <!-- Quote mark -->
-          <div class="font-heading text-6xl font-extrabold leading-none mb-2" style="color:#e8ede8;">"</div>
-          <p class="text-gray-600 text-sm leading-relaxed flex-1 mb-6 -mt-3" style="font-size:0.95rem;">{t.quote}</p>
-          <!-- Author -->
-          <div class="flex items-center gap-4 border-t border-gray-100 pt-5">
-            <div class="w-11 h-11 flex items-center justify-center font-bold text-sm text-white flex-shrink-0" style="background-color:#2d7a3a;">
-              {t.initials}
-            </div>
+          <p class="ds-testi-quote">&ldquo;{t.quote}&rdquo;</p>
+          <div class="ds-testi-author">
+            <div class="ds-testi-avatar">{t.initials}</div>
             <div>
-              <p class="font-bold text-gray-900 text-sm">{t.name}</p>
-              <p class="text-gray-400 text-xs uppercase tracking-wider mt-0.5">{t.role}</p>
+              <p class="ds-testi-name">{t.name}</p>
+              <p class="ds-testi-role">{t.role}</p>
             </div>
           </div>
         </div>
@@ -524,430 +418,872 @@ const teamMembers = [
   </div>
 </section>
 
-<!-- ===================== FAQ ===================== -->
+<!-- ══════════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════════════ -->
 {faqItems.length > 0 && (
-  <section class="section-lg bg-white">
-    <div class="max-w-3xl mx-auto px-6 sm:px-8">
-      <div class="text-center mb-14">
-        <div class="section-label justify-center mb-4">
-          <span class="label-line"></span>
-          <span>Dudas frecuentes</span>
-          <span class="label-line"></span>
-        </div>
-        <h2 class="section-title mx-auto">Preguntas<br/><span class="text-amber-500">frecuentes</span></h2>
-      </div>
-
-      <div id="faq-list">
-        {faqItems.map((item, idx) => (
-          <div class="faq-item border-b border-gray-100">
-            <button
-              class="faq-trigger w-full text-left py-5 flex items-center justify-between gap-4"
-              data-index={idx}
-              aria-expanded="false"
-            >
-              <span class="font-semibold text-gray-900 text-sm md:text-base pr-4">{item.question}</span>
-              <span class="faq-icon flex-shrink-0 w-8 h-8 flex items-center justify-center text-white font-bold text-xl transition-all duration-300" style="background-color:#081509;">+</span>
-            </button>
-            <div class="faq-answer hidden pb-5">
-              <p class="text-gray-500 leading-relaxed text-sm">{item.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+<section class="ds-section bg-white">
+  <div class="ds-container ds-faq-wrap">
+    <div class="ds-faq-head">
+      <p class="ds-eyebrow">Dudas frecuentes</p>
+      <h2 class="ds-h2">Preguntas<br/><span class="ds-accent">frecuentes</span></h2>
     </div>
-  </section>
+    <div class="ds-faq-list" id="faq-list">
+      {faqItems.map((item, idx) => (
+        <div class="ds-faq-item">
+          <button class="faq-trigger ds-faq-trigger" data-index={idx} aria-expanded="false">
+            <span>{item.question}</span>
+            <span class="faq-icon ds-faq-icon">+</span>
+          </button>
+          <div class="faq-answer ds-faq-answer hidden">
+            <p>{item.answer}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 )}
 
-<!-- ===================== EQUIPO ===================== -->
-<section class="section-lg" style="background-color:#f7f7f7;">
-  <div class="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div class="text-center mb-14">
-      <div class="section-label justify-center mb-4">
-        <span class="label-line"></span>
-        <span>Equipo</span>
-        <span class="label-line"></span>
-      </div>
-      <h2 class="section-title mx-auto">Nuestro <span class="text-amber-500">equipo</span></h2>
-      <p class="text-gray-500 mt-4 text-sm">Las personas detrás de cada árbol plantado y comunidad apoyada.</p>
+<!-- ══════════════════════════════════════════════
+     EQUIPO  — portrait cards
+══════════════════════════════════════════════════ -->
+<section class="ds-section" style="background:#f7f7f7;">
+  <div class="ds-container">
+    <div class="ds-section-head ds-center">
+      <p class="ds-eyebrow">Equipo</p>
+      <h2 class="ds-h2">Expertos en<br/><span class="ds-accent">su área</span></h2>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
+
+    <div class="ds-team-grid">
       {teamMembers.map(m => (
-        <div class="team-card group">
-          <div class="team-avatar" style="background-color:#081509;">{m.initials}</div>
-          <div class="w-8 h-0.5 bg-amber-500 mx-auto my-4"></div>
-          <h3 class="font-heading font-bold text-base text-gray-900 mb-1">{m.nombre}</h3>
-          <p class="text-gray-400 text-xs uppercase tracking-wider">{m.cargo}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ===================== NOTICIAS ===================== -->
-{latestNews.length > 0 && (
-  <section class="section-lg bg-white">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-        <div>
-          <div class="section-label mb-4">
-            <span class="label-line"></span>
-            <span>Últimas novedades</span>
+        <div class="ds-team-card group">
+          <div class="ds-team-photo">
+            <span class="ds-team-initials">{m.initials}</span>
+            <div class="ds-team-overlay"></div>
           </div>
-          <h2 class="section-title">Noticias &amp; <br/><span class="text-amber-500">actualidad</span></h2>
-        </div>
-        <a href="/noticias" class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider group transition-colors duration-300" style="color:#2d7a3a;">
-          Ver todas las noticias
-          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        {latestNews.map(item => (
-          <a href={`/noticias/${item.slug}`} class="news-card group">
-            <!-- Image -->
-            <div class="news-img-wrap">
-              {item.coverImage
-                ? <img src={item.coverImage} alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-                : <div class="w-full h-full flex items-center justify-center" style="background:linear-gradient(135deg,#bde7c3,#5ab96a);">
-                    <svg class="h-12 w-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#2d7a3a;">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                    </svg>
-                  </div>
-              }
-              {item.publishedAt && (
-                <div class="news-date">
-                  {new Date(item.publishedAt).toLocaleDateString('es-SV', { day:'numeric', month:'short', year:'numeric' })}
-                </div>
-              )}
-            </div>
-            <!-- Content -->
-            <div class="p-5">
-              <h3 class="font-heading font-bold text-base mb-2 line-clamp-2 group-hover:text-verde-600 transition-colors duration-300" style="color:#222222;">{item.title}</h3>
-              {item.summary && <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4" style="font-size:0.88rem;">{item.summary}</p>}
-              <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider" style="color:#2d7a3a;">
-                Leer artículo
-                <svg class="h-3 w-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-)}
-
-<!-- ===================== ALIADOS ===================== -->
-<section class="py-16 bg-white border-t border-gray-100">
-  <div class="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-    <p class="text-gray-300 text-xs font-bold uppercase tracking-[0.3em] mb-10">Aliados que nos respaldan</p>
-    <div class="flex flex-wrap items-center justify-center gap-10">
-      {[
-        { nombre: 'CONCENTRIX', sub: 'Aliado Costa del Bálsamo' },
-        { nombre: 'MINISTERIO DE GOBERNACIÓN', sub: 'Registro oficial' },
-        { nombre: 'COMUNIDADES RURALES', sub: '+50 comunidades activas' },
-      ].map(a => (
-        <div class="group flex flex-col items-center gap-1.5 transition-opacity duration-300 opacity-40 hover:opacity-90 cursor-default">
-          <span class="font-heading font-extrabold text-base tracking-tight text-gray-700">{a.nombre}</span>
-          <span class="text-xs text-gray-400 uppercase tracking-wider">{a.sub}</span>
+          <div class="ds-team-info">
+            <h3 class="ds-team-name">{m.nombre}</h3>
+            <p class="ds-team-role">{m.cargo}</p>
+          </div>
         </div>
       ))}
     </div>
   </div>
 </section>
 
-{partners.length > 0 && (
-  <section class="py-16 border-t border-gray-100" style="background-color:#f7f7f7;">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="text-center mb-10">
-        <div class="section-label justify-center mb-2">
-          <span class="label-line"></span>
-          <span>Nuestros aliados</span>
-          <span class="label-line"></span>
-        </div>
+<!-- ══════════════════════════════════════════════
+     NOTICIAS  — article cards
+══════════════════════════════════════════════════ -->
+{latestNews.length > 0 && (
+<section class="ds-section bg-white">
+  <div class="ds-deco-num ds-deco-right" aria-hidden="true">.05</div>
+  <div class="ds-container">
+    <div class="ds-section-head">
+      <div>
+        <p class="ds-eyebrow">Últimas novedades</p>
+        <h2 class="ds-h2">Noticias y<br/><span class="ds-accent">artículos</span></h2>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-10">
-        {partners.map(partner => (
-          <a href={partner.url || '#'} target={partner.url ? '_blank' : '_self'} rel="noopener noreferrer" title={partner.name}
-            class="flex items-center justify-center grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
-            {partner.logo
-              ? <img src={partner.logo} alt={partner.name} class="h-10 max-w-[120px] object-contain" loading="lazy" />
-              : <span class="text-gray-500 font-semibold text-sm border border-gray-200 px-4 py-2 hover:border-verde-400 hover:text-verde-700 transition-colors">{partner.name}</span>
-            }
-          </a>
-        ))}
-      </div>
+      <a href="/noticias" class="ds-link ds-link-lg">Ver todas &rarr;</a>
     </div>
-  </section>
+
+    <div class="ds-news-grid">
+      {latestNews.map(item => (
+        <a href={`/noticias/${item.slug}`} class="ds-news-card group">
+          <div class="ds-news-img">
+            {item.coverImage
+              ? <img src={item.coverImage} alt={item.title} class="group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+              : <div class="ds-news-placeholder">
+                  <svg class="w-12 h-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#2d7a3a;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+                  </svg>
+                </div>
+            }
+          </div>
+          <div class="ds-news-body">
+            {item.publishedAt && (
+              <p class="ds-news-date">
+                {new Date(item.publishedAt).toLocaleDateString('es-SV', { day:'numeric', month:'long', year:'numeric' })}
+              </p>
+            )}
+            <h3 class="ds-news-title line-clamp-2">{item.title}</h3>
+            {item.summary && <p class="ds-news-summary line-clamp-2">{item.summary}</p>}
+            <span class="ds-link">Leer artículo &rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
 )}
 
-<!-- ===================== NEWSLETTER ===================== -->
-<section class="section-lg relative overflow-hidden" style="background-color:#081509;">
-  <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-    <span class="font-heading font-extrabold text-white select-none" style="font-size:16vw; opacity:0.03; line-height:1;">NEWS</span>
-  </div>
-
-  <div class="relative max-w-2xl mx-auto px-6 sm:px-8 text-center">
-    <div class="section-label justify-center mb-6">
-      <span class="label-line" style="background:#f59e0b;"></span>
-      <span style="color:rgba(255,255,255,0.4);">Mantente informado</span>
-      <span class="label-line" style="background:#f59e0b;"></span>
+<!-- ══════════════════════════════════════════════
+     ALIADOS
+══════════════════════════════════════════════════ -->
+<section class="ds-partners">
+  <div class="ds-container">
+    <p class="ds-partners-label">Aliados que nos respaldan</p>
+    <div class="ds-partners-logos">
+      {[
+        { nombre: 'CONCENTRIX', sub: 'Costa del Bálsamo' },
+        { nombre: 'MINISTERIO DE GOBERNACIÓN', sub: 'Registro oficial' },
+        { nombre: 'COMUNIDADES RURALES', sub: '+50 comunidades' },
+      ].map(a => (
+        <div class="ds-partner-item">
+          <span class="ds-partner-name">{a.nombre}</span>
+          <span class="ds-partner-sub">{a.sub}</span>
+        </div>
+      ))}
+      {partners.map(p => (
+        <a href={p.url || '#'} target={p.url ? '_blank' : '_self'} rel="noopener noreferrer" class="ds-partner-item">
+          {p.logo
+            ? <img src={p.logo} alt={p.name} class="h-8 object-contain grayscale hover:grayscale-0 transition-all duration-300" />
+            : <span class="ds-partner-name">{p.name}</span>
+          }
+        </a>
+      ))}
     </div>
+  </div>
+</section>
 
-    <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mb-3">Recibe noticias<br/>de <span class="text-amber-400">nuestros proyectos</span></h2>
-    <p class="mb-8 leading-relaxed" style="color:rgba(255,255,255,0.45); font-size:0.95rem;">Recibe noticias de nuestros proyectos y formas de ayudar directamente en tu correo.</p>
-
-    <form class="flex flex-col sm:flex-row gap-0 max-w-md mx-auto border border-white/10" onsubmit="return false;">
-      <div class="relative flex-1">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<!-- ══════════════════════════════════════════════
+     NEWSLETTER  — dark band with email input
+══════════════════════════════════════════════════ -->
+<section class="ds-newsletter">
+  <div class="ds-deco-num" style="font-size:20vw; color:rgba(255,255,255,0.025);" aria-hidden="true">NEWS</div>
+  <div class="ds-container ds-newsletter-inner">
+    <div class="ds-newsletter-text">
+      <p class="ds-eyebrow ds-eyebrow-light">Boletín informativo</p>
+      <h2 class="ds-h2 text-white">
+        ¿Quieres estar<br/>
+        <span class="ds-accent">siempre informado</span>?
+      </h2>
+    </div>
+    <form class="ds-newsletter-form" onsubmit="return false;">
+      <div class="ds-input-wrap">
+        <svg class="ds-input-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
         </svg>
-        <input type="email" placeholder="tu@correo.com"
-          class="w-full pl-11 pr-4 py-4 text-white text-sm font-medium outline-none bg-transparent placeholder:text-white/25"
-          style="border-right:1px solid rgba(255,255,255,0.1);"
-        />
+        <input type="email" placeholder="Tu correo electrónico" class="ds-input" />
       </div>
-      <button type="submit" class="btn-primary text-sm px-8 py-4 flex-shrink-0">
-        Suscribirme
-      </button>
+      <button type="submit" class="ds-btn">Suscribirme</button>
     </form>
-    <p class="text-xs mt-4 uppercase tracking-wider" style="color:rgba(255,255,255,0.2);">Sin spam &middot; Solo contenido relevante</p>
+    <p class="ds-newsletter-note">Sin spam &middot; Solo contenido relevante sobre conservación</p>
   </div>
 </section>
 
 </Layout>
 
-<!-- ===================== STYLES ===================== -->
+<!-- ══════════════════════════════════════════════
+     DESIGN SYSTEM CSS  — inspirado en Desart
+══════════════════════════════════════════════════ -->
 <style>
-  /* ---- Layout ---- */
-  .section-lg { padding-top: 9rem; padding-bottom: 9rem; }
-  @media (max-width: 768px) { .section-lg { padding-top: 5rem; padding-bottom: 5rem; } }
-
-  /* ---- Hero title responsive ---- */
-  .hero-title { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.0; }
-
-  /* ---- Buttons ---- */
-  .btn-primary {
-    background-color: #f59e0b;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 1rem 2.5rem;
-    border: 2px solid #f59e0b;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .btn-primary:hover { background-color: #081509; border-color: #081509; color: #fff; }
-
-  .btn-outline-white {
-    border: 2px solid rgba(255,255,255,0.25);
-    color: rgba(255,255,255,0.7);
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .btn-outline-white:hover { border-color: #f59e0b; color: #f59e0b; }
-
-  .hero-btn-primary {
-    background-color: #f59e0b;
-    color: #fff;
-    border: 2px solid #f59e0b;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .hero-btn-primary:hover { background-color: transparent; color: #f59e0b; }
-
-  .hero-btn-secondary {
-    border: 2px solid rgba(255,255,255,0.25);
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .hero-btn-secondary:hover { border-color: #f59e0b; color: #f59e0b; }
-
-  /* ---- Section label ---- */
-  .section-label {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: #757575;
-  }
-  .label-line {
-    display: inline-block;
-    height: 1px;
-    width: 2rem;
-    background-color: #f59e0b;
-    flex-shrink: 0;
+  /* ── Variables ── */
+  :root {
+    --ds-accent:   #f59e0b;
+    --ds-dark:     #222222;
+    --ds-darker:   #111111;
+    --ds-gray:     #757575;
+    --ds-light:    #f7f7f7;
+    --ds-border:   #e2e2e2;
+    --ds-green:    #2d7a3a;
+    --ds-forest:   #081509;
+    --ds-shadow:   -11px -11px 35px 0px rgba(0,0,0,0.10);
+    --ds-section:  9rem;
+    --ds-font:     'Inter', system-ui, sans-serif;
+    --ds-heading:  'Poppins', system-ui, sans-serif;
   }
 
-  /* ---- Section title ---- */
-  .section-title {
-    font-family: 'Poppins', system-ui, sans-serif;
+  /* ── Container ── */
+  .ds-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  @media(min-width:1400px){ .ds-container{ max-width:1280px; } }
+
+  /* ── Decorative numbers (Desart .01 .02) ── */
+  .ds-deco-num {
+    position: absolute;
+    font-family: var(--ds-heading);
+    font-weight: 800;
+    font-size: clamp(6rem, 18vw, 18rem);
+    line-height: 1;
+    color: rgba(0,0,0,0.04);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    top: 50%; transform: translateY(-50%);
+    right: -2rem;
+  }
+  .ds-deco-left  { right: auto; left: -2rem; }
+  .ds-deco-right { left: auto; right: -2rem; }
+
+  /* ── Typography ── */
+  .ds-h1 {
+    font-family: var(--ds-heading);
+    font-weight: 800;
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--ds-dark);
+    margin-bottom: 1.5rem;
+  }
+  .ds-h2 {
+    font-family: var(--ds-heading);
     font-weight: 800;
     font-size: clamp(2rem, 4vw, 2.8rem);
     line-height: 1.15;
-    color: #222222;
+    color: var(--ds-dark);
   }
+  .ds-accent { color: var(--ds-accent); }
+  .ds-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ds-gray);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .ds-eyebrow-light { color: rgba(255,255,255,0.45); }
+  .ds-body { font-size: 1rem; color: var(--ds-gray); line-height: 1.75; margin-bottom: 1rem; }
 
-  /* ---- Service cards ---- */
-  .service-card {
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem;
-    background: #fff;
-    border: 1px solid #e2e2e2;
-    position: relative;
-    transition: box-shadow 0.3s, border-color 0.3s;
+  /* ── Buttons ── */
+  .ds-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background-color: var(--ds-accent);
+    color: #fff;
+    font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    padding: 0.9rem 2.5rem;
+    border: 2px solid var(--ds-accent);
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
   }
-  .service-card:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.08); border-color: #f59e0b; }
-  .service-card-num {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.75rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 3.5rem;
-    line-height: 1;
-    color: #f7f7f7;
-    user-select: none;
+  .ds-btn:hover { background-color: var(--ds-dark); border-color: var(--ds-dark); color: #fff; }
+  .ds-btn-sm { padding: 0.7rem 1.8rem; font-size: 0.72rem; }
+  .ds-btn-block { display: block; text-align: center; width: 100%; justify-content: center; }
+
+  .ds-btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--ds-dark);
+    border: 2px solid var(--ds-dark);
+    padding: 0.9rem 2.5rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .ds-btn-ghost:hover { background-color: var(--ds-dark); color: #fff; }
+
+  .ds-btn-ghost-light {
+    font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
     transition: color 0.3s;
   }
-  .service-card:hover .service-card-num { color: #fef3c7; }
+  .ds-btn-ghost-light:hover { color: var(--ds-accent); }
 
-  /* ---- About image ---- */
-  .about-img-main {
+  /* ── Links ── */
+  .ds-link {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--ds-green);
+    transition: color 0.3s;
+  }
+  .ds-link:hover { color: var(--ds-accent); }
+  .ds-link-lg { font-size: 0.78rem; align-self: flex-end; }
+
+  /* ── Sections ── */
+  .ds-section { position: relative; overflow: hidden; padding: var(--ds-section) 0; }
+  @media(max-width:768px){ .ds-section{ padding: 5rem 0; } }
+
+  .ds-section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 4rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .ds-section-head.ds-center {
+    flex-direction: column; align-items: center;
+    text-align: center; justify-content: center;
+  }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .ds-hero {
+    position: relative; overflow: hidden;
+    background-color: #fff;
+    padding: 7rem 0 5rem;
+    min-height: 90vh; display: flex; align-items: center;
+  }
+  @media(max-width:768px){ .ds-hero{ padding:6rem 0 3rem; min-height: auto; } }
+
+  .ds-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media(max-width:900px){ .ds-hero-inner{ grid-template-columns:1fr; } }
+
+  .ds-hero-text {}
+  .ds-hero-sub {
+    font-size: 1.05rem; color: var(--ds-gray);
+    line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .ds-hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* Photo collage */
+  .ds-hero-collage {
     position: relative;
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    z-index: 1;
+    height: 560px;
   }
-  .about-img-shadow {
+  @media(max-width:900px){ .ds-hero-collage{ height:320px; } }
+
+  .ds-collage-main {
     position: absolute;
-    bottom: -18px;
-    left: -18px;
-    width: 70%;
-    height: 70%;
-    border: 3px solid #f59e0b;
-    z-index: 0;
+    top: 0; right: 0;
+    width: 75%; height: 85%;
+    overflow: hidden;
+  }
+  .ds-collage-main img { width:100%; height:100%; object-fit:cover; }
+
+  .ds-collage-over {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 55%; height: 60%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: var(--ds-shadow);
+  }
+  .ds-collage-over img { width:100%; height:100%; object-fit:cover; filter: grayscale(20%); }
+
+  /* ══════════════════════════════════════
+     STATS BAR
+  ══════════════════════════════════════ */
+  .ds-stats-bar {
+    background-color: var(--ds-dark);
+    padding: 3.5rem 0;
+  }
+  .ds-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 0;
+  }
+  @media(max-width:600px){ .ds-stats-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .ds-stat {
+    padding: 1rem 2rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .ds-stat:last-child { border-right: none; }
+  .ds-stat-num {
+    font-family: var(--ds-heading);
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--ds-accent);
+    line-height: 1;
+  }
+  .ds-stat-suffix { color: var(--ds-accent); }
+  .ds-stat-label {
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.4rem;
   }
 
-  /* ---- Shadow card Desart ---- */
-  .shadow-card { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.10); }
+  /* ══════════════════════════════════════
+     ABOUT
+  ══════════════════════════════════════ */
+  .ds-about { background-color: #fff; }
+  .ds-about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative; z-index:1;
+  }
+  @media(max-width:900px){ .ds-about-inner{ grid-template-columns:1fr; } }
 
-  /* ---- Counter box ---- */
-  .counter-box {
-    padding: 1.5rem;
-    background: #fff;
-    border: 1px solid #e2e2e2;
+  /* Overlapping photos */
+  .ds-about-collage { position: relative; height: 480px; }
+  @media(max-width:900px){ .ds-about-collage{ height:280px; } }
+
+  .ds-about-img-back {
+    position: absolute;
+    top: 0; right: 0;
+    width: 72%; height: 80%;
+    overflow: hidden;
+  }
+  .ds-about-img-back img { width:100%; height:100%; object-fit:cover; }
+
+  .ds-about-img-front {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 58%; height: 65%;
+    overflow: hidden;
+    border: 6px solid #fff;
+    box-shadow: var(--ds-shadow);
+  }
+  .ds-about-img-front img { width:100%; height:100%; object-fit:cover; }
+
+  /* ══════════════════════════════════════
+     SERVICES (minimal — no card bg)
+  ══════════════════════════════════════ */
+  .ds-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 0;
+    border-top: 1px solid var(--ds-border);
+  }
+  @media(max-width:900px){ .ds-services-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:500px){ .ds-services-grid{ grid-template-columns:1fr; } }
+
+  .ds-service {
+    padding: 3rem 2.5rem;
+    border-right: 1px solid var(--ds-border);
+    border-bottom: 1px solid var(--ds-border);
+    transition: box-shadow 0.3s;
+    position: relative;
+  }
+  .ds-service:last-child { border-right: none; }
+  .ds-service:hover { box-shadow: var(--ds-shadow); }
+
+  /* Accent top border on hover */
+  .ds-service::before {
+    content: '';
+    position: absolute; top: -1px; left: 0; right: 0;
+    height: 3px; background-color: var(--ds-accent);
+    transform: scaleX(0); transition: transform 0.3s;
+  }
+  .ds-service:hover::before { transform: scaleX(1); }
+
+  .ds-service-icon {
+    width: 3rem; height: 3rem;
+    color: var(--ds-accent);
+    margin-bottom: 1.5rem;
+  }
+  .ds-service-icon svg { width:100%; height:100%; }
+  .ds-service-title {
+    font-family: var(--ds-heading);
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--ds-dark); margin-bottom: 0.75rem;
+  }
+  .ds-service-desc { font-size: 0.88rem; color: var(--ds-gray); line-height: 1.65; margin-bottom: 1.5rem; }
+
+  /* ══════════════════════════════════════
+     CAUSAS / PORTFOLIO
+  ══════════════════════════════════════ */
+  .ds-causes-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+  }
+  @media(max-width:900px){ .ds-causes-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:580px){ .ds-causes-grid{ grid-template-columns:1fr; } }
+
+  .ds-cause {
+    border: 1px solid var(--ds-border);
+    overflow: hidden;
     transition: box-shadow 0.3s;
   }
-  .counter-box:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.08); }
+  .ds-cause:hover { box-shadow: var(--ds-shadow); }
 
-  /* ---- Cause card ---- */
-  .cause-card {
-    background: #fff;
-    border: 1px solid #e2e2e2;
+  .ds-cause-img {
+    position: relative; overflow: hidden; height: 210px;
+  }
+  .ds-cause-img img { width:100%; height:100%; object-fit:cover; }
+  .ds-cause-tag {
+    position: absolute; bottom: 1rem; left: 1rem;
+    background: var(--ds-accent); color: #fff;
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.3rem 0.8rem;
+  }
+  .ds-cause-body { padding: 1.5rem; }
+  .ds-cause-title {
+    font-family: var(--ds-heading);
+    font-weight: 700; font-size: 1rem;
+    color: var(--ds-dark); margin-bottom: 0.5rem;
+  }
+  .ds-cause-desc { font-size: 0.85rem; color: var(--ds-gray); line-height: 1.6; margin-bottom: 1.25rem; }
+
+  .ds-progress-wrap { margin-bottom: 1.25rem; }
+  .ds-progress-bar { height: 3px; background: var(--ds-border); margin-bottom: 0.5rem; }
+  .ds-progress-fill { height: 3px; background: var(--ds-accent); transition: width 1s; }
+  .ds-progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .ds-progress-pct { color: var(--ds-green); }
+  .ds-progress-goal { color: var(--ds-gray); }
+
+  /* ══════════════════════════════════════
+     CTA DARK BAND  (Desart pattern)
+  ══════════════════════════════════════ */
+  .ds-cta-band {
+    position: relative;
+    background-color: var(--ds-forest);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.3s, border-color 0.3s;
+    padding: var(--ds-section) 0;
   }
-  .cause-card:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.10); border-color: #d1d5db; }
-  .cause-img-wrap { position: relative; overflow: hidden; height: 215px; }
-  .cause-tag {
-    position: absolute; top: 1rem; left: 1rem;
-    font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-    padding: 0.3rem 0.75rem; background-color: #2d7a3a; color: #fff;
+  @media(max-width:768px){ .ds-cta-band{ padding:5rem 0; } }
+
+  /* Photo bleeding right */
+  .ds-cta-img {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 38%;
+    overflow: hidden;
   }
-  .cause-pct {
-    position: absolute; top: 1rem; right: 1rem;
-    font-size: 0.7rem; font-weight: 700;
-    padding: 0.3rem 0.75rem; background-color: rgba(255,255,255,0.95); color: #2d7a3a;
+  .ds-cta-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(30%);
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
+  }
+  @media(max-width:900px){ .ds-cta-img{ width:100%; opacity:0.15; } }
+
+  .ds-cta-inner { position: relative; z-index: 1; }
+  .ds-cta-content { max-width: 560px; }
+
+  .ds-cta-sub {
+    font-size: 1rem; color: rgba(189,231,195,0.7);
+    line-height: 1.7; margin: 1.25rem 0 0.75rem;
+  }
+  .ds-cta-legal {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--ds-accent); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.4rem;
   }
 
-  /* ---- Gallery ---- */
-  .gallery-item { position: relative; overflow: hidden; cursor: pointer; }
-  .gallery-overlay {
+  .ds-amounts { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+  .ds-amount-btn {
+    font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 0.6rem 1.2rem;
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  .ds-amount-btn:hover,
+  .ds-amount-btn.ds-active {
+    background-color: var(--ds-accent);
+    border-color: var(--ds-accent);
+    color: #fff;
+  }
+
+  .ds-cta-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  /* ══════════════════════════════════════
+     GALLERY
+  ══════════════════════════════════════ */
+  .ds-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0.75rem;
+  }
+  @media(max-width:600px){ .ds-gallery-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  .ds-gallery-item {
+    position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;
+  }
+  .ds-gallery-item img { width:100%; height:100%; object-fit:cover; }
+  .ds-gallery-overlay {
     position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,21,9,0.8) 0%, transparent 60%);
     display: flex; align-items: flex-end;
-    background: linear-gradient(to top, rgba(8,21,9,0.85) 0%, transparent 60%);
     opacity: 0; transition: opacity 0.3s;
   }
-  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .ds-gallery-item:hover .ds-gallery-overlay { opacity: 1; }
+  .ds-gallery-title {
+    color: #fff; font-size: 0.85rem; font-weight: 600;
+    padding: 1.25rem; line-height: 1.3;
+  }
 
-  /* ---- Process step ---- */
-  .process-step {
-    padding: 3rem 2.5rem;
-    background: #fff;
+  /* ══════════════════════════════════════
+     PROCESS  — 3 step horizontal
+  ══════════════════════════════════════ */
+  .ds-process-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0;
+    border: 1px solid var(--ds-border);
+  }
+  @media(max-width:700px){ .ds-process-grid{ grid-template-columns:1fr; } }
+
+  .ds-process-step {
+    padding: 3.5rem 3rem;
     position: relative;
     transition: background-color 0.3s;
   }
-  .process-step:hover { background-color: #f7f7f7; }
-  .process-num {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-size: 5rem;
-    line-height: 1;
-    color: #f3f4f6;
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    user-select: none;
+  .ds-process-step:hover { background-color: var(--ds-light); }
+  .ds-process-divider { border-right: 1px solid var(--ds-border); }
+  @media(max-width:700px){ .ds-process-divider{ border-right:none; border-bottom:1px solid var(--ds-border); } }
+
+  .ds-process-num {
+    position: absolute; top: 2rem; right: 2rem;
+    font-family: var(--ds-heading); font-weight: 800;
+    font-size: 5rem; line-height: 1;
+    color: #f0f0f0; user-select: none;
     transition: color 0.3s;
   }
-  .process-step:hover .process-num { color: #fef3c7; }
+  .ds-process-step:hover .ds-process-num { color: #fef3c7; }
 
-  /* ---- Testimonial card ---- */
-  .testimonial-card {
-    background: #fff;
-    border: 1px solid #e2e2e2;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.3s, border-color 0.3s;
+  .ds-process-icon {
+    width: 2.5rem; height: 2.5rem;
+    color: var(--ds-accent);
+    margin-bottom: 1.25rem;
   }
-  .testimonial-card:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.08); border-color: #f59e0b; }
+  .ds-process-icon svg { width:100%; height:100%; }
+  .ds-process-title {
+    font-family: var(--ds-heading);
+    font-weight: 700; font-size: 1.15rem;
+    color: var(--ds-dark); margin-bottom: 0.75rem;
+  }
+  .ds-process-desc { font-size: 0.88rem; color: var(--ds-gray); line-height: 1.65; }
 
-  /* ---- Team card ---- */
-  .team-card {
-    background: #fff;
-    border: 1px solid #e2e2e2;
-    padding: 2.5rem;
-    text-align: center;
-    transition: box-shadow 0.3s, border-color 0.3s;
+  /* ══════════════════════════════════════
+     TESTIMONIALS
+  ══════════════════════════════════════ */
+  .ds-testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
   }
-  .team-card:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.08); border-color: #f59e0b; }
-  .team-avatar {
-    width: 5rem; height: 5rem;
+  @media(max-width:800px){ .ds-testi-grid{ grid-template-columns:1fr; } }
+
+  .ds-testi {
+    background: #fff;
+    border: 1px solid var(--ds-border);
+    padding: 2.5rem;
+    transition: box-shadow 0.3s, border-color 0.3s;
+    display: flex; flex-direction: column;
+  }
+  .ds-testi:hover { box-shadow: var(--ds-shadow); border-color: var(--ds-accent); }
+
+  .ds-stars { display: flex; gap: 0.25rem; margin-bottom: 1.25rem; }
+  .ds-star { width: 1rem; height: 1rem; fill: var(--ds-accent); }
+
+  .ds-testi-quote {
+    font-size: 0.9rem; color: var(--ds-gray);
+    line-height: 1.75; flex: 1; margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .ds-testi-author { display: flex; align-items: center; gap: 0.875rem; border-top: 1px solid var(--ds-border); padding-top: 1.25rem; }
+  .ds-testi-avatar {
+    width: 2.75rem; height: 2.75rem; flex-shrink: 0;
+    background-color: var(--ds-dark);
+    color: #fff; font-weight: 700; font-size: 0.8rem;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700; font-size: 1.2rem; color: #fff;
-    margin: 0 auto;
+    font-family: var(--ds-heading);
+  }
+  .ds-testi-name { font-weight: 700; font-size: 0.85rem; color: var(--ds-dark); }
+  .ds-testi-role { font-size: 0.72rem; color: var(--ds-gray); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.1rem; }
+
+  /* ══════════════════════════════════════
+     FAQ
+  ══════════════════════════════════════ */
+  .ds-faq-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  @media(max-width:800px){ .ds-faq-wrap{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  .ds-faq-head { position: sticky; top: 6rem; }
+
+  .ds-faq-item { border-bottom: 1px solid var(--ds-border); }
+  .ds-faq-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; padding: 1.25rem 0;
+    font-weight: 600; font-size: 0.95rem; color: var(--ds-dark);
+    text-align: left; background: none; border: none; cursor: pointer;
+    transition: color 0.3s;
+  }
+  .ds-faq-trigger:hover { color: var(--ds-accent); }
+  .ds-faq-icon {
+    flex-shrink: 0;
+    width: 2rem; height: 2rem;
+    background-color: var(--ds-dark); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; font-weight: 400;
     transition: background-color 0.3s;
   }
-  .team-card:hover .team-avatar { background-color: #f59e0b !important; }
+  .ds-faq-answer {
+    padding-bottom: 1.25rem;
+    font-size: 0.9rem; color: var(--ds-gray); line-height: 1.7;
+  }
 
-  /* ---- News card ---- */
-  .news-card {
-    background: #fff;
-    border: 1px solid #e2e2e2;
-    overflow: hidden;
+  /* ══════════════════════════════════════
+     TEAM  — portrait cards
+  ══════════════════════════════════════ */
+  .ds-team-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1.5rem;
+  }
+  @media(max-width:900px){ .ds-team-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:500px){ .ds-team-grid{ grid-template-columns:1fr; } }
+
+  .ds-team-card { cursor: default; }
+
+  .ds-team-photo {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3/4;
+    background-color: var(--ds-dark);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .ds-team-initials {
+    font-family: var(--ds-heading);
+    font-weight: 800; font-size: 3rem;
+    color: rgba(255,255,255,0.12);
+    user-select: none;
+  }
+  .ds-team-overlay {
+    position: absolute; inset: 0;
+    background-color: var(--ds-accent);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .ds-team-card:hover .ds-team-overlay { opacity: 0.15; }
+  /* If team has real photos, overlay them */
+  .ds-team-card:hover .ds-team-initials { color: rgba(255,255,255,0.2); }
+
+  .ds-team-info { padding: 0 0.25rem; }
+  .ds-team-name {
+    font-family: var(--ds-heading);
+    font-weight: 700; font-size: 0.95rem;
+    color: var(--ds-dark); margin-bottom: 0.25rem;
+  }
+  .ds-team-role {
+    font-size: 0.72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--ds-accent);
+  }
+
+  /* ══════════════════════════════════════
+     NEWS / BLOG  — article cards
+  ══════════════════════════════════════ */
+  .ds-news-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+  }
+  @media(max-width:800px){ .ds-news-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:520px){ .ds-news-grid{ grid-template-columns:1fr; } }
+
+  .ds-news-card {
+    border: 1px solid var(--ds-border); overflow: hidden;
     display: block;
-    transition: box-shadow 0.3s, border-color 0.3s;
+    transition: box-shadow 0.3s;
   }
-  .news-card:hover { box-shadow: -11px -11px 35px 0px rgba(0,0,0,0.10); border-color: #d1d5db; }
-  .news-img-wrap { aspect-ratio: 16/10; overflow: hidden; position: relative; background-color: #ddf3e0; }
-  .news-date {
-    position: absolute; top: 0.75rem; left: 0.75rem;
-    font-size: 0.7rem; font-weight: 700;
-    padding: 0.3rem 0.75rem; background: rgba(255,255,255,0.95); color: #1a4721;
+  .ds-news-card:hover { box-shadow: var(--ds-shadow); }
+
+  .ds-news-img {
+    aspect-ratio: 16/10; overflow: hidden;
+    background-color: #ddf3e0;
+  }
+  .ds-news-img img { width:100%; height:100%; object-fit:cover; }
+  .ds-news-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#bde7c3,#5ab96a); }
+
+  .ds-news-body { padding: 1.5rem; }
+  .ds-news-date {
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: var(--ds-accent); margin-bottom: 0.6rem;
+  }
+  .ds-news-title {
+    font-family: var(--ds-heading);
+    font-weight: 700; font-size: 1rem;
+    color: var(--ds-dark); margin-bottom: 0.6rem;
+    line-height: 1.35;
+    transition: color 0.3s;
+  }
+  .ds-news-card:hover .ds-news-title { color: var(--ds-accent); }
+  .ds-news-summary { font-size: 0.85rem; color: var(--ds-gray); line-height: 1.6; margin-bottom: 1rem; }
+
+  /* ══════════════════════════════════════
+     PARTNERS
+  ══════════════════════════════════════ */
+  .ds-partners {
+    padding: 3.5rem 0;
+    background: #fff;
+    border-top: 1px solid var(--ds-border);
+    border-bottom: 1px solid var(--ds-border);
+  }
+  .ds-partners-label {
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.35em;
+    color: #ccc; text-align: center; margin-bottom: 2.5rem;
+  }
+  .ds-partners-logos {
+    display: flex; flex-wrap: wrap;
+    align-items: center; justify-content: center; gap: 3rem;
+  }
+  .ds-partner-item {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.25rem;
+    opacity: 0.35; transition: opacity 0.3s;
+    cursor: default;
+  }
+  .ds-partner-item:hover { opacity: 0.85; }
+  .ds-partner-name {
+    font-family: var(--ds-heading);
+    font-weight: 800; font-size: 0.85rem;
+    letter-spacing: 0.1em; color: var(--ds-dark);
+  }
+  .ds-partner-sub {
+    font-size: 0.65rem; color: var(--ds-gray);
+    text-transform: uppercase; letter-spacing: 0.15em;
   }
 
-  /* ---- Amount button ---- */
-  .amount-btn { transition: background-color 0.3s, border-color 0.3s, color 0.3s; }
-  .amount-btn:hover { background-color: #f59e0b; border-color: #f59e0b; }
+  /* ══════════════════════════════════════
+     NEWSLETTER  — dark band
+  ══════════════════════════════════════ */
+  .ds-newsletter {
+    position: relative; overflow: hidden;
+    background-color: var(--ds-darker);
+    padding: var(--ds-section) 0;
+  }
+  @media(max-width:768px){ .ds-newsletter{ padding:5rem 0; } }
 
-  /* ---- Utility ---- */
+  .ds-newsletter-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative; z-index: 1;
+  }
+  @media(max-width:800px){ .ds-newsletter-inner{ grid-template-columns:1fr; gap:2.5rem; } }
+
+  .ds-newsletter-form {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .ds-input-wrap { position: relative; }
+  .ds-input-icon {
+    position: absolute; left: 1rem; top: 50%; transform: translateY(-50%);
+    width: 1.1rem; height: 1.1rem;
+    color: rgba(255,255,255,0.3); pointer-events: none;
+  }
+  .ds-input {
+    width: 100%; padding: 1.1rem 1rem 1.1rem 2.8rem;
+    background: transparent; border: none; outline: none;
+    color: #fff; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .ds-input::placeholder { color: rgba(255,255,255,0.25); }
+  .ds-newsletter-form .ds-btn { width: 100%; justify-content: center; }
+
+  .ds-newsletter-note {
+    margin-top: 1rem;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ── Utility ── */
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -957,35 +1293,34 @@ const teamMembers = [
 </style>
 
 <script>
-  // ---- Counter animation ----
+  // Counter animation
   function initCounters() {
-    const counters = document.querySelectorAll<HTMLElement>('[data-count]');
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         const el = e.target as HTMLElement;
         const target = parseInt(el.dataset.count || '0');
         const start = performance.now();
-        const duration = 2000;
-        function tick(now: number) {
-          const p = Math.min((now - start) / duration, 1);
+        const dur = 2000;
+        const tick = (now: number) => {
+          const p = Math.min((now - start) / dur, 1);
           const ease = 1 - Math.pow(1 - p, 3);
           el.textContent = Math.floor(ease * target).toLocaleString();
           if (p < 1) requestAnimationFrame(tick);
           else el.textContent = target.toLocaleString();
-        }
+        };
         requestAnimationFrame(tick);
         obs.unobserve(el);
       });
     }, { threshold: 0.5 });
-    counters.forEach(c => obs.observe(c));
+    document.querySelectorAll<HTMLElement>('[data-count]').forEach(c => obs.observe(c));
   }
 
-  // ---- FAQ accordion ----
+  // FAQ accordion
   function initFaq() {
     document.querySelectorAll('.faq-trigger').forEach(btn => {
       btn.addEventListener('click', () => {
-        const item   = btn.closest('.faq-item');
+        const item   = btn.closest('.ds-faq-item');
         const answer = item?.querySelector('.faq-answer');
         const icon   = btn.querySelector('.faq-icon') as HTMLElement | null;
         const isOpen = !answer?.classList.contains('hidden');
@@ -993,7 +1328,7 @@ const teamMembers = [
         document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
         document.querySelectorAll<HTMLElement>('.faq-icon').forEach(i => {
           i.textContent = '+';
-          i.style.backgroundColor = '#081509';
+          i.style.backgroundColor = '#222222';
         });
         document.querySelectorAll('.faq-trigger').forEach(b => b.setAttribute('aria-expanded', 'false'));
 
