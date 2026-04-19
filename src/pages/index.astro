@@ -784,12 +784,16 @@ const teamMembers = [
   @media(max-width:900px){ .ds-hero-inner{ grid-template-columns:1fr; } }
 
   .ds-hero-text {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(8,21,9,0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     padding: 2.5rem 2rem;
     border-left: 4px solid var(--ds-accent);
   }
+  .ds-hero-text h1,
+  .ds-hero-text p,
+  .ds-hero-text .ds-hero-sub { color: #fff !important; }
+  .ds-hero-text .ds-accent { color: var(--ds-accent) !important; }
   .ds-hero-sub {
     font-size: 1.05rem; color: var(--ds-gray);
     line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem;
