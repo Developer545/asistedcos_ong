@@ -360,30 +360,48 @@ const teamMembers = [
 </section>
 
 <!-- ══════════════════════════════════════════════
-     GALERÍA
+     GALERÍA — Infinite marquee carousel
 ══════════════════════════════════════════════════ -->
 {galleryItems.length > 0 && (
-<section class="ds-section" style="background:#f7f7f7;">
+<section class="ds-gallery-section">
   <div class="ds-container">
-    <div class="ds-section-head ds-center">
-      <p class="ds-eyebrow">Nuestro trabajo</p>
-      <h2 class="ds-h2">Galería de <span class="ds-accent">impacto</span></h2>
+    <div class="ds-section-head ds-center" style="margin-bottom:3.5rem;">
+      <p class="ds-eyebrow" style="color:rgba(245,158,11,0.8);">Nuestro trabajo</p>
+      <h2 class="ds-h2" style="color:#fff;">Galería de <span class="ds-accent">impacto</span></h2>
+      <p style="color:rgba(255,255,255,0.55);max-width:520px;margin:0 auto;font-size:1rem;line-height:1.7;">
+        Imágenes reales de nuestros proyectos en campo — comunidades, ecosistemas y voluntarios en acción.
+      </p>
     </div>
-    <div class="ds-gallery-grid">
-      {galleryItems.slice(0,6).map(item => (
-        <div class="ds-gallery-item group">
-          <img
-            src={item.url}
-            alt={item.title || 'Galería ASISTEDCOS'}
-            class="group-hover:scale-110 transition-transform duration-700"
-            loading="lazy"
-          />
-          <div class="ds-gallery-overlay">
-            {item.title && <p class="ds-gallery-title">{item.title}</p>}
-          </div>
+  </div>
+
+  <!-- Row 1 — scroll left -->
+  <div class="ds-marquee-wrapper" aria-hidden="true">
+    <div class="ds-marquee ds-marquee--left" id="marquee-row1">
+      {[...galleryItems, ...galleryItems].map((item, i) => (
+        <div class="ds-marquee-card">
+          <img src={item.url} alt={item.title || 'Galería ASISTEDCOS'} loading="lazy" />
+          {item.title && <div class="ds-marquee-label">{item.title}</div>}
         </div>
       ))}
     </div>
+  </div>
+
+  <!-- Row 2 — scroll right -->
+  <div class="ds-marquee-wrapper" style="margin-top:1rem;" aria-hidden="true">
+    <div class="ds-marquee ds-marquee--right" id="marquee-row2">
+      {[...galleryItems.slice().reverse(), ...galleryItems.slice().reverse()].map((item, i) => (
+        <div class="ds-marquee-card">
+          <img src={item.url} alt={item.title || 'Galería ASISTEDCOS'} loading="lazy" />
+          {item.title && <div class="ds-marquee-label">{item.title}</div>}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="ds-container" style="margin-top:3rem;text-align:center;">
+    <a href="/proyectos" class="ds-btn-ghost-light" style="border-color:rgba(245,158,11,0.4);color:#f59e0b;">
+      Ver todos los proyectos &rarr;
+    </a>
   </div>
 </section>
 )}
@@ -1181,29 +1199,71 @@ const teamMembers = [
   .ds-cta-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
 
   /* ══════════════════════════════════════
-     GALLERY
+     GALLERY — Infinite marquee
   ══════════════════════════════════════ */
-  .ds-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 0.75rem;
+  .ds-gallery-section {
+    background: #081509;
+    padding: 6rem 0 5rem;
+    overflow: hidden;
   }
-  @media(max-width:600px){ .ds-gallery-grid{ grid-template-columns:repeat(2,1fr); } }
 
-  .ds-gallery-item {
-    position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;
+  .ds-marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+    /* fade edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
-  .ds-gallery-item img { width:100%; height:100%; object-fit:cover; }
-  .ds-gallery-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(8,21,9,0.8) 0%, transparent 60%);
-    display: flex; align-items: flex-end;
-    opacity: 0; transition: opacity 0.3s;
+  .ds-marquee-wrapper:hover .ds-marquee { animation-play-state: paused; }
+
+  .ds-marquee {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    will-change: transform;
   }
-  .ds-gallery-item:hover .ds-gallery-overlay { opacity: 1; }
-  .ds-gallery-title {
-    color: #fff; font-size: 0.85rem; font-weight: 600;
-    padding: 1.25rem; line-height: 1.3;
+  .ds-marquee--left  { animation: marquee-left  35s linear infinite; }
+  .ds-marquee--right { animation: marquee-right 40s linear infinite; }
+
+  @keyframes marquee-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  .ds-marquee-card {
+    position: relative;
+    flex-shrink: 0;
+    width: 320px;
+    height: 220px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .ds-marquee-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
+  .ds-marquee-card:hover img { transform: scale(1.08); }
+
+  .ds-marquee-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(8,21,9,0.9) 0%, transparent 100%);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 1.5rem 1rem 0.75rem;
+    letter-spacing: 0.02em;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .ds-marquee-card:hover .ds-marquee-label { transform: translateY(0); }
+
+  @media(max-width:640px){
+    .ds-marquee-card { width: 220px; height: 160px; }
   }
 
   /* ══════════════════════════════════════
