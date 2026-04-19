@@ -225,7 +225,7 @@ const teamMembers = [
 </section>
 
 <!-- ══════════════════════════════════════════════
-     CAUSAS  — portfolio grid
+     CAUSAS  — full-image portfolio editorial
 ══════════════════════════════════════════════════ -->
 {causeCards.length > 0 && (
 <section class="ds-section bg-white">
@@ -238,41 +238,84 @@ const teamMembers = [
       <a href="/proyectos" class="ds-link ds-link-lg">Ver todos los proyectos &rarr;</a>
     </div>
 
-    <div class="ds-causes-grid">
-      {causeCards.map(cause => {
+    <!-- Asymmetric editorial grid: 1 large + rest stacked -->
+    <div class="cause-grid">
+      {causeCards.slice(0, 3).map((cause, idx) => {
         const meta = Number(cause.meta);
         const rec  = Number(cause.recaudado);
         const pct  = meta > 0 ? Math.round((rec / meta) * 100) : 0;
         return (
-          <div class="ds-cause group">
-            <div class="ds-cause-img">
-              <img
-                src={cause.coverImage || '/images/reforestacion-aerea.jpg'}
-                alt={cause.titulo}
-                class="group-hover:scale-105 transition-transform duration-700"
-                loading="lazy"
-              />
-              {cause.tag && <span class="ds-cause-tag">{cause.tag}</span>}
-            </div>
-            <div class="ds-cause-body">
-              <h3 class="ds-cause-title">{cause.titulo}</h3>
-              <p class="ds-cause-desc">{cause.descripcion}</p>
-              <!-- progress -->
-              <div class="ds-progress-wrap">
-                <div class="ds-progress-bar">
-                  <div class="ds-progress-fill" style={`width:${Math.min(pct,100)}%`}></div>
-                </div>
-                <div class="ds-progress-meta">
-                  <span class="ds-progress-pct">{pct}% logrado</span>
-                  <span class="ds-progress-goal">Meta: <strong>${(meta/1000).toFixed(0)}k</strong></span>
-                </div>
+          <div class={`cause-card ${idx === 0 ? 'cause-card--hero' : 'cause-card--small'} group`}>
+
+            <!-- Full background image -->
+            <img
+              class="cause-card__bg"
+              src={cause.coverImage || '/images/reforestacion-aerea.jpg'}
+              alt={cause.titulo}
+              loading={idx === 0 ? 'eager' : 'lazy'}
+            />
+
+            <!-- Gradient overlay -->
+            <div class="cause-card__overlay"></div>
+
+            <!-- Tag badge -->
+            {cause.tag && (
+              <span class="cause-card__tag">{cause.tag}</span>
+            )}
+
+            <!-- Index number (decorative) -->
+            <span class="cause-card__index" aria-hidden="true">0{idx + 1}</span>
+
+            <!-- Amber progress bar at bottom edge -->
+            <div class="cause-card__bar" style={`width:${Math.min(pct, 100)}%`} aria-hidden="true"></div>
+
+            <!-- Content pinned at bottom -->
+            <div class="cause-card__content">
+              <!-- Always visible -->
+              <div class="cause-card__top">
+                <span class="cause-card__pct">{pct}% logrado</span>
+                <h3 class="cause-card__title">{cause.titulo}</h3>
               </div>
-              <a href="/donar" class="ds-btn ds-btn-sm ds-btn-block">Donar a esta causa</a>
+
+              <!-- Revealed on hover -->
+              <div class="cause-card__expand">
+                {cause.descripcion && (
+                  <p class="cause-card__desc">{cause.descripcion}</p>
+                )}
+                <div class="cause-card__stats">
+                  <div class="cause-card__stat">
+                    <span class="cause-card__stat-val">${(meta / 1000).toFixed(0)}k</span>
+                    <span class="cause-card__stat-lbl">Meta</span>
+                  </div>
+                  <div class="cause-card__stat-divider"></div>
+                  <div class="cause-card__stat">
+                    <span class="cause-card__stat-val cause-card__stat-val--green">${rec.toLocaleString()}</span>
+                    <span class="cause-card__stat-lbl">Recaudado</span>
+                  </div>
+                  <div class="cause-card__stat-divider"></div>
+                  <div class="cause-card__stat">
+                    <span class="cause-card__stat-val cause-card__stat-val--amber">${Math.max(0, meta - rec).toLocaleString()}</span>
+                    <span class="cause-card__stat-lbl">Faltante</span>
+                  </div>
+                </div>
+                <a href="/donar" class="cause-card__btn">
+                  Donar a esta causa
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+              </div>
             </div>
+
           </div>
         );
       })}
     </div>
+
+    <!-- CTA if more causes exist -->
+    {causeCards.length > 3 && (
+      <div class="cause-more">
+        <a href="/proyectos" class="ds-btn">Ver todas las causas ({causeCards.length})</a>
+      </div>
+    )}
   </div>
 </section>
 )}
@@ -869,52 +912,215 @@ const teamMembers = [
   .ds-service-desc { font-size: 0.88rem; color: var(--ds-gray); line-height: 1.65; margin-bottom: 1.5rem; }
 
   /* ══════════════════════════════════════
-     CAUSAS / PORTFOLIO
+     CAUSAS — full-image editorial portfolio
   ══════════════════════════════════════ */
-  .ds-causes-grid {
+
+  /* Asymmetric grid: hero card left (2 rows) + 2 small right */
+  .cause-grid {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 2rem;
+    grid-template-columns: 1.55fr 1fr;
+    grid-template-rows: 300px 300px;
+    gap: 0.6rem;
   }
-  @media(max-width:900px){ .ds-causes-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media(max-width:580px){ .ds-causes-grid{ grid-template-columns:1fr; } }
+  @media(max-width:860px){
+    .cause-grid{
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 260px 260px;
+    }
+  }
+  @media(max-width:580px){
+    .cause-grid{
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .cause-card--hero { min-height: 380px; }
+    .cause-card--small{ min-height: 260px; }
+  }
 
-  .ds-cause {
-    border: 1px solid var(--ds-border);
+  /* Hero card spans both rows */
+  .cause-card--hero {
+    grid-row: 1 / span 2;
+  }
+
+  /* Base card */
+  .cause-card {
+    position: relative;
     overflow: hidden;
-    transition: box-shadow 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
-  .ds-cause:hover { box-shadow: var(--ds-shadow); }
 
-  .ds-cause-img {
-    position: relative; overflow: hidden; height: 210px;
+  /* Full-bleed background image */
+  .cause-card__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    z-index: 0;
   }
-  .ds-cause-img img { width:100%; height:100%; object-fit:cover; }
-  .ds-cause-tag {
-    position: absolute; bottom: 1rem; left: 1rem;
+  .cause-card:hover .cause-card__bg { transform: scale(1.07); }
+
+  /* Gradient overlay — stronger at bottom */
+  .cause-card__overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.92) 0%,
+      rgba(0,0,0,0.55) 40%,
+      rgba(0,0,0,0.15) 70%,
+      transparent 100%
+    );
+    transition: background 0.4s;
+  }
+  .cause-card:hover .cause-card__overlay {
+    background: linear-gradient(
+      to top,
+      rgba(0,0,0,0.96) 0%,
+      rgba(0,0,0,0.70) 50%,
+      rgba(0,0,0,0.30) 75%,
+      rgba(0,0,0,0.05) 100%
+    );
+  }
+
+  /* Tag badge top-left */
+  .cause-card__tag {
+    position: absolute; top: 1.25rem; left: 1.25rem; z-index: 3;
     background: var(--ds-accent); color: #fff;
-    font-size: 0.65rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.62rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
     padding: 0.3rem 0.8rem;
   }
-  .ds-cause-body { padding: 1.5rem; }
-  .ds-cause-title {
-    font-family: var(--ds-heading);
-    font-weight: 700; font-size: 1rem;
-    color: var(--ds-dark); margin-bottom: 0.5rem;
-  }
-  .ds-cause-desc { font-size: 0.85rem; color: var(--ds-gray); line-height: 1.6; margin-bottom: 1.25rem; }
 
-  .ds-progress-wrap { margin-bottom: 1.25rem; }
-  .ds-progress-bar { height: 3px; background: var(--ds-border); margin-bottom: 0.5rem; }
-  .ds-progress-fill { height: 3px; background: var(--ds-accent); transition: width 1s; }
-  .ds-progress-meta {
-    display: flex; justify-content: space-between;
-    font-size: 0.72rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.1em;
+  /* Decorative index number top-right */
+  .cause-card__index {
+    position: absolute; top: 1rem; right: 1.25rem; z-index: 3;
+    font-family: var(--ds-heading); font-weight: 800;
+    font-size: 4.5rem; line-height: 1;
+    color: rgba(255,255,255,0.07);
+    user-select: none; pointer-events: none;
+    transition: color 0.4s;
   }
-  .ds-progress-pct { color: var(--ds-green); }
-  .ds-progress-goal { color: var(--ds-gray); }
+  .cause-card--small .cause-card__index { font-size: 3rem; }
+  .cause-card:hover .cause-card__index { color: rgba(255,255,255,0.12); }
+
+  /* Thin amber progress bar — always at bottom edge */
+  .cause-card__bar {
+    position: absolute; bottom: 0; left: 0; z-index: 4;
+    height: 3px;
+    background: var(--ds-accent);
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    max-width: 100%;
+  }
+
+  /* Content container pinned at bottom */
+  .cause-card__content {
+    position: relative; z-index: 2;
+    padding: 1.75rem;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .cause-card--hero .cause-card__content { padding: 2.25rem; }
+
+  /* Always visible top part */
+  .cause-card__top { margin-bottom: 0; }
+
+  .cause-card__pct {
+    display: inline-block;
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.22em;
+    color: var(--ds-accent); margin-bottom: 0.4rem;
+  }
+
+  .cause-card__title {
+    font-family: var(--ds-heading); font-weight: 700;
+    color: #fff; line-height: 1.25;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .cause-card--hero .cause-card__title { font-size: 1.55rem; }
+
+  /* Expandable section — hidden, revealed on hover */
+  .cause-card__expand {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s cubic-bezier(0.4,0,0.2,1),
+                margin-top 0.45s;
+    margin-top: 0;
+  }
+  .cause-card__expand > * { overflow: hidden; }
+  .cause-card:hover .cause-card__expand {
+    grid-template-rows: 1fr;
+    margin-top: 1rem;
+  }
+
+  /* Inner wrapper needed for grid-template-rows trick */
+  .cause-card__expand { overflow: hidden; }
+  .cause-card:hover .cause-card__expand { max-height: none; }
+
+  /* Use max-height fallback for wider browser support */
+  .cause-card__expand {
+    max-height: 0;
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1),
+                margin-top 0.4s;
+    overflow: hidden;
+  }
+  .cause-card:hover .cause-card__expand {
+    max-height: 220px;
+    margin-top: 1rem;
+  }
+
+  .cause-card__desc {
+    font-size: 0.85rem; color: rgba(255,255,255,0.72);
+    line-height: 1.65; margin-bottom: 1.1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .cause-card--hero .cause-card__desc { font-size: 0.9rem; }
+
+  /* Mini stats row */
+  .cause-card__stats {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 1.1rem;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .cause-card__stat {
+    flex: 1; padding: 0.6rem 0.75rem; text-align: center;
+  }
+  .cause-card__stat-divider { width:1px; height:2.5rem; background:rgba(255,255,255,0.12); flex-shrink:0; }
+  .cause-card__stat-val {
+    display: block;
+    font-family: var(--ds-heading); font-weight: 700; font-size: 0.95rem;
+    color: #fff; line-height: 1;
+  }
+  .cause-card__stat-val--green { color: #4ade80; }
+  .cause-card__stat-val--amber { color: var(--ds-accent); }
+  .cause-card__stat-lbl {
+    display: block;
+    font-size: 0.58rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.40); margin-top: 0.2rem;
+  }
+
+  /* Donate button */
+  .cause-card__btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--ds-accent); color: #fff;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    padding: 0.7rem 1.5rem;
+    border: 2px solid var(--ds-accent);
+    transition: background 0.3s, color 0.3s;
+    width: fit-content;
+  }
+  .cause-card__btn svg { width:1rem; height:1rem; }
+  .cause-card__btn:hover { background: transparent; color: var(--ds-accent); }
+
+  /* "ver más" link below grid */
+  .cause-more { margin-top: 2.5rem; text-align: center; }
 
   /* ══════════════════════════════════════
      CTA DARK BAND  (Desart pattern)
