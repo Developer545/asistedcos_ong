@@ -3,11 +3,11 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 
 const impactos = [
-  { amount: 10,  icon: '🌱', logro: '5 plántulas nativas',    desc: 'Para familias campesinas que reforestarán sus terrenos.' },
-  { amount: 25,  icon: '🌳', logro: '15 árboles plantados',   desc: 'En zonas costeras degradadas que recuperan cobertura vegetal.' },
-  { amount: 50,  icon: '🤝', logro: '1 jornada comunitaria',  desc: 'Materiales y logística para un evento de reforestación.' },
-  { amount: 100, icon: '💧', logro: 'Monitoreo mensual',       desc: 'Equipamiento para monitorear una cuenca hidrográfica.' },
-  { amount: 250, icon: '🏡', logro: 'Establecer un vivero',   desc: 'Infraestructura para que una comunidad produzca sus plántulas.' },
+  { amount: 10,  logro: '5 plántulas nativas',    desc: 'Para familias campesinas que reforestarán sus terrenos.' },
+  { amount: 25,  logro: '15 árboles plantados',   desc: 'En zonas costeras degradadas que recuperan cobertura vegetal.' },
+  { amount: 50,  logro: '1 jornada comunitaria',  desc: 'Materiales y logística para un evento de reforestación.' },
+  { amount: 100, logro: 'Monitoreo mensual',       desc: 'Equipamiento para monitorear una cuenca hidrográfica.' },
+  { amount: 250, logro: 'Establecer un vivero',   desc: 'Infraestructura para que una comunidad produzca sus plántulas.' },
 ];
 ---
 
@@ -17,245 +17,388 @@ const impactos = [
   image="/images/evento-playa.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/evento-playa.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/92 to-gray-900/65"></div>
+<!-- HERO -->
+<section class="don-hero">
+  <div class="don-hero-bg"></div>
+  <div class="don-container" style="position:relative;z-index:1;">
+    <nav class="don-breadcrumb">
+      <a href="/">Inicio</a><span>›</span><span>Donar</span>
+    </nav>
+    <p class="don-eyebrow">Haz la diferencia</p>
+    <h1 class="don-h1">Tu donación <span class="don-accent">restaura vidas</span></h1>
+    <p class="don-hero-sub">Tu aporte financia directamente proyectos de reforestación, conservación y desarrollo comunitario en El Salvador.</p>
+    <div class="don-badge">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+      Donaciones deducibles de impuestos — Art. 32, Ley de Renta de El Salvador
     </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Donar</span>
-      </div>
-      <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-amber-500/20 border-2 border-amber-500/40 mb-6">
-        <svg class="h-10 w-10 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
-        </svg>
-      </div>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Haz una Donación</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-6">
-        Tu aporte financia directamente proyectos de reforestación, conservación y desarrollo comunitario en El Salvador.
-      </p>
-      <div class="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/40 text-amber-300 text-sm px-5 py-2.5 rounded-sm">
-        <svg class="h-4 w-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-        Donaciones deducibles de impuestos en El Salvador (Art. 32, Ley de Renta)
-      </div>
-    </div>
-  </section>
+  </div>
+  <div class="don-scroll" aria-hidden="true"><span></span></div>
+</section>
 
-  <!-- Formulario de donación -->
-  <section id="donar-monto" class="py-20 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- FORM DONACIÓN -->
+<section id="donar-monto" class="don-section" style="background:#f7f7f7; position:relative;">
+  <div class="don-deco-num" aria-hidden="true">.01</div>
+  <div class="don-container">
+    <div class="don-split">
 
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Elige tu impacto</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">¿Cuánto quieres donar?</h2>
-        <p class="text-gray-500 mt-2">Selecciona un monto sugerido o escribe el tuyo</p>
-      </div>
+      <!-- FORM -->
+      <div class="don-form-col">
+        <p class="don-eyebrow">Elige tu impacto</p>
+        <h2 class="don-h2">¿Cuánto quieres <span class="don-accent">donar</span>?</h2>
+        <p class="don-form-sub">Selecciona un monto o escribe el tuyo</p>
 
-      <!-- Card del formulario -->
-      <div class="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-
-        <!-- Montos sugeridos -->
-        <div class="p-6 border-b border-gray-100">
-          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Montos sugeridos</p>
-          <div class="grid grid-cols-5 gap-3">
-            {[10, 25, 50, 100, 250].map(n => (
-              <button
-                class="amount-btn flex flex-col items-center py-4 px-2 rounded-lg border-2 font-heading font-extrabold transition-all duration-200 hover:-translate-y-0.5"
-                data-amount={n}
-              >
-                <span class="text-xl">${n}</span>
-                <span class="text-xs font-normal opacity-60 mt-0.5">USD</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <!-- Monto personalizado — siempre visible -->
-        <div class="p-6 border-b border-gray-100 bg-gray-50">
-          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">O ingresa tu monto</p>
-          <div class="flex items-center gap-3">
-            <span class="text-2xl font-extrabold text-gray-400">$</span>
-            <input
-              id="custom-input"
-              type="number"
-              min="1"
-              max="50000"
-              placeholder="Ejemplo: 75"
-              class="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 font-heading font-bold text-2xl text-verde-900 bg-white focus:outline-none focus:border-amber-400 transition-colors placeholder:text-gray-300"
-            />
-            <span class="text-lg font-semibold text-gray-400">USD</span>
-          </div>
-        </div>
-
-        <!-- Resumen + botón -->
-        <div class="p-6 bg-white border-t border-gray-100">
-          <div class="flex items-center justify-between mb-5">
-            <div>
-              <p class="text-gray-400 text-sm">Total a donar</p>
-              <p id="amount-display" class="font-heading text-4xl font-extrabold text-verde-900">$0.00</p>
-            </div>
-            <div class="text-right">
-              <p class="text-gray-400 text-xs">Procesado por</p>
-              <p class="text-gray-700 font-bold text-sm">Wompi · Banco Agrícola</p>
+        <div class="don-form-card">
+          <!-- Montos -->
+          <div class="don-amounts-section">
+            <p class="don-amounts-label">Montos sugeridos</p>
+            <div class="don-amounts-grid">
+              {[10, 25, 50, 100, 250].map(n => (
+                <button class="amount-btn" data-amount={n}>
+                  <span class="don-amt-val">${n}</span>
+                  <span class="don-amt-cur">USD</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          <button
-            id="wompi-btn"
-            disabled
-            class="w-full flex items-center justify-center gap-3 bg-amber-500 hover:bg-amber-400 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed text-white font-bold py-4 rounded-lg transition-all duration-200 text-lg shadow-md"
-          >
-            <svg id="wompi-icon" class="h-5 w-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-            </svg>
-            <svg id="wompi-spinner" class="hidden animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
-            </svg>
-            <span id="wompi-label">Selecciona un monto para continuar</span>
-          </button>
+          <!-- Custom -->
+          <div class="don-custom-section">
+            <p class="don-amounts-label">O ingresa tu monto</p>
+            <div class="don-custom-row">
+              <span class="don-custom-sym">$</span>
+              <input id="custom-input" type="number" min="1" max="50000" placeholder="Ejemplo: 75" />
+              <span class="don-custom-cur">USD</span>
+            </div>
+          </div>
 
-          <p id="wompi-error" class="hidden text-red-500 text-sm mt-3 text-center font-semibold"></p>
+          <!-- Summary -->
+          <div class="don-summary">
+            <div class="don-total-row">
+              <div>
+                <p class="don-total-label">Total a donar</p>
+                <p id="amount-display" class="don-total-val">$0.00</p>
+              </div>
+              <div style="text-align:right;">
+                <p class="don-total-label">Procesado por</p>
+                <p class="don-processor">Wompi · Banco Agrícola</p>
+              </div>
+            </div>
 
-          <div class="flex items-center justify-center gap-4 mt-4 text-gray-400 text-xs">
-            <span class="flex items-center gap-1">
-              <svg class="h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-              Pago seguro SSL
-            </span>
-            <span>·</span>
-            <span>Visa · Mastercard · Cuotas</span>
-            <span>·</span>
-            <span>Recibo por correo</span>
+            <button id="wompi-btn" disabled class="don-pay-btn">
+              <svg id="wompi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+              </svg>
+              <svg id="wompi-spinner" class="don-spin hidden" viewBox="0 0 24 24" fill="none">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+              </svg>
+              <span id="wompi-label">Selecciona un monto para continuar</span>
+            </button>
+
+            <p id="wompi-error" class="don-error hidden"></p>
+
+            <div class="don-trust">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                Pago seguro SSL
+              </span>
+              <span>·</span>
+              <span>Visa · Mastercard · Cuotas</span>
+              <span>·</span>
+              <span>Recibo por correo</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Impacto por monto -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Tu donación en acción</span>
-        <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 mt-2">¿Qué logra cada monto?</h2>
-      </div>
-      <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-4">
-        {impactos.map(item => (
-          <div class="bg-white rounded-lg shadow-sm hover:shadow-md border-2 border-gray-100 hover:border-amber-300 hover:-translate-y-1 transition-all duration-300 p-5 text-center cursor-pointer impact-card" data-amount={item.amount}>
-            <div class="text-3xl mb-2">{item.icon}</div>
-            <p class="font-heading text-2xl font-extrabold text-amber-500 mb-1">${item.amount}</p>
-            <p class="font-bold text-verde-900 text-xs mb-1">{item.logro}</p>
-            <p class="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Métodos alternativos -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Otras opciones</span>
-        <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 mt-2">Más formas de donar</h2>
-      </div>
-      <div class="grid md:grid-cols-1 gap-6 max-w-lg mx-auto">
+      <!-- IMPACTO -->
+      <div class="don-impact-col">
+        <p class="don-eyebrow">Tu donación en acción</p>
+        <h2 class="don-h2">¿Qué logra <span class="don-accent">cada monto</span>?</h2>
+        <div class="don-impacts">
+          {impactos.map(item => (
+            <div class="don-impact-card impact-card" data-amount={item.amount}>
+              <div class="don-impact-head">
+                <span class="don-impact-amount">${item.amount}</span>
+                <span class="don-impact-title">{item.logro}</span>
+              </div>
+              <p class="don-impact-desc">{item.desc}</p>
+            </div>
+          ))}
+        </div>
 
         <!-- Transferencia -->
-        <div class="bg-white rounded-lg shadow-md border-l-4 border-l-verde-600 p-6 hover:shadow-xl transition-all duration-300">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-lg bg-verde-50 flex items-center justify-center flex-shrink-0">
-              <svg class="h-6 w-6 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-              </svg>
-            </div>
+        <div class="don-transfer">
+          <div class="don-transfer-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
             <div>
-              <h3 class="font-heading font-extrabold text-lg text-verde-900">Transferencia Bancaria</h3>
-              <p class="text-verde-600 text-xs">El Salvador · Sin comisiones</p>
+              <h3>Transferencia Bancaria</h3>
+              <p>El Salvador · Sin comisiones</p>
             </div>
           </div>
-          <p class="text-gray-500 text-sm mb-4">Transferencia directa desde cualquier banco de El Salvador a la cuenta de la fundación.</p>
-          <a href="/contacto"
-            class="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold py-3 rounded-sm transition-colors text-sm">
-            Solicitar datos bancarios
-          </a>
+          <a href="/contacto" class="don-transfer-btn">Solicitar datos bancarios &rarr;</a>
         </div>
       </div>
 
-      <!-- Transparencia -->
-      <div class="mt-8 bg-amber-50 border border-amber-200 rounded-lg p-5 flex gap-3">
-        <svg class="h-5 w-5 text-amber-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        <p class="text-amber-700 text-sm leading-relaxed">
-          <strong>Transparencia total:</strong> El 100% de las donaciones va directamente a proyectos de campo. Presentamos estados financieros anuales auditados. Para recibo fiscal escríbenos a <a href="mailto:info@asistedcos.org" class="underline font-semibold">info@asistedcos.org</a>.
-        </p>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Testimonial -->
-  <section class="py-16 bg-gray-900">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <svg class="h-10 w-10 text-amber-500 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+<!-- QUOTE -->
+<section class="don-quote-section">
+  <div class="don-container" style="text-align:center;">
+    <svg class="don-quote-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+    </svg>
+    <blockquote class="don-quote">"Donar a ASISTEDCOS fue una de las mejores decisiones. Saber que mi dinero va directo al campo, sin burocracia, me da confianza total."</blockquote>
+    <div class="don-quote-divider"></div>
+    <p class="don-quote-author">Carlos M.</p>
+    <p class="don-quote-role">Donante desde 2021 — San Salvador</p>
+  </div>
+</section>
+
+<!-- TRANSPARENCIA -->
+<section class="don-section" style="background:#fff;">
+  <div class="don-container">
+    <div class="don-transparency">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
       </svg>
-      <blockquote class="font-heading text-xl md:text-2xl font-bold text-white leading-relaxed mb-6">
-        "Donar a ASISTEDCOS fue una de las mejores decisiones. Saber que mi dinero va directo al campo, sin burocracia, me da confianza total."
-      </blockquote>
-      <div class="flex items-center justify-center gap-3">
-        <div class="w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center">
-          <svg class="h-6 w-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-        </div>
-        <div class="text-left">
-          <p class="text-white font-semibold">Carlos M.</p>
-          <p class="text-gray-400 text-sm">Donante desde 2021 — San Salvador</p>
-        </div>
-      </div>
+      <p>
+        <strong>Transparencia total:</strong> El 100% de las donaciones va directamente a proyectos de campo. Presentamos estados financieros anuales auditados. Para recibo fiscal escríbenos a <a href="mailto:info@asistedcos.org">info@asistedcos.org</a>.
+      </p>
     </div>
-  </section>
 
-  <!-- Otras formas de apoyar -->
-  <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Más formas de ayudar</span>
-        <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 mt-2">No solo con dinero</h2>
-      </div>
-      <div class="grid sm:grid-cols-3 gap-6">
-        {[
-          { icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`, titulo: 'Voluntariado', desc: 'Únete a nuestras jornadas de reforestación. No se necesita experiencia.' },
-          { icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>`, titulo: 'Difunde', desc: 'Comparte nuestro trabajo en redes y ayúdanos a llegar a más donantes.' },
-          { icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`, titulo: 'Alianza Empresarial', desc: 'Tu empresa puede ser parte de nuestros proyectos de RSE ambiental.' },
-        ].map(item => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-7 text-center">
-            <div class="flex justify-center mb-4" set:html={item.icon} />
-            <h3 class="font-heading font-extrabold text-verde-900 mb-2">{item.titulo}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-5">{item.desc}</p>
-            <a href="/contacto" class="inline-flex items-center gap-1.5 text-sm font-bold text-verde-700 hover:text-amber-500 transition-colors">
-              Contáctanos <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
-        ))}
-      </div>
+    <div class="don-ways-grid">
+      {[
+        { titulo:'Voluntariado', desc:'Únete a nuestras jornadas de reforestación. No se necesita experiencia.', href:'/contacto' },
+        { titulo:'Difunde',      desc:'Comparte nuestro trabajo en redes y ayúdanos a llegar a más donantes.', href:'/contacto' },
+        { titulo:'Alianza Empresarial', desc:'Tu empresa puede ser parte de nuestros proyectos de RSE ambiental.', href:'/contacto' },
+      ].map((w,i) => (
+        <div class="don-way-card">
+          <span class="don-way-num">0{i+1}</span>
+          <h3 class="don-way-title">{w.titulo}</h3>
+          <p class="don-way-desc">{w.desc}</p>
+          <a href={w.href} class="don-way-link">Contáctanos &rarr;</a>
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
 
 <style>
-  .amount-btn {
-    border-color: #e5e7eb;
-    color: #374151;
-    background: white;
+  :root {
+    --don-accent:#f59e0b; --don-dark:#111; --don-forest:#081509;
+    --don-head:'Poppins',system-ui,sans-serif; --don-shadow:0 8px 30px rgba(0,0,0,.08);
   }
-  .amount-btn:hover { border-color: #f59e0b; color: #d97706; }
-  .amount-btn.selected { background: #f59e0b; color: white; border-color: #f59e0b; }
-  .impact-card.selected { border-color: #f59e0b; background: #fffbeb; }
+  .don-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .don-section   { padding:5.5rem 0; overflow:hidden; }
+  .don-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--don-accent); display:block; margin-bottom:.75rem;
+  }
+  .don-h1 {
+    font-family:var(--don-head); font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.5rem); line-height:1.07; color:#fff; margin-bottom:1.25rem;
+  }
+  .don-h2 {
+    font-family:var(--don-head); font-weight:800;
+    font-size:clamp(1.7rem,3vw,2.3rem); line-height:1.15; color:#111; margin-bottom:.5rem;
+  }
+  .don-accent { color:var(--don-accent); }
+  .don-deco-num {
+    position:absolute; top:3rem; left:-1rem;
+    font-family:var(--don-head); font-size:clamp(7rem,15vw,14rem);
+    font-weight:900; color:rgba(0,0,0,.035); line-height:1;
+    pointer-events:none; user-select:none;
+  }
+
+  /* HERO */
+  .don-hero {
+    position:relative; min-height:65vh; display:flex; align-items:center;
+    padding:8rem 0 5rem; overflow:hidden;
+  }
+  .don-hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.55) 100%),
+      url('/images/evento-playa.jpg') center/cover no-repeat;
+  }
+  .don-breadcrumb {
+    display:flex; gap:.5rem; align-items:center;
+    font-size:.8rem; color:rgba(255,255,255,.4); margin-bottom:1.5rem;
+  }
+  .don-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
+  .don-breadcrumb a:hover { color:var(--don-accent); }
+  .don-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; margin-bottom:1.5rem; }
+  .don-badge {
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3);
+    color:rgba(245,158,11,.9); font-size:.78rem; font-weight:600; padding:.5rem 1rem;
+  }
+  .don-badge svg { width:.9rem; height:.9rem; fill:var(--don-accent); flex-shrink:0; }
+  .don-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
+  .don-scroll span {
+    display:block; width:1px; height:60px;
+    background:linear-gradient(to bottom,rgba(245,158,11,.8),transparent);
+    animation:dscroll 1.8s ease-in-out infinite;
+  }
+  @keyframes dscroll {
+    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
+    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  /* SPLIT */
+  .don-split {
+    display:grid; grid-template-columns:1.1fr 1fr; gap:4rem; align-items:start;
+  }
+  @media(max-width:900px){ .don-split{ grid-template-columns:1fr; gap:3rem; } }
+
+  /* FORM */
+  .don-form-sub { color:#888; font-size:.88rem; margin-bottom:1.75rem; }
+  .don-form-card {
+    background:#fff; box-shadow:var(--don-shadow);
+    border-top:3px solid var(--don-accent); overflow:hidden;
+  }
+  .don-amounts-section { padding:1.5rem; border-bottom:1px solid #f0f0f0; }
+  .don-amounts-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:#aaa; margin-bottom:.85rem; }
+  .don-amounts-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:.5rem; }
+  .amount-btn {
+    display:flex; flex-direction:column; align-items:center;
+    padding:.9rem .25rem; border:1.5px solid #e5e7eb;
+    background:#fff; cursor:pointer; transition:all .2s;
+  }
+  .amount-btn:hover { border-color:var(--don-accent); }
+  .amount-btn.selected { background:var(--don-accent); border-color:var(--don-accent); }
+  .don-amt-val { font-family:var(--don-head); font-size:1.1rem; font-weight:800; color:#111; transition:color .2s; }
+  .don-amt-cur { font-size:.6rem; color:#aaa; transition:color .2s; }
+  .amount-btn.selected .don-amt-val,
+  .amount-btn.selected .don-amt-cur { color:#fff; }
+
+  .don-custom-section { padding:1.25rem 1.5rem; background:#fafafa; border-bottom:1px solid #f0f0f0; }
+  .don-custom-row { display:flex; align-items:center; gap:.75rem; }
+  .don-custom-sym { font-family:var(--don-head); font-size:1.5rem; font-weight:800; color:#ccc; }
+  .don-custom-row input {
+    flex:1; border:1.5px solid #e5e7eb; padding:.6rem 1rem;
+    font-family:var(--don-head); font-size:1.4rem; font-weight:700; color:#111;
+    outline:none; transition:border-color .2s; background:#fff;
+  }
+  .don-custom-row input:focus { border-color:var(--don-accent); }
+  .don-custom-cur { font-size:.85rem; font-weight:600; color:#aaa; }
+
+  .don-summary { padding:1.5rem; }
+  .don-total-row { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.25rem; }
+  .don-total-label { font-size:.72rem; color:#aaa; text-transform:uppercase; letter-spacing:.1em; }
+  .don-total-val { font-family:var(--don-head); font-size:2.5rem; font-weight:800; color:#111; line-height:1; }
+  .don-processor { font-size:.78rem; font-weight:700; color:#555; }
+
+  .don-pay-btn {
+    width:100%; display:flex; align-items:center; justify-content:center; gap:.6rem;
+    background:var(--don-accent); color:#fff; border:none; cursor:pointer;
+    font-weight:700; font-size:.9rem; padding:1rem;
+    text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+  }
+  .don-pay-btn:disabled { background:#e5e7eb; color:#aaa; cursor:not-allowed; }
+  .don-pay-btn:not(:disabled):hover { background:#d97706; }
+  .don-pay-btn svg { width:1.1rem; height:1.1rem; flex-shrink:0; }
+  .don-spin { animation:spin 1s linear infinite; }
+  @keyframes spin { to{ transform:rotate(360deg); } }
+  .don-error { color:#ef4444; font-size:.83rem; text-align:center; margin-top:.75rem; font-weight:600; }
+  .don-trust {
+    display:flex; align-items:center; justify-content:center; gap:.5rem;
+    flex-wrap:wrap; margin-top:.85rem; font-size:.68rem; color:#bbb;
+  }
+  .don-trust span { display:flex; align-items:center; gap:.25rem; }
+  .don-trust svg { width:.85rem; height:.85rem; stroke:#22c55e; }
+
+  /* IMPACTS */
+  .don-form-col > .don-eyebrow,
+  .don-form-col > .don-h2,
+  .don-form-col > .don-form-sub { margin-bottom:.3rem; }
+  .don-impacts { display:flex; flex-direction:column; gap:.6rem; margin:1.5rem 0; }
+  .don-impact-card {
+    background:#fff; border:1.5px solid #eee; padding:1rem 1.25rem;
+    cursor:pointer; transition:all .2s; border-left:3px solid transparent;
+  }
+  .don-impact-card:hover { border-left-color:var(--don-accent); }
+  .don-impact-card.selected { border-color:var(--don-accent); background:#fffbeb; border-left-color:var(--don-accent); }
+  .don-impact-head { display:flex; align-items:baseline; gap:.75rem; margin-bottom:.25rem; }
+  .don-impact-amount { font-family:var(--don-head); font-size:1.2rem; font-weight:800; color:var(--don-accent); }
+  .don-impact-title { font-weight:700; font-size:.85rem; color:#111; }
+  .don-impact-desc { font-size:.78rem; color:#888; line-height:1.55; }
+
+  .don-transfer {
+    background:var(--don-forest); padding:1.5rem;
+    border-left:3px solid var(--don-accent);
+  }
+  .don-transfer-head { display:flex; align-items:center; gap:1rem; margin-bottom:1rem; }
+  .don-transfer-head svg { width:1.5rem; height:1.5rem; stroke:var(--don-accent); flex-shrink:0; }
+  .don-transfer-head h3 { font-family:var(--don-head); font-size:.95rem; font-weight:700; color:#fff; }
+  .don-transfer-head p { font-size:.72rem; color:rgba(255,255,255,.45); }
+  .don-transfer-btn {
+    display:block; text-align:center; background:var(--don-accent); color:#fff;
+    font-weight:700; font-size:.78rem; padding:.7rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+  }
+  .don-transfer-btn:hover { background:#d97706; }
+
+  /* QUOTE */
+  .don-quote-section {
+    background:
+      linear-gradient(rgba(8,21,9,.85),rgba(8,21,9,.85)),
+      url('/images/voluntaria-plantando.jpg') center/cover no-repeat fixed;
+    padding:6rem 0; text-align:center;
+  }
+  .don-quote-icon { width:2.5rem; height:2.5rem; color:var(--don-accent); opacity:.7; margin:0 auto 1.5rem; display:block; }
+  .don-quote {
+    font-family:var(--don-head); font-size:clamp(1.1rem,2.5vw,1.6rem);
+    font-weight:700; color:#fff; line-height:1.5;
+    max-width:700px; margin:0 auto 1.5rem;
+  }
+  .don-quote-divider { width:3rem; height:3px; background:var(--don-accent); margin:0 auto 1.25rem; }
+  .don-quote-author { font-weight:700; color:var(--don-accent); font-size:.9rem; }
+  .don-quote-role { color:rgba(255,255,255,.4); font-size:.78rem; margin-top:.2rem; }
+
+  /* TRANSPARENCIA + WAYS */
+  .don-transparency {
+    display:flex; gap:1rem; align-items:flex-start;
+    background:#fffbeb; border:1.5px solid rgba(245,158,11,.3);
+    padding:1.25rem 1.5rem; margin-bottom:3rem;
+  }
+  .don-transparency svg { width:1.2rem; height:1.2rem; stroke:var(--don-accent); flex-shrink:0; margin-top:.15rem; }
+  .don-transparency p { font-size:.88rem; color:#92400e; line-height:1.65; }
+  .don-transparency a { color:#92400e; font-weight:700; }
+
+  .don-ways-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:#e0e0e0;
+  }
+  @media(max-width:700px){ .don-ways-grid{ grid-template-columns:1fr; } }
+  .don-way-card {
+    background:#fff; padding:2rem 1.75rem;
+    display:flex; flex-direction:column; gap:.5rem;
+    transition:transform .3s;
+  }
+  .don-way-card:hover { transform:translateY(-3px); z-index:1; box-shadow:var(--don-shadow); }
+  .don-way-num { font-size:.65rem; font-weight:800; color:var(--don-accent); letter-spacing:.2em; }
+  .don-way-title { font-family:var(--don-head); font-size:1rem; font-weight:700; color:#111; }
+  .don-way-desc { font-size:.83rem; color:#777; line-height:1.65; flex:1; }
+  .don-way-link {
+    display:inline-block; color:var(--don-accent); font-weight:700;
+    font-size:.78rem; text-decoration:none; text-transform:uppercase;
+    letter-spacing:.08em; margin-top:.5rem; transition:letter-spacing .2s;
+  }
+  .don-way-link:hover { letter-spacing:.12em; }
+
+  .hidden { display:none !important; }
+  @media(max-width:640px){
+    .don-hero{ min-height:auto; padding:6rem 0 4rem; }
+    .don-amounts-grid{ grid-template-columns:repeat(3,1fr); }
+  }
 </style>
 
 <script>
@@ -268,7 +411,6 @@ const impactos = [
   const wompiIcon    = document.getElementById('wompi-icon') as SVGElement;
   const wompiSpinner = document.getElementById('wompi-spinner') as SVGElement;
   const wompiError   = document.getElementById('wompi-error') as HTMLParagraphElement;
-
   let selectedAmount: number | null = null;
 
   function updateUI(amount: number | null) {
@@ -285,7 +427,6 @@ const impactos = [
     wompiError.classList.add('hidden');
   }
 
-  // Botones de monto sugerido
   amountBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       amountBtns.forEach(b => b.classList.remove('selected'));
@@ -293,13 +434,11 @@ const impactos = [
       btn.classList.add('selected');
       customInput.value = '';
       const amount = Number(btn.dataset.amount);
-      // Resalta la impact card correspondiente
       impactCards.forEach(c => { if (Number(c.dataset.amount) === amount) c.classList.add('selected'); });
       updateUI(amount);
     });
   });
 
-  // Input libre
   customInput.addEventListener('input', () => {
     amountBtns.forEach(b => b.classList.remove('selected'));
     impactCards.forEach(c => c.classList.remove('selected'));
@@ -307,22 +446,18 @@ const impactos = [
     updateUI(isNaN(val) ? null : val);
   });
 
-  // Click en impact card selecciona el monto
   impactCards.forEach(card => {
     card.addEventListener('click', () => {
       const amount = Number(card.dataset.amount);
       customInput.value = '';
-      amountBtns.forEach(b => {
-        b.classList.toggle('selected', Number(b.dataset.amount) === amount);
-      });
+      amountBtns.forEach(b => b.classList.toggle('selected', Number(b.dataset.amount) === amount));
       impactCards.forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       updateUI(amount);
-      document.getElementById('donar-monto')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('donar-monto')?.scrollIntoView({ behavior:'smooth' });
     });
   });
 
-  // Pago Wompi
   wompiBtn.addEventListener('click', async () => {
     if (!selectedAmount || selectedAmount < 1) return;
     wompiBtn.disabled = true;
@@ -330,12 +465,10 @@ const impactos = [
     wompiSpinner.classList.remove('hidden');
     wompiLabel.textContent = 'Redirigiendo a Wompi...';
     wompiError.classList.add('hidden');
-
     try {
       const res  = await fetch('/api/checkout-wompi', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ amount: selectedAmount }),
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ amount: selectedAmount }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) throw new Error(data.error ?? 'Error');

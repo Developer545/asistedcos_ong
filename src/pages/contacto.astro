@@ -1,6 +1,24 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+
+const formas = [
+  {
+    num: '01', titulo: 'Donar',
+    desc: 'Tu aportación financia directamente proyectos de campo: reforestación, viveros y monitoreo ambiental.',
+    cta: 'Donar ahora', href: '/donar',
+  },
+  {
+    num: '02', titulo: 'Voluntariar',
+    desc: 'Únete a nuestras jornadas de reforestación los fines de semana. Sin experiencia — solo entusiasmo.',
+    cta: 'Ser voluntario', href: '/contacto',
+  },
+  {
+    num: '03', titulo: 'Alianza Empresarial',
+    desc: 'Tu empresa puede implementar programas de RSE y compensación ambiental. Como Concentrix en Costa del Bálsamo.',
+    cta: 'Contáctanos', href: '/contacto',
+  },
+];
 ---
 
 <Layout
@@ -8,230 +26,314 @@ import Layout from '../layouts/Layout.astro';
   description="Comunícate con Fundación ASISTEDCOS. Estamos en La Libertad, El Salvador. Únete como voluntario, socio o donante."
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/distribucion-plantas.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Contacto</span>
-      </div>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Contáctanos</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        ¿Quieres ser voluntario, formar una alianza o simplemente saber más sobre nuestro trabajo? Escríbenos.
-      </p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="con-hero">
+  <div class="con-hero-bg"></div>
+  <div class="con-container">
+    <nav class="con-breadcrumb">
+      <a href="/">Inicio</a><span>›</span><span>Contacto</span>
+    </nav>
+    <p class="con-eyebrow">Estamos aquí</p>
+    <h1 class="con-h1">Hablemos del <span class="con-accent">cambio</span></h1>
+    <p class="con-hero-sub">¿Quieres ser voluntario, formar una alianza o saber más sobre nuestro trabajo? Escríbenos.</p>
+  </div>
+  <div class="con-scroll" aria-hidden="true"><span></span></div>
+</section>
 
-  <!-- Main contact section -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-5 gap-12">
+<!-- MAIN CONTACT -->
+<section class="con-section" style="background:#f7f7f7; position:relative;">
+  <div class="con-deco-num" aria-hidden="true">.01</div>
+  <div class="con-container">
+    <div class="con-split">
 
-        <!-- LEFT: Contact info -->
-        <div class="lg:col-span-2 space-y-5">
-          <div>
-            <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Información de contacto</span>
-            <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-6">Estamos aquí para ayudarte</h2>
-          </div>
+      <!-- INFO -->
+      <div class="con-info">
+        <p class="con-eyebrow">Información de contacto</p>
+        <h2 class="con-h2">Estamos listos <span class="con-accent">para escucharte</span></h2>
 
-          <!-- Info cards -->
+        <div class="con-info-cards">
           {[
             {
-              icon: `<svg class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>`,
               titulo: 'Ubicación',
               valor: 'La Libertad, El Salvador',
               href: null,
+              icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
             },
             {
-              icon: `<svg class="h-5 w-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
               titulo: 'Correo electrónico',
               valor: 'info@asistedcos.org',
               href: 'mailto:info@asistedcos.org',
+              icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>`,
             },
             {
-              icon: `<svg class="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
               titulo: 'WhatsApp',
               valor: '+503 7841-2413',
               href: 'https://wa.me/50378412413',
+              icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`,
             },
             {
-              icon: `<svg class="h-5 w-5 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
               titulo: 'Facebook',
               valor: 'Fundación ASISTEDCOS',
               href: 'https://www.facebook.com/FundacionAsistedcos',
+              icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
             },
           ].map(item => (
-            <div class="bg-white rounded-lg shadow-md border-l-4 border-l-amber-500 p-5 flex items-center gap-4 hover:shadow-lg transition-shadow">
-              <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0" set:html={item.icon} />
+            <div class="con-info-card">
+              <div class="con-info-icon" set:html={item.icon}></div>
               <div>
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">{item.titulo}</p>
+                <p class="con-info-label">{item.titulo}</p>
                 {item.href ? (
-                  <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" class="font-semibold text-verde-700 hover:text-amber-500 transition-colors">{item.valor}</a>
+                  <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" class="con-info-val con-info-link">{item.valor}</a>
                 ) : (
-                  <p class="font-semibold text-gray-700">{item.valor}</p>
+                  <p class="con-info-val">{item.valor}</p>
                 )}
               </div>
             </div>
           ))}
-
-          <!-- Map placeholder -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <div class="bg-gray-200 h-44 flex items-center justify-center relative">
-              <img src="/images/area-conservacion.jpg" alt="La Libertad, El Salvador" class="w-full h-full object-cover opacity-60" />
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="bg-white/90 rounded-lg p-3 flex items-center gap-2 shadow-md">
-                  <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                  <span class="text-sm font-semibold text-gray-700">La Libertad, El Salvador</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <!-- RIGHT: Contact form -->
-        <div class="lg:col-span-3">
-          <div class="bg-white rounded-lg shadow-md border border-gray-100 p-8">
-            <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Formulario</span>
-            <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-6">Envíanos un mensaje</h2>
-            <form
-              name="contacto"
-              method="POST"
-              action="/gracias"
-              class="space-y-5"
-            >
-              <input type="hidden" name="form-name" value="contacto" />
-
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label for="nombre" class="block text-sm font-bold text-gray-700 mb-2">Nombre completo <span class="text-amber-500">*</span></label>
-                  <input
-                    type="text"
-                    id="nombre"
-                    name="nombre"
-                    required
-                    placeholder="Tu nombre"
-                    class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm"
-                  />
-                </div>
-                <div>
-                  <label for="email" class="block text-sm font-bold text-gray-700 mb-2">Correo electrónico <span class="text-amber-500">*</span></label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="tu@correo.com"
-                    class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label for="asunto" class="block text-sm font-bold text-gray-700 mb-2">Asunto</label>
-                <select
-                  id="asunto"
-                  name="asunto"
-                  class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm bg-white"
-                >
-                  <option value="">Selecciona un tema</option>
-                  <option value="donacion">Quiero hacer una donación</option>
-                  <option value="voluntariado">Quiero ser voluntario/a</option>
-                  <option value="alianza">Alianza empresarial / RSE</option>
-                  <option value="prensa">Prensa y medios</option>
-                  <option value="otro">Otro</option>
-                </select>
-              </div>
-
-              <div>
-                <label for="mensaje" class="block text-sm font-bold text-gray-700 mb-2">Mensaje <span class="text-amber-500">*</span></label>
-                <textarea
-                  id="mensaje"
-                  name="mensaje"
-                  required
-                  rows="5"
-                  placeholder="Cuéntanos en qué podemos ayudarte o cómo quieres colaborar..."
-                  class="w-full px-4 py-3 rounded-sm border border-gray-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition text-sm resize-none"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                class="w-full bg-amber-500 hover:bg-amber-400 text-white font-bold py-4 rounded-sm transition-colors flex items-center justify-center gap-2 text-base"
-              >
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-                Enviar mensaje
-              </button>
-
-              <p class="text-gray-400 text-xs text-center">Respondemos en menos de 48 horas hábiles</p>
-            </form>
+        <!-- Map placeholder -->
+        <div class="con-map">
+          <img src="/images/area-conservacion.jpg" alt="La Libertad, El Salvador" />
+          <div class="con-map-pin">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            La Libertad, El Salvador
           </div>
         </div>
+      </div>
 
+      <!-- FORM -->
+      <div class="con-form-wrap">
+        <div class="con-form-card">
+          <p class="con-eyebrow">Formulario</p>
+          <h2 class="con-h2">Envíanos un <span class="con-accent">mensaje</span></h2>
+          <form name="contacto" method="POST" action="/gracias" class="con-form">
+            <input type="hidden" name="form-name" value="contacto" />
+            <div class="con-form-row">
+              <div class="con-field">
+                <label for="nombre">Nombre completo <span class="con-required">*</span></label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" />
+              </div>
+              <div class="con-field">
+                <label for="email">Correo electrónico <span class="con-required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="tu@correo.com" />
+              </div>
+            </div>
+            <div class="con-field">
+              <label for="asunto">Asunto</label>
+              <select id="asunto" name="asunto">
+                <option value="">Selecciona un tema</option>
+                <option value="donacion">Quiero hacer una donación</option>
+                <option value="voluntariado">Quiero ser voluntario/a</option>
+                <option value="alianza">Alianza empresarial / RSE</option>
+                <option value="prensa">Prensa y medios</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            <div class="con-field">
+              <label for="mensaje">Mensaje <span class="con-required">*</span></label>
+              <textarea id="mensaje" name="mensaje" required rows="5" placeholder="Cuéntanos en qué podemos ayudarte o cómo quieres colaborar..."></textarea>
+            </div>
+            <button type="submit" class="con-submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+              Enviar mensaje
+            </button>
+            <p class="con-form-note">Respondemos en menos de 48 horas hábiles</p>
+          </form>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Otras formas de colaborar -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Colabora con nosotros</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Otras formas de colaborar</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Hay muchas maneras de apoyar la misión de ASISTEDCOS más allá de la donación económica.</p>
-      </div>
-      <div class="grid sm:grid-cols-3 gap-6">
-        {[
-          {
-            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
-            titulo: 'Donar',
-            desc: 'Tu aportación económica financia directamente proyectos de campo: reforestación, viveros y monitoreo ambiental.',
-            cta: 'Donar ahora',
-            href: '/donar',
-            bg: 'bg-amber-500',
-          },
-          {
-            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
-            titulo: 'Voluntariar',
-            desc: 'Únete a nuestras jornadas de reforestación los fines de semana. Sin experiencia previa — solo entusiasmo y ganas.',
-            cta: 'Ser voluntario',
-            href: '/contacto',
-            bg: 'bg-verde-600',
-          },
-          {
-            icon: `<svg class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>`,
-            titulo: 'Alianzas Empresariales',
-            desc: 'Tu empresa puede implementar programas de RSE y compensación ambiental con nosotros. Como Concentrix, nuestro socio en Costa del Bálsamo.',
-            cta: 'Contáctanos',
-            href: '/contacto',
-            bg: 'bg-gray-700',
-          },
-        ].map(item => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
-            <div class={`${item.bg} p-8 flex justify-center`}>
-              <div set:html={item.icon} />
-            </div>
-            <div class="p-6 flex flex-col flex-1">
-              <h3 class="font-heading font-extrabold text-xl text-verde-900 mb-3">{item.titulo}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{item.desc}</p>
-              <a
-                href={item.href}
-                class="inline-flex items-center gap-2 font-bold text-sm text-white bg-amber-500 hover:bg-amber-400 px-5 py-2.5 rounded-sm transition-colors"
-              >
-                {item.cta}
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- OTRAS FORMAS -->
+<section class="con-section" style="background:#fff; position:relative;">
+  <div class="con-deco-num con-deco-right" aria-hidden="true">.02</div>
+  <div class="con-container">
+    <div class="con-section-head con-center">
+      <p class="con-eyebrow">Colabora con nosotros</p>
+      <h2 class="con-h2">Otras formas de <span class="con-accent">colaborar</span></h2>
+      <p class="con-section-sub">Hay muchas maneras de apoyar la misión de ASISTEDCOS más allá de la donación económica.</p>
+    </div>
+    <div class="con-formas-grid">
+      {formas.map(f => (
+        <div class="con-forma-card">
+          <span class="con-forma-num">{f.num}</span>
+          <h3 class="con-forma-title">{f.titulo}</h3>
+          <p class="con-forma-desc">{f.desc}</p>
+          <a href={f.href} class="con-forma-btn">{f.cta} &rarr;</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
 </Layout>
+
+<style>
+  :root {
+    --con-accent:#f59e0b; --con-dark:#111; --con-forest:#081509;
+    --con-head:'Poppins',system-ui,sans-serif; --con-shadow:0 8px 30px rgba(0,0,0,.08);
+  }
+  .con-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .con-section   { padding:5.5rem 0; overflow:hidden; }
+  .con-center    { text-align:center; }
+  .con-section-head { margin-bottom:3.5rem; }
+  .con-section-sub { color:#666; font-size:1rem; max-width:500px; margin:.5rem auto 0; line-height:1.7; }
+  .con-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--con-accent); display:block; margin-bottom:.75rem;
+  }
+  .con-h1 {
+    font-family:var(--con-head); font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.5rem); line-height:1.07; color:#fff; margin-bottom:1.25rem;
+  }
+  .con-h2 {
+    font-family:var(--con-head); font-weight:800;
+    font-size:clamp(1.7rem,3vw,2.3rem); line-height:1.15; color:#111; margin-bottom:.75rem;
+  }
+  .con-accent { color:var(--con-accent); }
+  .con-required { color:var(--con-accent); }
+  .con-deco-num {
+    position:absolute; top:3rem; left:-1rem;
+    font-family:var(--con-head); font-size:clamp(7rem,15vw,14rem);
+    font-weight:900; color:rgba(0,0,0,.035); line-height:1;
+    pointer-events:none; user-select:none;
+  }
+  .con-deco-right { left:auto; right:-1rem; }
+
+  /* HERO */
+  .con-hero {
+    position:relative; min-height:60vh; display:flex; align-items:center;
+    padding:8rem 0 5rem; overflow:hidden;
+  }
+  .con-hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.5) 100%),
+      url('/images/distribucion-plantas.jpg') center/cover no-repeat;
+  }
+  .con-hero .con-container { position:relative; z-index:1; }
+  .con-breadcrumb {
+    display:flex; gap:.5rem; align-items:center;
+    font-size:.8rem; color:rgba(255,255,255,.4); margin-bottom:1.5rem;
+  }
+  .con-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
+  .con-breadcrumb a:hover { color:var(--con-accent); }
+  .con-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; }
+  .con-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
+  .con-scroll span {
+    display:block; width:1px; height:60px;
+    background:linear-gradient(to bottom,rgba(245,158,11,.8),transparent);
+    animation:cscroll 1.8s ease-in-out infinite;
+  }
+  @keyframes cscroll {
+    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
+    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  /* SPLIT */
+  .con-split {
+    display:grid; grid-template-columns:1fr 1.4fr; gap:4rem; align-items:start;
+  }
+  @media(max-width:900px){ .con-split{ grid-template-columns:1fr; } }
+
+  /* INFO */
+  .con-info-cards { display:flex; flex-direction:column; gap:.75rem; margin:1.75rem 0; }
+  .con-info-card {
+    display:flex; align-items:center; gap:1rem;
+    background:#fff; border-left:3px solid var(--con-accent);
+    padding:1rem 1.25rem; transition:box-shadow .2s;
+  }
+  .con-info-card:hover { box-shadow:var(--con-shadow); }
+  .con-info-icon {
+    width:2.2rem; height:2.2rem; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .con-info-icon svg { width:1.1rem; height:1.1rem; stroke:var(--con-accent); fill:var(--con-accent); }
+  .con-info-label { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:#aaa; }
+  .con-info-val { font-size:.9rem; font-weight:600; color:#333; }
+  .con-info-link { text-decoration:none; color:#333; transition:color .2s; }
+  .con-info-link:hover { color:var(--con-accent); }
+
+  .con-map { position:relative; height:180px; overflow:hidden; margin-top:1rem; }
+  .con-map img { width:100%; height:100%; object-fit:cover; filter:brightness(.6); }
+  .con-map-pin {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:.4rem;
+    background:rgba(8,21,9,.5);
+    color:#fff; font-size:.85rem; font-weight:700;
+  }
+  .con-map-pin svg { width:1.2rem; height:1.2rem; fill:#ef4444; }
+
+  /* FORM */
+  .con-form-card {
+    background:#fff; padding:2.5rem;
+    box-shadow:var(--con-shadow);
+    border-top:3px solid var(--con-accent);
+  }
+  .con-form { margin-top:1.5rem; display:flex; flex-direction:column; gap:1.25rem; }
+  .con-form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+  @media(max-width:600px){ .con-form-row{ grid-template-columns:1fr; } }
+  .con-field { display:flex; flex-direction:column; gap:.4rem; }
+  .con-field label { font-size:.78rem; font-weight:700; color:#333; letter-spacing:.03em; }
+  .con-field input,
+  .con-field select,
+  .con-field textarea {
+    border:1.5px solid #e5e7eb; padding:.75rem 1rem;
+    font-size:.88rem; color:#333; background:#fff;
+    outline:none; transition:border-color .2s;
+    font-family:inherit; resize:none;
+  }
+  .con-field input:focus,
+  .con-field select:focus,
+  .con-field textarea:focus { border-color:var(--con-accent); }
+  .con-submit {
+    display:flex; align-items:center; justify-content:center; gap:.6rem;
+    background:var(--con-accent); color:#fff; border:none; cursor:pointer;
+    font-weight:700; font-size:.9rem; padding:1rem; text-transform:uppercase;
+    letter-spacing:.08em; transition:background .2s; width:100%;
+  }
+  .con-submit:hover { background:#d97706; }
+  .con-submit svg { width:1.1rem; height:1.1rem; }
+  .con-form-note { font-size:.72rem; color:#bbb; text-align:center; }
+
+  /* FORMAS */
+  .con-formas-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:#e0e0e0;
+  }
+  @media(max-width:700px){ .con-formas-grid{ grid-template-columns:1fr; } }
+  .con-forma-card {
+    background:#fff; padding:2.5rem 2rem;
+    display:flex; flex-direction:column; gap:.75rem;
+    position:relative; overflow:hidden;
+    transition:transform .3s;
+  }
+  .con-forma-card:hover { transform:translateY(-4px); z-index:1; box-shadow:var(--con-shadow); }
+  .con-forma-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0;
+    height:2px; background:var(--con-accent);
+    transform:scaleX(0); transition:transform .4s ease; transform-origin:left;
+  }
+  .con-forma-card:hover::after { transform:scaleX(1); }
+  .con-forma-num {
+    font-family:var(--con-head); font-size:.65rem; font-weight:800;
+    color:var(--con-accent); letter-spacing:.2em;
+  }
+  .con-forma-title {
+    font-family:var(--con-head); font-size:1.1rem; font-weight:700; color:#111;
+  }
+  .con-forma-desc { font-size:.85rem; color:#777; line-height:1.7; flex:1; }
+  .con-forma-btn {
+    display:inline-block; color:var(--con-accent); font-weight:700;
+    font-size:.78rem; text-decoration:none; text-transform:uppercase;
+    letter-spacing:.08em; margin-top:.5rem;
+    transition:letter-spacing .2s;
+  }
+  .con-forma-btn:hover { letter-spacing:.12em; }
+
+  @media(max-width:640px){ .con-hero{ min-height:auto; padding:6rem 0 4rem; } }
+</style>
