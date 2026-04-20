@@ -46,10 +46,10 @@ const testimonials = [
 ];
 
 const teamMembers = [
-  { initials: 'BJ', nombre: 'Lic. Blanca Estela Juárez', cargo: 'Directora Ejecutiva' },
-  { initials: 'ET', nombre: 'Equipo Técnico', cargo: 'Gestión Ambiental' },
-  { initials: 'CM', nombre: 'Campo y Monitoreo', cargo: 'Reforestación' },
-  { initials: '+20', nombre: 'Voluntarios', cargo: 'Colaboradores activos' },
+  { photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80', nombre: 'Lic. Blanca Estela Juárez', cargo: 'Directora Ejecutiva' },
+  { photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80', nombre: 'Equipo Técnico', cargo: 'Gestión Ambiental' },
+  { photo: 'https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=600&q=80', nombre: 'Campo y Monitoreo', cargo: 'Reforestación' },
+  { photo: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80', nombre: 'Voluntarios', cargo: 'Colaboradores activos' },
 ];
 ---
 
@@ -520,7 +520,7 @@ const teamMembers = [
       {teamMembers.map(m => (
         <div class="ds-team-card group">
           <div class="ds-team-photo">
-            <span class="ds-team-initials">{m.initials}</span>
+            <img src={m.photo} alt={m.nombre} loading="lazy" />
             <div class="ds-team-overlay"></div>
           </div>
           <div class="ds-team-info">
@@ -548,28 +548,32 @@ const teamMembers = [
       <a href="/noticias" class="ds-link ds-link-lg">Ver todas &rarr;</a>
     </div>
 
-    <div class="ds-news-grid">
-      {latestNews.map(item => (
-        <a href={`/noticias/${item.slug}`} class="ds-news-card group">
-          <div class="ds-news-img">
+    <div class="ds-news-editorial">
+      {latestNews.map((item, i) => (
+        <a href={`/noticias/${item.slug}`} class={`ds-news-ed-card ds-news-ed-card--${i === 0 ? 'featured' : 'small'} group`}>
+          <div class="ds-news-ed-img">
             {item.coverImage
-              ? <img src={item.coverImage} alt={item.title} class="group-hover:scale-105 transition-transform duration-700" loading="lazy" />
-              : <div class="ds-news-placeholder">
-                  <svg class="w-12 h-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color:#2d7a3a;">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+              ? <img src={item.coverImage} alt={item.title} loading={i === 0 ? 'eager' : 'lazy'} />
+              : <div class="ds-news-ed-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                   </svg>
                 </div>
             }
+            {i === 0 && <div class="ds-news-ed-overlay"></div>}
           </div>
-          <div class="ds-news-body">
+          <div class="ds-news-ed-body">
             {item.publishedAt && (
-              <p class="ds-news-date">
-                {new Date(item.publishedAt).toLocaleDateString('es-SV', { day:'numeric', month:'long', year:'numeric' })}
+              <p class="ds-news-ed-date">
+                {new Date(item.publishedAt).toLocaleDateString('es-SV', { day:'numeric', month:'short', year:'numeric' }).toUpperCase()}
               </p>
             )}
-            <h3 class="ds-news-title line-clamp-2">{item.title}</h3>
-            {item.summary && <p class="ds-news-summary line-clamp-2">{item.summary}</p>}
-            <span class="ds-link">Leer artículo &rarr;</span>
+            <h3 class="ds-news-ed-title">{item.title}</h3>
+            {i === 0 && item.summary && <p class="ds-news-ed-summary">{item.summary}</p>}
+            <span class="ds-news-ed-link">
+              Leer artículo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </span>
           </div>
         </a>
       ))}
@@ -1409,25 +1413,26 @@ const teamMembers = [
 
   .ds-team-photo {
     position: relative; overflow: hidden;
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/5;
     background-color: var(--ds-dark);
-    display: flex; align-items: center; justify-content: center;
     margin-bottom: 1rem;
   }
-  .ds-team-initials {
-    font-family: var(--ds-heading);
-    font-weight: 800; font-size: 3rem;
-    color: rgba(255,255,255,0.12);
-    user-select: none;
+  .ds-team-photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top;
+    display: block;
+    transition: transform 0.6s ease;
+    filter: grayscale(20%);
+  }
+  .ds-team-card:hover .ds-team-photo img {
+    transform: scale(1.06);
+    filter: grayscale(0%);
   }
   .ds-team-overlay {
     position: absolute; inset: 0;
-    background-color: var(--ds-accent);
+    background: linear-gradient(to top, rgba(8,21,9,0.55) 0%, transparent 60%);
     opacity: 0; transition: opacity 0.4s;
   }
-  .ds-team-card:hover .ds-team-overlay { opacity: 0.15; }
-  /* If team has real photos, overlay them */
-  .ds-team-card:hover .ds-team-initials { color: rgba(255,255,255,0.2); }
+  .ds-team-card:hover .ds-team-overlay { opacity: 1; }
 
   .ds-team-info { padding: 0 0.25rem; }
   .ds-team-name {
@@ -1442,45 +1447,121 @@ const teamMembers = [
   }
 
   /* ══════════════════════════════════════
-     NEWS / BLOG  — article cards
+     NEWS / BLOG  — editorial split layout
   ══════════════════════════════════════ */
-  .ds-news-grid {
+  .ds-news-editorial {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 2rem;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #e0e0e0;
+    min-height: 520px;
   }
-  @media(max-width:800px){ .ds-news-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media(max-width:520px){ .ds-news-grid{ grid-template-columns:1fr; } }
+  @media(max-width:780px) {
+    .ds-news-editorial {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      min-height: auto;
+    }
+  }
 
-  .ds-news-card {
-    border: 1px solid var(--ds-border); overflow: hidden;
+  /* Featured card — spans 2 rows on left */
+  .ds-news-ed-card--featured {
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+  }
+  .ds-news-ed-card--small {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .ds-news-ed-card {
+    background: #fff;
+    overflow: hidden;
     display: block;
+    text-decoration: none;
+    position: relative;
     transition: box-shadow 0.3s;
   }
-  .ds-news-card:hover { box-shadow: var(--ds-shadow); }
+  .ds-news-ed-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.12); position: relative; z-index: 1; }
 
-  .ds-news-img {
-    aspect-ratio: 16/10; overflow: hidden;
-    background-color: #ddf3e0;
+  /* Images */
+  .ds-news-ed-img {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
   }
-  .ds-news-img img { width:100%; height:100%; object-fit:cover; }
-  .ds-news-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#bde7c3,#5ab96a); }
+  .ds-news-ed-card--featured .ds-news-ed-img {
+    flex: 1;
+    min-height: 260px;
+  }
+  .ds-news-ed-card--small .ds-news-ed-img {
+    width: 130px;
+    min-height: 100%;
+  }
+  .ds-news-ed-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.6s ease;
+  }
+  .ds-news-ed-card:hover .ds-news-ed-img img { transform: scale(1.06); }
 
-  .ds-news-body { padding: 1.5rem; }
-  .ds-news-date {
-    font-size: 0.68rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.18em;
+  /* Dark overlay on featured image */
+  .ds-news-ed-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.2) 100%);
+    pointer-events: none;
+  }
+
+  .ds-news-ed-placeholder {
+    width: 100%; height: 100%; min-height: 200px;
+    background: linear-gradient(135deg, #0f2b10, #1a4721);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ds-news-ed-placeholder svg { width: 2.5rem; height: 2.5rem; stroke: rgba(255,255,255,0.2); }
+
+  /* Text body */
+  .ds-news-ed-body {
+    padding: 1.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    flex: 1;
+  }
+  .ds-news-ed-card--featured .ds-news-ed-body {
+    padding: 1.75rem 2rem;
+    border-left: 4px solid var(--ds-accent);
+  }
+
+  .ds-news-ed-date {
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.22em;
     color: var(--ds-accent); margin-bottom: 0.6rem;
+    display: block;
   }
-  .ds-news-title {
+  .ds-news-ed-title {
     font-family: var(--ds-heading);
-    font-weight: 700; font-size: 1rem;
-    color: var(--ds-dark); margin-bottom: 0.6rem;
-    line-height: 1.35;
+    font-weight: 700; line-height: 1.3;
+    color: var(--ds-dark);
+    margin-bottom: 0.6rem;
     transition: color 0.3s;
   }
-  .ds-news-card:hover .ds-news-title { color: var(--ds-accent); }
-  .ds-news-summary { font-size: 0.85rem; color: var(--ds-gray); line-height: 1.6; margin-bottom: 1rem; }
+  .ds-news-ed-card--featured .ds-news-ed-title { font-size: 1.25rem; }
+  .ds-news-ed-card--small   .ds-news-ed-title { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .ds-news-ed-card:hover .ds-news-ed-title { color: var(--ds-accent); }
+
+  .ds-news-ed-summary {
+    font-size: 0.875rem; color: var(--ds-gray);
+    line-height: 1.7; margin-bottom: 1rem;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .ds-news-ed-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--ds-accent); margin-top: auto;
+  }
+  .ds-news-ed-link svg { width: 0.9rem; height: 0.9rem; transition: transform 0.2s; }
+  .ds-news-ed-card:hover .ds-news-ed-link svg { transform: translateX(4px); }
 
   /* ══════════════════════════════════════
      PARTNERS
