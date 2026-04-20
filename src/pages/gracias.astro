@@ -5,143 +5,323 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="¡Gracias!" description="Gracias por apoyar a Fundación ASISTEDCOS.">
 
-  <!-- Estado: contacto (default) -->
-  <section id="state-contacto" class="min-h-[70vh] flex items-center justify-center bg-gray-50">
-    <div class="text-center max-w-lg mx-auto px-4">
-      <div class="w-20 h-20 bg-verde-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="h-10 w-10 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+<!-- ══════ ESTADO: CONTACTO (default) ══════ -->
+<section id="state-contacto" class="gr-contacto">
+  <div class="gr-contacto-bg"></div>
+  <div class="gr-container" style="position:relative;z-index:1;text-align:center;">
+    <div class="gr-check-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <p class="gr-eyebrow">Mensaje enviado</p>
+    <h1 class="gr-h1" style="color:#fff;">¡Gracias por <span class="gr-accent">escribirnos</span>!</h1>
+    <p class="gr-sub">Hemos recibido tu mensaje y te responderemos en menos de 48 horas hábiles.</p>
+    <div class="gr-contacto-actions">
+      <a href="/" class="gr-btn">Volver al inicio</a>
+      <a href="/proyectos" class="gr-btn-outline">Ver proyectos &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ESTADO: DONACIÓN ══════ -->
+<section id="state-donacion" class="hidden gr-donacion">
+  <div class="gr-donacion-bg"></div>
+
+  <div class="gr-container" style="position:relative;z-index:1;">
+
+    <!-- HEADLINE -->
+    <div class="gr-headline">
+      <div class="gr-confirm-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
         </svg>
+        Donación confirmada
       </div>
-      <h1 class="font-heading text-3xl font-bold text-verde-900 mb-3">¡Gracias por escribirnos!</h1>
-      <p class="text-gray-500 mb-8">Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
-      <a href="/" class="inline-flex items-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-semibold px-8 py-3 rounded-full transition-colors">
-        Volver al inicio
-      </a>
-    </div>
-  </section>
-
-  <!-- Estado: donación exitosa -->
-  <section id="state-donacion" class="hidden min-h-screen bg-gray-50">
-
-    <!-- Barra superior decorativa -->
-    <div class="h-2 bg-gradient-to-r from-amber-400 via-verde-500 to-amber-400"></div>
-
-    <div class="max-w-2xl mx-auto px-4 py-16">
-
-      <!-- Tarjeta principal -->
-      <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
-
-        <!-- Cabecera de la tarjeta -->
-        <div class="relative bg-gradient-to-br from-amber-400 to-amber-500 px-8 py-12 text-center overflow-hidden">
-          <!-- Círculos decorativos -->
-          <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
-          <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-white/10 rounded-full"></div>
-          <div class="absolute top-4 right-12 w-6 h-6 bg-white/20 rounded-full"></div>
-          <div class="absolute bottom-8 left-16 w-4 h-4 bg-white/20 rounded-full"></div>
-
-          <!-- Icono -->
-          <div class="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-white shadow-lg mb-5">
-            <svg class="h-12 w-12 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
-            </svg>
-          </div>
-
-          <div class="relative">
-            <p class="text-amber-100 text-xs font-bold uppercase tracking-widest mb-2">Donación confirmada ✓</p>
-            <h1 class="font-heading text-3xl md:text-4xl font-extrabold text-white leading-tight">
-              ¡Eres parte<br/>del cambio!
-            </h1>
-          </div>
-        </div>
-
-        <!-- Cuerpo de la tarjeta -->
-        <div class="px-8 py-8">
-
-          <!-- Mensaje -->
-          <p class="text-gray-600 text-center text-base leading-relaxed mb-8">
-            Tu donación ya está en camino a las comunidades y ecosistemas de El Salvador.
-            Cada árbol que nazca de esto llevará tu huella.
-          </p>
-
-          <!-- Lo que lograste -->
-          <div class="bg-gray-50 rounded-xl p-5 mb-8">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">Lo que lograste hoy</p>
-            <div class="grid grid-cols-3 gap-4">
-              {[
-                { icon: '🌱', label: 'Plántulas hacia comunidades rurales' },
-                { icon: '💧', label: 'Cuencas monitoreadas protegidas' },
-                { icon: '🌍', label: 'CO₂ siendo capturado por la naturaleza' },
-              ].map(item => (
-                <div class="text-center">
-                  <div class="text-3xl mb-2">{item.icon}</div>
-                  <p class="text-gray-500 text-xs leading-tight">{item.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Aviso recibo -->
-          <div class="flex items-start gap-3 bg-verde-50 border border-verde-100 rounded-lg px-4 py-3 mb-8">
-            <svg class="h-5 w-5 text-verde-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-verde-800 text-sm">
-              <strong>Revisa tu correo</strong> — recibirás el comprobante de tu donación válido para deducción fiscal (Art. 32, Ley de Renta de El Salvador).
-            </p>
-          </div>
-
-          <!-- Compartir -->
-          <div class="mb-8">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider text-center mb-3">Comparte e inspira a otros</p>
-            <div class="flex gap-3 justify-center">
-              <a
-                href="https://www.facebook.com/sharer/sharer.php?u=https://asistedcosong.vercel.app"
-                target="_blank" rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
-              >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Facebook
-              </a>
-              <a
-                href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundaci%C3%B3n%20ASISTEDCOS%20para%20reforestar%20El%20Salvador.%20%C3%BAnete%3A%20https://asistedcosong.vercel.app/donar"
-                target="_blank" rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
-              >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
-                WhatsApp
-              </a>
-            </div>
-          </div>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="/" class="flex-1 flex items-center justify-center gap-2 bg-verde-700 hover:bg-verde-800 text-white font-bold py-3.5 rounded-lg transition-colors">
-              Volver al inicio
-            </a>
-            <a href="/proyectos" class="flex-1 flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-verde-400 text-gray-700 hover:text-verde-700 font-bold py-3.5 rounded-lg transition-colors">
-              Ver proyectos
-            </a>
-          </div>
-        </div>
-
-        <!-- Pie de tarjeta -->
-        <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-          <img src="/images/logo.png" alt="ASISTEDCOS" class="h-8 w-auto opacity-60" />
-          <p class="text-gray-400 text-xs">Fundación ASISTEDCOS · El Salvador</p>
-        </div>
-      </div>
-
-      <!-- Dona de nuevo -->
-      <p class="text-center mt-6 text-gray-400 text-sm">
-        ¿Quieres donar de nuevo?
-        <a href="/donar" class="text-amber-500 hover:text-amber-600 font-semibold ml-1">Haz otra donación →</a>
+      <h1 class="gr-h1 gr-center">
+        ¡Eres parte<br/>del <span class="gr-accent">cambio</span>!
+      </h1>
+      <p class="gr-sub gr-center">
+        Tu donación ya está en camino a las comunidades y ecosistemas de El Salvador.<br/>
+        Cada árbol que nazca de esto llevará tu huella.
       </p>
-
     </div>
-  </section>
+
+    <!-- IMPACT STATS -->
+    <div class="gr-impact-bar">
+      {[
+        { valor: '+500K', label: 'Árboles plantados desde 1997' },
+        { valor: '+50',   label: 'Comunidades beneficiadas' },
+        { valor: '27+',   label: 'Años de impacto real' },
+      ].map(s => (
+        <div class="gr-impact-stat">
+          <p class="gr-impact-val">{s.valor}</p>
+          <p class="gr-impact-lbl">{s.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="gr-card">
+
+      <!-- Lo que lograste -->
+      <div class="gr-logros">
+        <p class="gr-section-label">Lo que lograste hoy</p>
+        <div class="gr-logros-grid">
+          {[
+            { num: '01', titulo: 'Plántulas nativas', desc: 'Rumbo a familias campesinas que reforestarán sus terrenos.' },
+            { num: '02', titulo: 'Cuencas protegidas', desc: 'Tu aporte financia el monitoreo técnico de ríos y costas.' },
+            { num: '03', titulo: 'CO₂ capturado', desc: 'Cada árbol plantado contribuye a la captura de carbono.' },
+          ].map(l => (
+            <div class="gr-logro-item">
+              <span class="gr-logro-num">{l.num}</span>
+              <h3 class="gr-logro-title">{l.titulo}</h3>
+              <p class="gr-logro-desc">{l.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Recibo -->
+      <div class="gr-recibo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+        <p><strong>Revisa tu correo</strong> — recibirás el comprobante de donación válido para deducción fiscal (Art. 32, Ley de Renta de El Salvador).</p>
+      </div>
+
+      <!-- Compartir -->
+      <div class="gr-share">
+        <p class="gr-section-label">Comparte e inspira a otros</p>
+        <div class="gr-share-btns">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https://asistedcos.org" target="_blank" rel="noopener noreferrer" class="gr-share-fb">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            Compartir en Facebook
+          </a>
+          <a href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundaci%C3%B3n%20ASISTEDCOS%20para%20reforestar%20El%20Salvador.%20%C3%BAnete%3A%20https://asistedcos.org/donar" target="_blank" rel="noopener noreferrer" class="gr-share-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+            Compartir por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="gr-ctas">
+        <a href="/" class="gr-btn">Volver al inicio</a>
+        <a href="/proyectos" class="gr-btn-dark">Ver proyectos</a>
+        <a href="/donar" class="gr-btn-ghost">Donar de nuevo</a>
+      </div>
+
+      <!-- Footer -->
+      <div class="gr-card-footer">
+        <img src="/images/logo.png" alt="ASISTEDCOS" style="height:2rem;width:auto;filter:brightness(0) invert(1);opacity:.5;" />
+        <p>Fundación ASISTEDCOS · El Salvador · Desde 1997</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 </Layout>
+
+<style>
+  :root {
+    --gr-accent:#f59e0b; --gr-forest:#081509;
+    --gr-head:'Poppins',system-ui,sans-serif;
+    --gr-shadow:0 20px 60px rgba(0,0,0,.15);
+  }
+  .hidden { display:none !important; }
+  .gr-container { max-width:800px; margin:0 auto; padding:0 1.5rem; }
+  .gr-center    { text-align:center; }
+
+  .gr-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--gr-accent); display:block; margin-bottom:.75rem;
+  }
+  .gr-h1 {
+    font-family:var(--gr-head); font-weight:800;
+    font-size:clamp(2.4rem,6vw,4rem); line-height:1.1; margin-bottom:1rem;
+  }
+  .gr-sub {
+    color:rgba(255,255,255,.65); font-size:1rem; line-height:1.75;
+    max-width:520px; margin:0 auto;
+  }
+  .gr-accent { color:var(--gr-accent); }
+  .gr-section-label {
+    font-size:.65rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.22em; color:#aaa; margin-bottom:1.25rem;
+  }
+
+  /* ══ CONTACTO ══ */
+  .gr-contacto {
+    position:relative; min-height:85vh;
+    display:flex; align-items:center;
+    padding:6rem 1.5rem;
+  }
+  .gr-contacto-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(rgba(8,21,9,.88),rgba(8,21,9,.88)),
+      url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80') center/cover no-repeat fixed;
+  }
+  .gr-check-icon {
+    width:5rem; height:5rem;
+    background:var(--gr-accent);
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 1.5rem;
+  }
+  .gr-check-icon svg { width:2.2rem; height:2.2rem; stroke:#fff; }
+  .gr-contacto-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.5rem; }
+
+  /* ══ DONACIÓN ══ */
+  .gr-donacion {
+    position:relative; min-height:100vh;
+    padding:5rem 0 4rem;
+    background: var(--gr-forest);
+  }
+  .gr-donacion-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to bottom, rgba(8,21,9,.7) 0%, rgba(8,21,9,.95) 40%),
+      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center top/cover no-repeat;
+  }
+
+  /* HEADLINE */
+  .gr-headline { text-align:center; margin-bottom:3rem; padding-top:1rem; }
+  .gr-confirm-badge {
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:rgba(245,158,11,.15); border:1px solid rgba(245,158,11,.35);
+    color:var(--gr-accent); font-size:.72rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.18em;
+    padding:.45rem 1.1rem; margin-bottom:1.5rem;
+  }
+  .gr-confirm-badge svg { width:.9rem; height:.9rem; stroke:var(--gr-accent); }
+  .gr-headline .gr-h1 { color:#fff; }
+  .gr-headline .gr-sub { margin:0 auto; }
+
+  /* IMPACT BAR */
+  .gr-impact-bar {
+    display:flex; justify-content:center;
+    border-top:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    margin-bottom:3rem;
+  }
+  .gr-impact-stat {
+    flex:1; max-width:220px; text-align:center;
+    padding:1.75rem 1rem;
+    border-right:1px solid rgba(255,255,255,.06);
+  }
+  .gr-impact-stat:last-child { border-right:none; }
+  .gr-impact-val {
+    font-family:var(--gr-head); font-size:2rem; font-weight:800;
+    color:var(--gr-accent); line-height:1; margin-bottom:.3rem;
+  }
+  .gr-impact-lbl { font-size:.7rem; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.1em; }
+
+  /* MAIN CARD */
+  .gr-card {
+    background:#fff;
+    box-shadow:var(--gr-shadow);
+    border-top:3px solid var(--gr-accent);
+    overflow:hidden;
+  }
+
+  /* LOGROS */
+  .gr-logros { padding:2.5rem 2.5rem 2rem; border-bottom:1px solid #f0f0f0; }
+  .gr-logros-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:#f0f0f0;
+  }
+  @media(max-width:600px){ .gr-logros-grid{ grid-template-columns:1fr; } }
+  .gr-logro-item {
+    background:#fff; padding:1.5rem 1.25rem;
+    display:flex; flex-direction:column; gap:.35rem;
+  }
+  .gr-logro-num {
+    font-size:.62rem; font-weight:800; color:var(--gr-accent);
+    text-transform:uppercase; letter-spacing:.2em;
+  }
+  .gr-logro-title {
+    font-family:var(--gr-head); font-size:.95rem; font-weight:700; color:#111;
+  }
+  .gr-logro-desc { font-size:.78rem; color:#888; line-height:1.6; }
+
+  /* RECIBO */
+  .gr-recibo {
+    display:flex; align-items:flex-start; gap:.85rem;
+    background:#fefce8; border-left:3px solid var(--gr-accent);
+    padding:1.25rem 2.5rem; font-size:.85rem; color:#78350f; line-height:1.65;
+    border-bottom:1px solid #f0f0f0;
+  }
+  .gr-recibo svg { width:1.1rem; height:1.1rem; stroke:var(--gr-accent); flex-shrink:0; margin-top:.15rem; }
+
+  /* SHARE */
+  .gr-share { padding:2rem 2.5rem; border-bottom:1px solid #f0f0f0; }
+  .gr-share-btns { display:flex; gap:.75rem; }
+  @media(max-width:500px){ .gr-share-btns{ flex-direction:column; } }
+  .gr-share-fb, .gr-share-wa {
+    flex:1; display:flex; align-items:center; justify-content:center; gap:.5rem;
+    font-weight:700; font-size:.8rem; padding:.85rem 1rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.06em; transition:opacity .2s;
+  }
+  .gr-share-fb:hover, .gr-share-wa:hover { opacity:.85; }
+  .gr-share-fb { background:#1877f2; color:#fff; }
+  .gr-share-wa { background:#25d366; color:#fff; }
+  .gr-share-fb svg, .gr-share-wa svg { width:1rem; height:1rem; }
+
+  /* CTAS */
+  .gr-ctas {
+    display:flex; gap:.75rem; padding:2rem 2.5rem;
+    border-bottom:1px solid #f0f0f0; flex-wrap:wrap;
+  }
+  @media(max-width:500px){ .gr-ctas{ flex-direction:column; } }
+
+  /* CARD FOOTER */
+  .gr-card-footer {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2.5rem; background:#081509;
+  }
+  .gr-card-footer p { font-size:.7rem; color:rgba(255,255,255,.3); }
+
+  /* SHARED BUTTONS */
+  .gr-btn {
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--gr-accent); color:#fff; font-weight:700;
+    font-size:.82rem; padding:.85rem 1.75rem; text-decoration:none;
+    text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+    border:none; cursor:pointer;
+  }
+  .gr-btn:hover { background:#d97706; }
+  .gr-btn-dark {
+    display:inline-flex; align-items:center; justify-content:center;
+    background:var(--gr-forest); color:#fff; font-weight:700;
+    font-size:.82rem; padding:.85rem 1.75rem; text-decoration:none;
+    text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+  }
+  .gr-btn-dark:hover { background:#0d2a10; }
+  .gr-btn-ghost {
+    display:inline-flex; align-items:center; justify-content:center;
+    border:1.5px solid #ddd; color:#555; font-weight:700;
+    font-size:.82rem; padding:.85rem 1.75rem; text-decoration:none;
+    text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .gr-btn-ghost:hover { border-color:var(--gr-accent); color:var(--gr-accent); }
+  .gr-btn-outline {
+    display:inline-flex; align-items:center; justify-content:center;
+    border:2px solid rgba(255,255,255,.3); color:#fff; font-weight:700;
+    font-size:.82rem; padding:.85rem 1.75rem; text-decoration:none;
+    text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .gr-btn-outline:hover { border-color:var(--gr-accent); background:rgba(245,158,11,.1); }
+
+  @media(max-width:640px){
+    .gr-logros, .gr-recibo, .gr-share, .gr-ctas { padding-left:1.25rem; padding-right:1.25rem; }
+    .gr-card-footer { padding:1rem 1.25rem; }
+    .gr-impact-bar { flex-direction:column; }
+    .gr-impact-stat { border-right:none; border-bottom:1px solid rgba(255,255,255,.06); max-width:100%; }
+    .gr-impact-stat:last-child { border-bottom:none; }
+  }
+</style>
 
 <script>
   if (new URLSearchParams(window.location.search).get('donated') === 'true') {
