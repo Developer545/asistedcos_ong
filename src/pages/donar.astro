@@ -14,22 +14,24 @@ const impactos = [
 <Layout
   title="Donar"
   description="Apoya la misión de Fundación ASISTEDCOS. Tu donación restaura ecosistemas y transforma comunidades en El Salvador."
-  image="/images/evento-playa.jpg"
+  image="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg"
 >
 
 <!-- HERO -->
 <section class="don-hero">
   <div class="don-hero-bg"></div>
   <div class="don-container" style="position:relative;z-index:1;">
+    <div class="don-hero-card">
     <nav class="don-breadcrumb">
       <a href="/">Inicio</a><span>›</span><span>Donar</span>
     </nav>
     <p class="don-eyebrow">Campaña activa · 26 de mayo de 2026</p>
-    <h1 class="don-h1">Dona para sembrar <span class="don-accent">1,000,000 de mangles</span></h1>
-    <p class="don-hero-sub">Tu aporte impulsa viveros, transporte, herramientas y jornadas comunitarias para restaurar manglares en El Salvador.</p>
+    <h1 class="don-h1">Dona para sembrar <span class="don-accent">1 Mill&oacute;n de mangles</span></h1>
+    <p class="don-hero-sub">Tu aporte impulsa viveros, transporte, herramientas y jornadas comunitarias para restaurar manglares en El Salvador, con una meta nacional clara y visible.</p>
     <div class="don-badge">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
       Donaciones deducibles de impuestos — Art. 32, Ley de Renta de El Salvador
+    </div>
     </div>
   </div>
   <div class="don-scroll" aria-hidden="true"><span></span></div>
@@ -41,11 +43,11 @@ const impactos = [
   <div class="don-container don-campaign-grid">
     <div>
       <span class="don-campaign-date">26 mayo 2026</span>
-      <h2>Siembra de 1,000,000 de mangles</h2>
+      <h2>Siembra de 1 Mill&oacute;n de mangles</h2>
       <p>Simulación visual de campaña: el módulo final se administrará después desde ONG Admin.</p>
     </div>
     <div class="don-campaign-metrics">
-      <div><strong>1M</strong><span>mangles</span></div>
+      <div><strong>1 Mill&oacute;n</strong><span>de mangles</span></div>
       <div><strong>$25</strong><span>aporte sugerido</span></div>
       <div><strong>18%</strong><span>inicio simulado</span></div>
     </div>
@@ -241,8 +243,19 @@ const impactos = [
   .don-hero-bg {
     position:absolute; inset:0;
     background:
-      linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.55) 100%),
-      url('/images/area-conservacion.jpg') center/cover no-repeat;
+      linear-gradient(to right,rgba(8,21,9,.54) 0%,rgba(8,21,9,.30) 48%,rgba(8,21,9,.14) 100%),
+      linear-gradient(to bottom,rgba(8,21,9,.10) 0%,rgba(8,21,9,.04) 55%,rgba(8,21,9,.16) 100%),
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg') center/cover no-repeat;
+    transform:scale(1.02);
+  }
+  .don-hero-card {
+    width:min(760px,100%);
+    background:linear-gradient(145deg, rgba(7,22,10,.46) 0%, rgba(7,22,10,.24) 100%);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 24px 60px rgba(0,0,0,.22);
+    backdrop-filter:blur(8px) saturate(1.08);
+    -webkit-backdrop-filter:blur(8px) saturate(1.08);
+    padding:clamp(1.5rem,3vw,2.5rem);
   }
   .don-breadcrumb {
     display:flex; gap:.5rem; align-items:center;
@@ -250,11 +263,11 @@ const impactos = [
   }
   .don-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
   .don-breadcrumb a:hover { color:var(--don-accent); }
-  .don-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; margin-bottom:1.5rem; }
+  .don-hero-sub { color:rgba(255,255,255,.90); font-size:1.08rem; max-width:560px; line-height:1.75; margin-bottom:1.5rem; text-shadow:0 2px 14px rgba(0,0,0,.18); }
   .don-badge {
     display:inline-flex; align-items:center; gap:.5rem;
-    background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.3);
-    color:rgba(245,158,11,.9); font-size:.78rem; font-weight:600; padding:.5rem 1rem;
+    background:rgba(245,158,11,.16); border:1px solid rgba(245,158,11,.34);
+    color:rgba(255,232,193,.95); font-size:.78rem; font-weight:600; padding:.5rem 1rem;
   }
   .don-badge svg { width:.9rem; height:.9rem; fill:var(--don-accent); flex-shrink:0; }
   .don-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
@@ -317,7 +330,7 @@ const impactos = [
     display:block;
     color:var(--don-accent);
     font-family:var(--don-head);
-    font-size:1.35rem;
+    font-size:1.22rem;
     line-height:1;
   }
   .don-campaign-metrics span {
