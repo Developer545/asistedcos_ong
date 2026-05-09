@@ -6,7 +6,6 @@ const WOMPI_TOKEN_URL = 'https://id.wompi.sv/connect/token';
 const WOMPI_API_URL   = 'https://api.wompi.sv/EnlacePago';
 const CLIENT_ID       = import.meta.env.WOMPI_CLIENT_ID as string;
 const CLIENT_SECRET   = import.meta.env.WOMPI_CLIENT_SECRET as string;
-const BASE_URL        = 'https://asistedcosong.vercel.app';
 
 async function getToken(): Promise<string> {
   const res = await fetch(WOMPI_TOKEN_URL, {
@@ -27,6 +26,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body   = await request.json();
     const amount = Number(body.amount);
+    const origin = new URL(request.url).origin;
 
     if (!amount || amount < 1 || amount > 50000) {
       return new Response(JSON.stringify({ error: 'Monto inválido' }), {
@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
           permitePagoQuickPay:          false,
         },
         configuracion: {
-          urlRedirect:                 `${BASE_URL}/gracias?donated=true`,
+          urlRedirect:                 `${origin}/gracias?donated=true`,
           notificarTransaccionCliente: true,
           emailsNotificacion:          'info@asistedcos.org',
         },
