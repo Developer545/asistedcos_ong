@@ -111,7 +111,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
 <!-- CAMPAÑA DESTACADA — Simulación visual -->
 <section class="campaign-feature" id="campania-mangles">
   <div class="campaign-media" aria-hidden="true">
-    <img src="/images/area-conservacion.jpg" alt="" loading="lazy" />
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Mangrove_roots_2.jpg/3840px-Mangrove_roots_2.jpg" alt="" loading="lazy" />
   </div>
 
   <div class="ds-container campaign-grid">
@@ -908,20 +908,20 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(8,21,9,0.95) 0%, rgba(8,21,9,0.86) 46%, rgba(8,21,9,0.55) 100%),
+      linear-gradient(90deg, rgba(8,21,9,0.97) 0%, rgba(8,21,9,0.84) 43%, rgba(8,21,9,0.34) 100%),
       radial-gradient(circle at 78% 30%, rgba(245,158,11,0.18), transparent 34%);
     z-index: 1;
   }
   .campaign-media {
     position: absolute;
     inset: 0 0 0 auto;
-    width: 55%;
+    width: 62%;
   }
   .campaign-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(15%) contrast(1.08);
+    filter: grayscale(8%) contrast(1.08) saturate(1.08);
   }
   .campaign-grid {
     position: relative;
@@ -987,7 +987,9 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     position: relative;
     isolation: isolate;
     background:
-      linear-gradient(145deg, rgba(13,31,16,0.98) 0%, rgba(5,13,7,0.96) 58%, rgba(28,19,7,0.98) 100%);
+      linear-gradient(145deg, rgba(13,31,16,0.72) 0%, rgba(5,13,7,0.58) 58%, rgba(28,19,7,0.66) 100%);
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
     color: #fff;
     padding: 2rem;
     border-top: 4px solid var(--ds-accent);
@@ -1007,7 +1009,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     inset: -35% -18% auto auto;
     width: 280px;
     height: 280px;
-    background: radial-gradient(circle, rgba(245,158,11,0.24), transparent 62%);
+    background: radial-gradient(circle, rgba(245,158,11,0.30), transparent 62%);
     z-index: -1;
     animation: campaign-glow 4.8s ease-in-out infinite alternate;
   }
@@ -1015,7 +1017,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 42%, transparent 58%);
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.10) 42%, transparent 58%);
     transform: translateX(-140%);
     animation: campaign-sheen 6.5s ease-in-out infinite;
     pointer-events: none;
@@ -1051,7 +1053,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
   }
   .campaign-progress {
     height: 5px;
-    background: rgba(255,255,255,0.13);
+    background: rgba(255,255,255,0.16);
     margin: 1.6rem 0;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
   }
@@ -1070,11 +1072,11 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: 1px;
-    background: rgba(255,255,255,0.11);
+    background: rgba(255,255,255,0.13);
     margin-bottom: 1.5rem;
   }
   .campaign-stats div {
-    background: rgba(255,255,255,0.065);
+    background: rgba(255,255,255,0.09);
     padding: 1rem 0.8rem;
     transition: background-color 0.25s, transform 0.25s;
   }
@@ -1109,7 +1111,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     border: 1px solid rgba(255,255,255,0.14);
     padding: 0.7rem 0.25rem;
     color: rgba(255,255,255,0.88);
-    background: rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.08);
     font-weight: 800;
     transition: all 0.2s;
   }
