@@ -140,7 +140,8 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     <div class="campaign-panel">
       <div class="campaign-panel-top">
         <p>Meta de siembra</p>
-        <strong>1,000,000</strong>
+        <strong>1 M</strong>
+        <small>1,000,000</small>
         <span>mangles nativos</span>
       </div>
       <div class="campaign-progress" aria-label="Progreso simulado de campaña">
@@ -1052,6 +1053,15 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     color: #fff;
     text-shadow: 0 0 32px rgba(245,158,11,0.22);
     margin: 0.55rem 0 0.35rem;
+  }
+  .campaign-panel-top small {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
   .campaign-progress {
     height: 5px;
