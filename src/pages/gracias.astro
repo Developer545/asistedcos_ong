@@ -54,32 +54,6 @@ import Layout from '../layouts/Layout.astro';
                 Cada donacion impulsa plantulas, logistica, jornadas comunitarias y seguimiento tecnico. Esto no se queda en promesas: se convierte en trabajo real sobre la costa salvadorena.
               </p>
             </div>
-
-            <div class="thanks-status-card">
-              <div class="thanks-status-grid">
-                <div>
-                  <span>Estado</span>
-                  <strong>Confirmado</strong>
-                </div>
-                <div>
-                  <span>Campana</span>
-                  <strong>1 Millon</strong>
-                </div>
-                <div>
-                  <span>Referencia</span>
-                  <strong id="thanks-ref">Se generara al confirmar</strong>
-                </div>
-                <div>
-                  <span>Transaccion</span>
-                  <strong id="thanks-tx">Se generara al confirmar</strong>
-                </div>
-              </div>
-
-              <div class="thanks-status-note">
-                <span>Comprobante</span>
-                <strong>Recibiras confirmacion por correo</strong>
-              </div>
-            </div>
           </div>
 
           <div class="thanks-impact-grid">
@@ -350,9 +324,9 @@ import Layout from '../layouts/Layout.astro';
     padding: 2rem;
   }
   .thanks-summary-text {
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #ece8df;
-    margin-bottom: 1.5rem;
+    padding: 0;
+    border: 0;
+    margin: 0;
   }
   .thanks-summary-text h2 {
     font-family: 'Poppins', system-ui, sans-serif;
@@ -367,40 +341,6 @@ import Layout from '../layouts/Layout.astro';
     line-height: 1.78;
     font-size: 0.94rem;
   }
-  .thanks-status-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .thanks-status-grid div,
-  .thanks-status-note {
-    background: #faf8f2;
-    border: 1px solid #ece7da;
-    padding: 1rem;
-  }
-  .thanks-status-grid span,
-  .thanks-status-note span {
-    display: block;
-    color: #7b7f86;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: 0.68rem;
-    font-weight: 800;
-  }
-  .thanks-status-grid strong,
-  .thanks-status-note strong {
-    display: block;
-    margin-top: 0.35rem;
-    color: var(--thanks-ink);
-    font-family: 'Poppins', system-ui, sans-serif;
-    font-size: 0.96rem;
-    line-height: 1.55;
-    word-break: break-word;
-  }
-  .thanks-status-note {
-    margin-top: 1rem;
-  }
-
   .thanks-impact-grid {
     display: grid;
     gap: 1rem;
@@ -522,8 +462,7 @@ import Layout from '../layouts/Layout.astro';
       min-height: auto;
     }
     .thanks-summary,
-    .thanks-bottom,
-    .thanks-status-grid {
+    .thanks-bottom {
       grid-template-columns: 1fr;
     }
   }
