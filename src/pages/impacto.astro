@@ -9,227 +9,469 @@ import Layout from '../layouts/Layout.astro';
   image="/images/reforestacion-aerea.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Impacto</span>
-      </div>
-      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Resultados reales</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Nuestro Impacto</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Más de 27 años de trabajo continuo han dejado huella en los ecosistemas y comunidades de El Salvador.
-      </p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="imp-hero">
+  <div class="imp-hero-bg"></div>
+  <div class="imp-container">
+    <nav class="imp-breadcrumb">
+      <a href="/">Inicio</a><span>›</span><span>Impacto</span>
+    </nav>
+    <p class="imp-eyebrow">Resultados reales</p>
+    <h1 class="imp-h1">Nuestro <span class="imp-accent">Impacto</span></h1>
+    <p class="imp-hero-sub">Más de 27 años de trabajo continuo han dejado huella en los ecosistemas y comunidades de El Salvador.</p>
+  </div>
+  <div class="imp-scroll" aria-hidden="true"><span></span></div>
+</section>
 
-  <!-- Big stats -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">En números</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">27+ Años de Resultados</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Cada cifra representa vidas transformadas, ecosistemas recuperados y comunidades fortalecidas.</p>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {[
-          {
-            value: '1997',
-            label: 'Año de fundación',
-            sub: '27+ años de experiencia',
-            icon: `<svg class="h-7 w-7 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
-          },
-          {
-            value: '+50',
-            label: 'Comunidades',
-            sub: 'Rurales y urbanas atendidas',
-            icon: `<svg class="h-7 w-7 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
-          },
-          {
-            value: '+10K',
-            label: 'Árboles plantados',
-            sub: 'Especies nativas',
-            icon: `<svg class="h-7 w-7 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
-          },
-          {
-            value: '3+',
-            label: 'Áreas de conservación',
-            sub: 'Ecosistemas protegidos',
-            icon: `<svg class="h-7 w-7 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`,
-          },
-        ].map(stat => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-8 text-center">
-            <div class="w-14 h-14 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-4" set:html={stat.icon} />
-            <p
-              class="font-heading text-4xl md:text-5xl font-extrabold text-verde-700 mb-1"
-              data-count={stat.value}
-            >
-              {stat.value}
-            </p>
-            <p class="font-bold text-verde-900 mt-1">{stat.label}</p>
-            <p class="text-xs text-gray-400 mt-1">{stat.sub}</p>
+<!-- STATS BAR -->
+<section class="imp-stats-bar">
+  <div class="imp-deco-num" aria-hidden="true">.01</div>
+  <div class="imp-container">
+    <div class="imp-stats-eyebrow-wrap">
+      <p class="imp-eyebrow" style="color:rgba(245,158,11,0.7);">En números</p>
+      <h2 class="imp-h2" style="color:#fff;">27+ Años de <span class="imp-accent">Resultados</span></h2>
+      <p class="imp-stats-sub">Cada cifra representa vidas transformadas, ecosistemas recuperados y comunidades fortalecidas.</p>
+    </div>
+    <div class="imp-stats-grid">
+      {[
+        {
+          value: '1997',
+          label: 'Año de fundación',
+          sub: '27+ años de experiencia',
+          svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`
+        },
+        {
+          value: '+50',
+          label: 'Comunidades',
+          sub: 'Rurales y urbanas atendidas',
+          svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>`
+        },
+        {
+          value: '+10K',
+          label: 'Árboles plantados',
+          sub: 'Especies nativas',
+          svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12m0 0C12 7 8 4 4 5c0 4 3 7 8 7zm0 0c0-5 4-8 8-7-1 4-4 7-8 7"/></svg>`
+        },
+        {
+          value: '3+',
+          label: 'Áreas de conservación',
+          sub: 'Ecosistemas protegidos',
+          svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`
+        },
+      ].map(stat => (
+        <div class="imp-stat-card">
+          <div class="imp-stat-icon" set:html={stat.svg} />
+          <p
+            class="imp-stat-value"
+            data-count={stat.value}
+          >
+            {stat.value}
+          </p>
+          <p class="imp-stat-label">{stat.label}</p>
+          <p class="imp-stat-sub">{stat.sub}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="imp-section" style="background:#f7f7f7; position:relative;">
+  <div class="imp-deco-num" aria-hidden="true">.02</div>
+  <div class="imp-container">
+    <div class="imp-section-head">
+      <p class="imp-eyebrow">Logros destacados</p>
+      <h2 class="imp-h2" style="color:#111;">Áreas de <span class="imp-accent">Impacto</span></h2>
+    </div>
+    <div class="imp-achieve-grid">
+      {[
+        {
+          img: '/images/area-conservacion.jpg',
+          alt: 'Conservación de manglares en Costa del Bálsamo',
+          titulo: 'Conservación de Ecosistemas Costeros',
+          desc: 'Establecimiento y mantenimiento de áreas de conservación de manglares, ecosistemas clave para la pesca artesanal, protección costera y captura de carbono. El área Costa del Bálsamo es uno de nuestros logros más importantes.',
+          logros: ['Área de conservación establecida', 'Biodiversidad costera protegida', 'Alianza público-privada con Concentrix'],
+        },
+        {
+          img: '/images/distribucion-plantas.jpg',
+          alt: 'Distribución de plántulas a familias rurales salvadoreñas',
+          titulo: 'Desarrollo Económico Comunitario',
+          desc: 'La distribución de plántulas nativas no solo restaura ecosistemas, sino que mejora directamente la economía familiar de comunidades rurales, generando recursos adicionales y fortaleciendo la soberanía alimentaria.',
+          logros: ['+10,000 plántulas distribuidas', 'Familias rurales beneficiadas', 'Ingresos adicionales generados'],
+        },
+        {
+          img: '/images/monitoreo-rio.jpg',
+          alt: 'Monitoreo de ríos y cuencas en El Salvador',
+          titulo: 'Gestión Hídrica Sostenible',
+          desc: 'El monitoreo continuo de cuencas hidrográficas garantiza la disponibilidad de agua limpia para comunidades y ecosistemas. Nuestros datos técnicos informan políticas ambientales a nivel municipal y nacional.',
+          logros: ['Monitoreo periódico de cuencas', 'Datos para políticas ambientales', 'Alertas tempranas de contaminación'],
+        },
+        {
+          img: '/images/evento-playa.jpg',
+          alt: 'Jornada de reforestación comunitaria en playa salvadoreña',
+          titulo: 'Movilización Social y Voluntariado',
+          desc: 'Creamos cultura ambiental mediante jornadas participativas que involucran a ciudadanos, estudiantes, empresas y gobiernos locales. La conciencia ambiental es el cambio más duradero que podemos generar.',
+          logros: ['Eventos comunitarios realizados', 'Voluntarios movilizados', 'Cobertura mediática local'],
+        },
+      ].map(area => (
+        <article class="imp-achieve-card">
+          <a class="imp-achieve-img-wrap">
+            <img src={area.img} alt={area.alt} loading="lazy" />
+          </a>
+          <div class="imp-achieve-body">
+            <h3 class="imp-achieve-title">{area.titulo}</h3>
+            <p class="imp-achieve-desc">{area.desc}</p>
+            <ul class="imp-achieve-list">
+              {area.logros.map(logro => (
+                <li>
+                  <span class="imp-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </span>
+                  {logro}
+                </li>
+              ))}
+            </ul>
           </div>
-        ))}
-      </div>
+        </article>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Achievements list -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Logros destacados</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Áreas de Impacto</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        {[
-          {
-            img: '/images/area-conservacion.jpg',
-            alt: 'Conservación de manglares en Costa del Bálsamo',
-            titulo: 'Conservación de Ecosistemas Costeros',
-            desc: 'Establecimiento y mantenimiento de áreas de conservación de manglares, ecosistemas clave para la pesca artesanal, protección costera y captura de carbono. El área Costa del Bálsamo es uno de nuestros logros más importantes.',
-            logros: ['Área de conservación establecida', 'Biodiversidad costera protegida', 'Alianza público-privada con Concentrix'],
-          },
-          {
-            img: '/images/distribucion-plantas.jpg',
-            alt: 'Distribución de plántulas a familias rurales salvadoreñas',
-            titulo: 'Desarrollo Económico Comunitario',
-            desc: 'La distribución de plántulas nativas no solo restaura ecosistemas, sino que mejora directamente la economía familiar de comunidades rurales, generando recursos adicionales y fortaleciendo la soberanía alimentaria.',
-            logros: ['+10,000 plántulas distribuidas', 'Familias rurales beneficiadas', 'Ingresos adicionales generados'],
-          },
-          {
-            img: '/images/monitoreo-rio.jpg',
-            alt: 'Monitoreo de ríos y cuencas en El Salvador',
-            titulo: 'Gestión Hídrica Sostenible',
-            desc: 'El monitoreo continuo de cuencas hidrográficas garantiza la disponibilidad de agua limpia para comunidades y ecosistemas. Nuestros datos técnicos informan políticas ambientales a nivel municipal y nacional.',
-            logros: ['Monitoreo periódico de cuencas', 'Datos para políticas ambientales', 'Alertas tempranas de contaminación'],
-          },
-          {
-            img: '/images/evento-playa.jpg',
-            alt: 'Jornada de reforestación comunitaria en playa salvadoreña',
-            titulo: 'Movilización Social y Voluntariado',
-            desc: 'Creamos cultura ambiental mediante jornadas participativas que involucran a ciudadanos, estudiantes, empresas y gobiernos locales. La conciencia ambiental es el cambio más duradero que podemos generar.',
-            logros: ['Eventos comunitarios realizados', 'Voluntarios movilizados', 'Cobertura mediática local'],
-          },
-        ].map(area => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden">
-            <div class="relative overflow-hidden h-48">
-              <img src={area.img} alt={area.alt} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-gray-900/60 to-transparent"></div>
-            </div>
-            <div class="p-6">
-              <h3 class="font-heading font-extrabold text-lg text-verde-900 mb-2">{area.titulo}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed mb-4">{area.desc}</p>
-              <div class="space-y-1.5">
-                {area.logros.map(logro => (
-                  <div class="flex items-center gap-2 text-sm">
-                    <div class="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0">
-                      <svg class="h-3 w-3 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <span class="text-gray-600">{logro}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+<!-- PHOTO GALLERY -->
+<section class="imp-gallery-section">
+  <div class="imp-container">
+    <div class="imp-section-head">
+      <p class="imp-eyebrow" style="color:rgba(245,158,11,0.8);">Galería de impacto</p>
+      <h2 class="imp-h2" style="color:#fff;">Nuestro Trabajo <span class="imp-accent">en Imágenes</span></h2>
+    </div>
+    <div class="imp-photo-grid">
+      {[
+        { src: '/images/area-conservacion.jpg',    alt: 'Área de conservación Costa del Bálsamo', span: true  },
+        { src: '/images/voluntaria-plantando.jpg', alt: 'Voluntaria plantando árboles',           span: false },
+        { src: '/images/reforestacion-aerea.jpg',  alt: 'Vista aérea de reforestación',           span: false },
+        { src: '/images/distribucion-plantas.jpg', alt: 'Distribución de plántulas',              span: false },
+        { src: '/images/monitoreo-rio.jpg',        alt: 'Monitoreo de cuencas',                   span: false },
+        { src: '/images/vivero-comunidad.jpg',     alt: 'Vivero comunitario',                     span: true  },
+      ].map(photo => (
+        <div class={`imp-photo${photo.span ? ' imp-photo--wide' : ''}`}>
+          <img src={photo.src} alt={photo.alt} loading="lazy" />
+          <div class="imp-photo-overlay">
+            <span>{photo.alt}</span>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Photo gallery -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Galería de impacto</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Nuestro Trabajo en Imágenes</h2>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {[
-          { src: '/images/area-conservacion.jpg', alt: 'Área de conservación Costa del Bálsamo' },
-          { src: '/images/voluntaria-plantando.jpg', alt: 'Voluntaria plantando árboles' },
-          { src: '/images/reforestacion-aerea.jpg', alt: 'Vista aérea de reforestación' },
-          { src: '/images/distribucion-plantas.jpg', alt: 'Distribución de plántulas' },
-          { src: '/images/monitoreo-rio.jpg', alt: 'Monitoreo de cuencas' },
-          { src: '/images/vivero-comunidad.jpg', alt: 'Vivero comunitario' },
-        ].map((photo, index) => (
-          <div class={`relative overflow-hidden rounded-lg ${index === 0 || index === 5 ? 'md:col-span-2' : ''}`}>
-            <img
-              src={photo.src}
-              alt={photo.alt}
-              class="w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gray-900/0 hover:bg-gray-900/30 transition-colors duration-300 flex items-center justify-center">
-              <span class="text-white font-semibold text-sm opacity-0 hover:opacity-100 transition-opacity px-3 text-center">{photo.alt}</span>
-            </div>
-          </div>
-        ))}
-      </div>
+<!-- PARTNERS -->
+<section class="imp-section" style="background:#fff; position:relative;">
+  <div class="imp-deco-num" aria-hidden="true">.03</div>
+  <div class="imp-container">
+    <div class="imp-section-head">
+      <p class="imp-eyebrow">Quienes nos apoyan</p>
+      <h2 class="imp-h2" style="color:#111;">Aliados <span class="imp-accent">Estratégicos</span></h2>
+      <p class="imp-partners-sub">Trabajamos con empresas, instituciones y organismos internacionales para maximizar nuestro impacto.</p>
     </div>
-  </section>
+    <div class="imp-partners-grid">
+      {[
+        { name: 'Concentrix',                      type: 'Empresa privada'           },
+        { name: 'Ministerio de Medio Ambiente',    type: 'Gobierno'                  },
+        { name: 'Alcaldías Municipales',           type: 'Gobierno local'            },
+        { name: 'Cooperación Internacional',       type: 'Organismos internacionales'},
+        { name: 'Comunidades Locales',             type: 'Sociedad civil'            },
+      ].map(aliado => (
+        <div class="imp-partner-card">
+          <p class="imp-partner-name">{aliado.name}</p>
+          <p class="imp-partner-type">{aliado.type}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
-  <!-- Partners -->
-  <section class="py-16 bg-gray-50 border-y border-gray-100">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Quienes nos apoyan</span>
-      <h2 class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 mt-2 mb-3">Aliados Estratégicos</h2>
-      <p class="text-gray-500 mb-10 max-w-lg mx-auto">Trabajamos con empresas, instituciones y organismos internacionales para maximizar nuestro impacto.</p>
-      <div class="flex flex-wrap justify-center gap-4">
-        {[
-          { name: 'Concentrix', type: 'Empresa privada' },
-          { name: 'Ministerio de Medio Ambiente', type: 'Gobierno' },
-          { name: 'Alcaldías Municipales', type: 'Gobierno local' },
-          { name: 'Cooperación Internacional', type: 'Organismos internacionales' },
-          { name: 'Comunidades Locales', type: 'Sociedad civil' },
-        ].map(aliado => (
-          <div class="bg-white border border-gray-200 rounded-lg px-6 py-4 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300">
-            <p class="font-bold text-verde-900 text-sm">{aliado.name}</p>
-            <p class="text-xs text-gray-400 mt-0.5">{aliado.type}</p>
-          </div>
-        ))}
-      </div>
+<!-- CTA -->
+<section class="imp-cta">
+  <div class="imp-container" style="text-align:center;">
+    <p class="imp-eyebrow" style="color:rgba(245,158,11,0.8);">Únete al cambio</p>
+    <h2 class="imp-h2" style="color:#fff;">Sé parte de <span class="imp-accent">este impacto</span></h2>
+    <p style="color:rgba(255,255,255,.6); max-width:480px; margin:1rem auto 2.5rem; font-size:1rem; line-height:1.75;">Cada donación amplifica nuestro trabajo en el territorio y multiplica el impacto para El Salvador.</p>
+    <div class="imp-cta-btns">
+      <a href="/donar" class="imp-btn">♥ Donar ahora</a>
+      <a href="/proyectos" class="imp-btn-outline">Ver proyectos &rarr;</a>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 bg-gray-900 relative overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover opacity-15" />
-    </div>
-    <div class="relative max-w-3xl mx-auto px-4 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Únete al cambio</span>
-      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">Sé parte de este impacto</h2>
-      <p class="text-gray-300 text-lg mb-8">Cada donación amplifica nuestro trabajo en el territorio y multiplica el impacto para El Salvador.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg text-lg">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          Donar ahora
-        </a>
-        <a href="/proyectos" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors text-lg">
-          Ver proyectos
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
 
+<style>
+  :root {
+    --imp-accent: #f59e0b;
+    --imp-dark:   #111;
+    --imp-forest: #081509;
+    --imp-head:   'Poppins', system-ui, sans-serif;
+    --imp-shadow: 0 8px 30px rgba(0,0,0,.08);
+  }
+
+  .imp-container   { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .imp-section     { padding:5rem 0; overflow:hidden; }
+
+  .imp-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--imp-accent); display:block; margin-bottom:.75rem;
+  }
+  .imp-h1 {
+    font-family:var(--imp-head); font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.5rem); line-height:1.07; color:#fff; margin-bottom:1.25rem;
+  }
+  .imp-h2 {
+    font-family:var(--imp-head); font-weight:800;
+    font-size:clamp(1.9rem,3.5vw,2.6rem); line-height:1.15; margin-bottom:.75rem;
+  }
+  .imp-accent { color:var(--imp-accent); }
+
+  .imp-deco-num {
+    position:absolute; top:3rem; left:-1rem;
+    font-family:var(--imp-head); font-size:clamp(7rem,15vw,14rem);
+    font-weight:900; color:rgba(0,0,0,.035); line-height:1;
+    pointer-events:none; user-select:none;
+  }
+
+  /* ── HERO ── */
+  .imp-hero {
+    position:relative; min-height:65vh; display:flex; align-items:center;
+    padding:8rem 0 5rem; overflow:hidden;
+  }
+  .imp-hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right, rgba(8,21,9,.92) 0%, rgba(8,21,9,.72) 60%, rgba(8,21,9,.5) 100%),
+      url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80') center/cover no-repeat;
+  }
+  .imp-hero .imp-container { position:relative; z-index:1; }
+  .imp-breadcrumb {
+    display:flex; gap:.5rem; align-items:center;
+    font-size:.8rem; color:rgba(255,255,255,.4); margin-bottom:1.5rem;
+  }
+  .imp-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
+  .imp-breadcrumb a:hover { color:var(--imp-accent); }
+  .imp-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; }
+  .imp-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
+  .imp-scroll span {
+    display:block; width:1px; height:60px;
+    background:linear-gradient(to bottom, rgba(245,158,11,.8), transparent);
+    animation:imp-scroll-anim 1.8s ease-in-out infinite;
+  }
+  @keyframes imp-scroll-anim {
+    0%   { transform:scaleY(0); transform-origin:top    }
+    50%  { transform:scaleY(1); transform-origin:top    }
+    51%  { transform:scaleY(1); transform-origin:bottom }
+    100% { transform:scaleY(0); transform-origin:bottom }
+  }
+
+  /* ── STATS BAR ── */
+  .imp-stats-bar {
+    background:var(--imp-forest);
+    padding:5rem 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .imp-stats-bar .imp-deco-num { color:rgba(255,255,255,.03); }
+  .imp-stats-eyebrow-wrap { text-align:center; margin-bottom:3rem; }
+  .imp-stats-sub { color:rgba(255,255,255,.45); max-width:480px; margin:.75rem auto 0; font-size:.95rem; line-height:1.7; }
+
+  .imp-stats-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1.5px;
+    background:rgba(255,255,255,.06);
+  }
+  @media(max-width:768px) { .imp-stats-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:480px) { .imp-stats-grid { grid-template-columns:1fr; } }
+
+  .imp-stat-card {
+    background:var(--imp-forest);
+    padding:2.5rem 2rem;
+    text-align:center;
+    transition:background .25s;
+  }
+  .imp-stat-card:hover { background:rgba(255,255,255,.03); }
+
+  .imp-stat-icon {
+    width:2.5rem; height:2.5rem;
+    margin:0 auto 1.25rem;
+    color:var(--imp-accent);
+  }
+  .imp-stat-icon svg { width:100%; height:100%; stroke:var(--imp-accent); }
+
+  .imp-stat-value {
+    font-family:var(--imp-head); font-weight:900;
+    font-size:clamp(2.2rem,5vw,3.2rem); line-height:1;
+    color:#fff; margin-bottom:.5rem;
+  }
+  .imp-stat-label {
+    font-family:var(--imp-head); font-weight:700;
+    font-size:.85rem; color:rgba(255,255,255,.7);
+    text-transform:uppercase; letter-spacing:.08em; margin-bottom:.25rem;
+  }
+  .imp-stat-sub { font-size:.72rem; color:rgba(255,255,255,.35); letter-spacing:.04em; }
+
+  /* ── ACHIEVEMENTS ── */
+  .imp-section-head { text-align:center; margin-bottom:3rem; }
+
+  .imp-achieve-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1.5px;
+    background:#e0e0e0;
+  }
+  @media(max-width:700px) { .imp-achieve-grid { grid-template-columns:1fr; } }
+
+  .imp-achieve-card { background:#fff; display:flex; flex-direction:column; }
+  .imp-achieve-card:hover { position:relative; z-index:1; box-shadow:var(--imp-shadow); }
+
+  .imp-achieve-img-wrap {
+    display:block; overflow:hidden; aspect-ratio:16/9;
+  }
+  .imp-achieve-img-wrap img {
+    width:100%; height:100%; object-fit:cover;
+    transition:transform .6s ease; display:block;
+  }
+  .imp-achieve-card:hover .imp-achieve-img-wrap img { transform:scale(1.05); }
+
+  .imp-achieve-body { padding:2rem; flex:1; }
+
+  .imp-achieve-title {
+    font-family:var(--imp-head); font-weight:800;
+    font-size:1.1rem; color:var(--imp-dark); margin-bottom:.75rem;
+  }
+  .imp-achieve-desc { font-size:.875rem; color:#777; line-height:1.75; margin-bottom:1.25rem; }
+
+  .imp-achieve-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.6rem; }
+  .imp-achieve-list li {
+    display:flex; align-items:center; gap:.65rem;
+    font-size:.82rem; color:#555; font-weight:500;
+  }
+  .imp-check {
+    display:flex; align-items:center; justify-content:center;
+    width:1.35rem; height:1.35rem; flex-shrink:0;
+    background:rgba(245,158,11,.12); color:var(--imp-accent);
+  }
+  .imp-check svg { width:.75rem; height:.75rem; stroke:var(--imp-accent); }
+
+  /* ── GALLERY ── */
+  .imp-gallery-section {
+    padding:5rem 0;
+    background:
+      linear-gradient(rgba(8,21,9,.75), rgba(8,21,9,.75)),
+      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center/cover no-repeat fixed;
+  }
+  .imp-gallery-section .imp-section-head { margin-bottom:2rem; }
+
+  .imp-photo-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+  }
+  @media(max-width:768px) { .imp-photo-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:480px) { .imp-photo-grid { grid-template-columns:1fr; } }
+
+  .imp-photo { position:relative; overflow:hidden; aspect-ratio:4/3; }
+  .imp-photo--wide { grid-column:span 2; aspect-ratio:16/7; }
+  @media(max-width:768px) { .imp-photo--wide { grid-column:span 1; aspect-ratio:4/3; } }
+
+  .imp-photo img {
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .6s ease;
+  }
+  .imp-photo:hover img { transform:scale(1.06); }
+
+  .imp-photo-overlay {
+    position:absolute; inset:0;
+    background:rgba(8,21,9,0);
+    display:flex; align-items:flex-end; padding:1rem;
+    transition:background .3s;
+  }
+  .imp-photo:hover .imp-photo-overlay { background:rgba(8,21,9,.55); }
+  .imp-photo-overlay span {
+    font-size:.75rem; font-weight:700; color:#fff; text-transform:uppercase;
+    letter-spacing:.08em; opacity:0; transform:translateY(6px);
+    transition:opacity .3s, transform .3s;
+  }
+  .imp-photo:hover .imp-photo-overlay span { opacity:1; transform:translateY(0); }
+
+  /* ── PARTNERS ── */
+  .imp-partners-sub {
+    color:#888; max-width:480px; margin:.5rem auto 2.5rem;
+    font-size:.9rem; line-height:1.7;
+  }
+  .imp-partners-grid {
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:1.5px;
+    background:#e0e0e0;
+  }
+  @media(max-width:900px) { .imp-partners-grid { grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:560px) { .imp-partners-grid { grid-template-columns:repeat(2,1fr); } }
+
+  .imp-partner-card {
+    background:#fff; padding:1.75rem 1.25rem; text-align:center;
+    position:relative; overflow:hidden;
+    transition:box-shadow .2s;
+  }
+  .imp-partner-card::after {
+    content:''; position:absolute; bottom:0; left:0; right:0;
+    height:3px; background:var(--imp-accent);
+    transform:scaleX(0); transition:transform .3s ease;
+  }
+  .imp-partner-card:hover::after { transform:scaleX(1); }
+  .imp-partner-card:hover { box-shadow:var(--imp-shadow); position:relative; z-index:1; }
+
+  .imp-partner-name {
+    font-family:var(--imp-head); font-weight:700;
+    font-size:.85rem; color:var(--imp-dark); margin-bottom:.35rem;
+  }
+  .imp-partner-type { font-size:.7rem; color:#aaa; text-transform:uppercase; letter-spacing:.1em; }
+
+  /* ── CTA ── */
+  .imp-cta {
+    background:
+      linear-gradient(rgba(8,21,9,.88), rgba(8,21,9,.88)),
+      url('/images/voluntaria-plantando.jpg') center/cover no-repeat fixed;
+    padding:7rem 0;
+  }
+  .imp-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+  .imp-btn {
+    display:inline-block; background:var(--imp-accent); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em;
+    transition:background .2s;
+  }
+  .imp-btn:hover { background:#d97706; }
+  .imp-btn-outline {
+    display:inline-block; border:2px solid rgba(255,255,255,.3); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em;
+    transition:all .2s;
+  }
+  .imp-btn-outline:hover { border-color:var(--imp-accent); background:rgba(245,158,11,.1); }
+
+  @media(max-width:640px) { .imp-hero { min-height:auto; padding:6rem 0 4rem; } }
+</style>
+
 <script>
-  // Animated counters
+  // Animated counters — preserved logic
   const counters = document.querySelectorAll<HTMLElement>('[data-count]');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target as HTMLElement;
         const raw = el.dataset.count ?? '';
-        // Only animate pure numbers
         const num = parseInt(raw.replace(/\D/g, ''), 10);
         if (isNaN(num)) return;
         const prefix = raw.startsWith('+') ? '+' : '';

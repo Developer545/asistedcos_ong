@@ -1,19 +1,13 @@
 ---
 export const prerender = false;
-
 import Layout from '../../layouts/Layout.astro';
 
 const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
 
 interface News {
-  id: string | number;
-  title: string;
-  slug: string;
-  summary?: string;
-  coverImage?: string;
-  publishedAt?: string;
-  categoria?: string;
-  body?: string;
+  id: string | number; title: string; slug: string;
+  summary?: string; coverImage?: string; publishedAt?: string;
+  categoria?: string; body?: string;
 }
 
 let noticias: News[] = [];
@@ -21,29 +15,18 @@ let fetchError = false;
 
 try {
   const res = await fetch(`${ADMIN_URL}/api/public/noticias?limit=20`, { signal: AbortSignal.timeout(5000) });
-  if (res.ok) {
-    const json = await res.json();
-    noticias = json.data ?? [];
-  } else {
-    fetchError = true;
-  }
-} catch {
-  fetchError = true;
-}
+  if (res.ok) { const json = await res.json(); noticias = json.data ?? []; }
+  else fetchError = true;
+} catch { fetchError = true; }
 
 function formatDate(dateStr?: string): string {
   if (!dateStr) return '';
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' });
+  return new Date(dateStr).toLocaleDateString('es-SV', { year:'numeric', month:'long', day:'numeric' });
 }
-
 function formatDateShort(dateStr?: string): string {
   if (!dateStr) return '';
-  const date = new Date(dateStr);
-  const day = date.getDate();
-  const month = date.toLocaleDateString('es-SV', { month: 'short' }).toUpperCase();
-  const year = date.getFullYear();
-  return `${day} ${month} ${year}`;
+  const d = new Date(dateStr);
+  return `${d.getDate()} ${d.toLocaleDateString('es-SV',{month:'short'}).toUpperCase()} ${d.getFullYear()}`;
 }
 ---
 
@@ -53,143 +36,247 @@ function formatDateShort(dateStr?: string): string {
   image="/images/reforestacion-aerea.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Noticias</span>
-      </div>
-      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Actualidad</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Noticias</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Entérate de los últimos avances, eventos y logros de nuestra fundación en El Salvador.
-      </p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="new-hero">
+  <div class="new-hero-bg"></div>
+  <div class="new-container">
+    <nav class="new-breadcrumb">
+      <a href="/">Inicio</a><span>›</span><span>Noticias</span>
+    </nav>
+    <p class="new-eyebrow">Actualidad</p>
+    <h1 class="new-h1">Noticias y <span class="new-accent">novedades</span></h1>
+    <p class="new-hero-sub">Entérate de los últimos avances, eventos y logros de nuestra fundación en El Salvador.</p>
+  </div>
+  <div class="new-scroll" aria-hidden="true"><span></span></div>
+</section>
 
-  <!-- News grid -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- NEWS GRID -->
+<section class="new-section" style="background:#f7f7f7; position:relative;">
+  <div class="new-deco-num" aria-hidden="true">.01</div>
+  <div class="new-container">
 
-      {fetchError || noticias.length === 0 ? (
-        <!-- Empty / error state -->
-        <div class="text-center py-24">
-          <div class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mx-auto mb-6">
-            <svg class="h-12 w-12 text-verde-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h6m-6-4h6" />
-            </svg>
-          </div>
-          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Próximamente</span>
-          <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-3">Estamos preparando contenido</h2>
-          <p class="text-gray-500 max-w-sm mx-auto leading-relaxed">
-            Estamos preparando noticias y novedades. Vuelve pronto para conocer las últimas actualizaciones de ASISTEDCOS.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
-            <a href="/" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-6 py-3 rounded-sm transition-colors">
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              Volver al inicio
-            </a>
-            <a href="/proyectos" class="inline-flex items-center justify-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-6 py-3 rounded-sm transition-colors">
-              Ver proyectos
-            </a>
-          </div>
+    {fetchError || noticias.length === 0 ? (
+      <div class="new-empty">
+        <div class="new-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h6m-6-4h6"/>
+          </svg>
         </div>
-      ) : (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {noticias.map(noticia => (
-            <article class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
-              <!-- Cover image -->
-              <div class="overflow-hidden aspect-[16/10] relative">
-                {noticia.coverImage ? (
-                  <img
-                    src={noticia.coverImage}
-                    alt={noticia.title}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-verde-800 to-verde-600">
-                    <svg class="h-12 w-12 opacity-40 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                )}
-                <!-- Amber date badge -->
-                {noticia.publishedAt && (
-                  <div class="absolute top-3 left-3">
-                    <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide">
-                      {formatDateShort(noticia.publishedAt)}
-                    </span>
-                  </div>
-                )}
-                <!-- Category badge -->
-                {noticia.categoria && (
-                  <div class="absolute top-3 right-3">
-                    <span class="bg-white/90 text-verde-800 text-xs font-bold px-2.5 py-1 rounded-sm">
-                      {noticia.categoria}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <div class="p-6 flex flex-col flex-1">
-                <h2 class="font-heading font-extrabold text-lg mb-2 leading-snug text-verde-900 group-hover:text-verde-600 transition-colors">
-                  {noticia.title}
-                </h2>
-
-                {noticia.publishedAt && (
-                  <p class="text-gray-400 text-xs mb-3">{formatDate(noticia.publishedAt)}</p>
-                )}
-
-                {noticia.summary && (
-                  <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
-                    {noticia.summary}
-                  </p>
-                )}
-
-                <a
-                  href={`/noticias/${noticia.slug}`}
-                  class="inline-flex items-center gap-1.5 font-bold text-sm text-verde-700 hover:text-amber-500 transition-colors mt-auto group/link"
-                >
-                  Leer más
-                  <svg class="h-4 w-4 group-hover/link:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        <p class="new-eyebrow">Próximamente</p>
+        <h2 class="new-h2" style="color:#111;">Estamos preparando contenido</h2>
+        <p style="color:#888;max-width:360px;margin:.75rem auto 2rem;font-size:.9rem;line-height:1.7;">Vuelve pronto para conocer las últimas actualizaciones de ASISTEDCOS.</p>
+        <div class="new-empty-actions">
+          <a href="/" class="new-btn">Volver al inicio</a>
+          <a href="/proyectos" class="new-btn-outline-dark">Ver proyectos</a>
+        </div>
+      </div>
+    ) : (
+      <div class="new-grid">
+        {noticias.map((noticia, i) => (
+          <article class={`new-card ${i === 0 ? 'new-card--featured' : ''}`}>
+            <a href={`/noticias/${noticia.slug}`} class="new-card-img-wrap">
+              {noticia.coverImage ? (
+                <img src={noticia.coverImage} alt={noticia.title} loading={i < 3 ? 'eager' : 'lazy'} />
+              ) : (
+                <div class="new-card-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                   </svg>
-                </a>
-              </div>
-            </article>
-          ))}
-        </div>
-      )}
-
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 bg-gray-900 relative overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/area-conservacion.jpg" alt="" class="w-full h-full object-cover opacity-15" />
-    </div>
-    <div class="relative max-w-2xl mx-auto px-4 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Apóyanos</span>
-      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">¿Quieres apoyar nuestra labor?</h2>
-      <p class="text-gray-300 mb-8">Cada donación nos permite seguir restaurando ecosistemas y transformando comunidades.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          Donar ahora
-        </a>
-        <a href="/proyectos" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors">
-          Ver proyectos
-        </a>
+                </div>
+              )}
+              {noticia.publishedAt && <span class="new-card-date">{formatDateShort(noticia.publishedAt)}</span>}
+              {noticia.categoria && <span class="new-card-cat">{noticia.categoria}</span>}
+            </a>
+            <div class="new-card-body">
+              {noticia.publishedAt && <p class="new-card-long-date">{formatDate(noticia.publishedAt)}</p>}
+              <h2 class="new-card-title">
+                <a href={`/noticias/${noticia.slug}`}>{noticia.title}</a>
+              </h2>
+              {noticia.summary && <p class="new-card-summary">{noticia.summary}</p>}
+              <a href={`/noticias/${noticia.slug}`} class="new-card-link">
+                Leer artículo
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
+    )}
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="new-cta">
+  <div class="new-container" style="text-align:center;">
+    <p class="new-eyebrow" style="color:rgba(245,158,11,0.8);">Apóyanos</p>
+    <h2 class="new-h2" style="color:#fff;">¿Quieres apoyar <span class="new-accent">nuestra labor</span>?</h2>
+    <p style="color:rgba(255,255,255,.6);max-width:480px;margin:1rem auto 2.5rem;font-size:1rem;line-height:1.75;">Cada donación nos permite seguir restaurando ecosistemas y transformando comunidades.</p>
+    <div class="new-cta-btns">
+      <a href="/donar" class="new-btn">♥ Donar ahora</a>
+      <a href="/proyectos" class="new-btn-outline">Ver proyectos &rarr;</a>
     </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
+
+<style>
+  :root {
+    --new-accent:#f59e0b; --new-dark:#111; --new-forest:#081509;
+    --new-head:'Poppins',system-ui,sans-serif; --new-shadow:0 8px 30px rgba(0,0,0,.08);
+  }
+  .new-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .new-section   { padding:5rem 0; overflow:hidden; }
+  .new-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--new-accent); display:block; margin-bottom:.75rem;
+  }
+  .new-h1 {
+    font-family:var(--new-head); font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.5rem); line-height:1.07; color:#fff; margin-bottom:1.25rem;
+  }
+  .new-h2 {
+    font-family:var(--new-head); font-weight:800;
+    font-size:clamp(1.9rem,3.5vw,2.6rem); line-height:1.15; color:#111; margin-bottom:.75rem;
+  }
+  .new-accent { color:var(--new-accent); }
+  .new-deco-num {
+    position:absolute; top:3rem; left:-1rem;
+    font-family:var(--new-head); font-size:clamp(7rem,15vw,14rem);
+    font-weight:900; color:rgba(0,0,0,.035); line-height:1;
+    pointer-events:none; user-select:none;
+  }
+
+  /* HERO */
+  .new-hero {
+    position:relative; min-height:65vh; display:flex; align-items:center;
+    padding:8rem 0 5rem; overflow:hidden;
+  }
+  .new-hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.5) 100%),
+      url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80') center/cover no-repeat;
+  }
+  .new-hero .new-container { position:relative; z-index:1; }
+  .new-breadcrumb {
+    display:flex; gap:.5rem; align-items:center;
+    font-size:.8rem; color:rgba(255,255,255,.4); margin-bottom:1.5rem;
+  }
+  .new-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
+  .new-breadcrumb a:hover { color:var(--new-accent); }
+  .new-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; }
+  .new-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
+  .new-scroll span {
+    display:block; width:1px; height:60px;
+    background:linear-gradient(to bottom,rgba(245,158,11,.8),transparent);
+    animation:nscroll 1.8s ease-in-out infinite;
+  }
+  @keyframes nscroll {
+    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
+    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  /* GRID */
+  .new-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:#e0e0e0;
+  }
+  @media(max-width:900px){ .new-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .new-grid{ grid-template-columns:1fr; } }
+
+  /* Featured card spans 2 cols */
+  .new-card--featured {
+    grid-column: span 2;
+    display:grid; grid-template-columns:1fr 1fr;
+  }
+  .new-card--featured .new-card-img-wrap { height:100%; }
+  @media(max-width:900px){ .new-card--featured{ grid-column:span 1; display:flex; flex-direction:column; } }
+
+  .new-card { background:#fff; display:flex; flex-direction:column; }
+  .new-card:hover { position:relative; z-index:1; box-shadow:var(--new-shadow); }
+
+  .new-card-img-wrap {
+    position:relative; overflow:hidden; display:block;
+    aspect-ratio:16/10; text-decoration:none;
+  }
+  .new-card--featured .new-card-img-wrap { aspect-ratio:unset; }
+  .new-card-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; display:block; }
+  .new-card:hover .new-card-img-wrap img { transform:scale(1.05); }
+  .new-card-placeholder {
+    width:100%; height:100%; background:linear-gradient(135deg,#1a4721,#245f2e);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .new-card-placeholder svg { width:3rem; height:3rem; stroke:rgba(255,255,255,.3); }
+  .new-card-date {
+    position:absolute; top:1rem; left:1rem;
+    background:var(--new-accent); color:#fff;
+    font-size:.65rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.1em; padding:.25rem .65rem;
+  }
+  .new-card-cat {
+    position:absolute; top:1rem; right:1rem;
+    background:rgba(8,21,9,.8); color:rgba(255,255,255,.85);
+    font-size:.65rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em; padding:.25rem .65rem;
+  }
+
+  .new-card-body { padding:1.75rem; flex:1; display:flex; flex-direction:column; }
+  .new-card-long-date { font-size:.72rem; color:#bbb; margin-bottom:.5rem; }
+  .new-card-title {
+    font-family:var(--new-head); font-weight:700; font-size:1rem;
+    line-height:1.35; margin-bottom:.6rem; flex:1;
+  }
+  .new-card--featured .new-card-title { font-size:1.25rem; }
+  .new-card-title a { color:#111; text-decoration:none; transition:color .2s; }
+  .new-card-title a:hover { color:var(--new-accent); }
+  .new-card-summary { font-size:.83rem; color:#777; line-height:1.65; flex:1; margin-bottom:1rem; }
+  .new-card-link {
+    display:inline-flex; align-items:center; gap:.4rem;
+    font-size:.78rem; font-weight:700; color:var(--new-accent);
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em;
+    margin-top:auto;
+  }
+  .new-card-link svg { width:1rem; height:1rem; transition:transform .2s; }
+  .new-card-link:hover svg { transform:translateX(3px); }
+
+  /* EMPTY */
+  .new-empty { text-align:center; padding:5rem 0; }
+  .new-empty-icon {
+    width:4rem; height:4rem; background:#fff; box-shadow:var(--new-shadow);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 1.5rem;
+  }
+  .new-empty-icon svg { width:2rem; height:2rem; stroke:#6b7280; }
+  .new-empty-actions { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; }
+
+  /* CTA */
+  .new-cta {
+    background:
+      linear-gradient(rgba(8,21,9,.88),rgba(8,21,9,.88)),
+      url('/images/area-conservacion.jpg') center/cover no-repeat fixed;
+    padding:7rem 0;
+  }
+  .new-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+  .new-btn {
+    display:inline-block; background:var(--new-accent); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+  }
+  .new-btn:hover { background:#d97706; }
+  .new-btn-outline {
+    display:inline-block; border:2px solid rgba(255,255,255,.3); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .new-btn-outline:hover { border-color:var(--new-accent); background:rgba(245,158,11,.1); }
+  .new-btn-outline-dark {
+    display:inline-block; border:2px solid #333; color:#333;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .new-btn-outline-dark:hover { background:#111; color:#fff; border-color:#111; }
+
+  @media(max-width:640px){ .new-hero{ min-height:auto; padding:6rem 0 4rem; } }
+</style>

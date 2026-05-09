@@ -3,149 +3,520 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="¡Gracias!" description="Gracias por apoyar a Fundación ASISTEDCOS.">
-
-  <!-- Estado: contacto (default) -->
-  <section id="state-contacto" class="min-h-[70vh] flex items-center justify-center bg-gray-50">
-    <div class="text-center max-w-lg mx-auto px-4">
-      <div class="w-20 h-20 bg-verde-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="h-10 w-10 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+<Layout title="Gracias" description="Gracias por apoyar a Fundacion ASISTEDCOS.">
+  <section id="state-contacto" class="thanks-contact">
+    <div class="thanks-contact-card">
+      <div class="thanks-contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="font-heading text-3xl font-bold text-verde-900 mb-3">¡Gracias por escribirnos!</h1>
-      <p class="text-gray-500 mb-8">Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
-      <a href="/" class="inline-flex items-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-semibold px-8 py-3 rounded-full transition-colors">
-        Volver al inicio
-      </a>
+      <h1>Gracias por escribirnos</h1>
+      <p>Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
+      <a href="/" class="thanks-contact-btn">Volver al inicio</a>
     </div>
   </section>
 
-  <!-- Estado: donación exitosa -->
-  <section id="state-donacion" class="hidden min-h-screen bg-gray-50">
+  <section id="state-donacion" class="thanks-page hidden">
+    <div class="thanks-hero">
+      <div class="thanks-hero-media" aria-hidden="true">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg" alt="" loading="eager" />
+      </div>
 
-    <!-- Barra superior decorativa -->
-    <div class="h-2 bg-gradient-to-r from-amber-400 via-verde-500 to-amber-400"></div>
+      <div class="thanks-shell">
+        <div class="thanks-grid">
+          <div class="thanks-copy-card">
+            <div class="thanks-copy">
+              <p class="thanks-eyebrow">Donacion confirmada</p>
+              <h1 class="thanks-title">Tu aporte ya es parte de la restauracion</h1>
+              <p class="thanks-sub">
+                Gracias por sumarte a Fundacion ASISTEDCOS. Tu donacion nos acerca a proteger manglares, fortalecer comunidades costeras y sembrar futuro en El Salvador.
+              </p>
 
-    <div class="max-w-2xl mx-auto px-4 py-16">
-
-      <!-- Tarjeta principal -->
-      <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
-
-        <!-- Cabecera de la tarjeta -->
-        <div class="relative bg-gradient-to-br from-amber-400 to-amber-500 px-8 py-12 text-center overflow-hidden">
-          <!-- Círculos decorativos -->
-          <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
-          <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-white/10 rounded-full"></div>
-          <div class="absolute top-4 right-12 w-6 h-6 bg-white/20 rounded-full"></div>
-          <div class="absolute bottom-8 left-16 w-4 h-4 bg-white/20 rounded-full"></div>
-
-          <!-- Icono -->
-          <div class="relative inline-flex items-center justify-center w-24 h-24 rounded-full bg-white shadow-lg mb-5">
-            <svg class="h-12 w-12 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/>
-            </svg>
-          </div>
-
-          <div class="relative">
-            <p class="text-amber-100 text-xs font-bold uppercase tracking-widest mb-2">Donación confirmada ✓</p>
-            <h1 class="font-heading text-3xl md:text-4xl font-extrabold text-white leading-tight">
-              ¡Eres parte<br/>del cambio!
-            </h1>
+              <div class="thanks-actions">
+                <a href="/proyectos" class="thanks-btn">Ver proyectos</a>
+                <a href="/donar" class="thanks-btn thanks-btn-ghost">Donar de nuevo</a>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- Cuerpo de la tarjeta -->
-        <div class="px-8 py-8">
-
-          <!-- Mensaje -->
-          <p class="text-gray-600 text-center text-base leading-relaxed mb-8">
-            Tu donación ya está en camino a las comunidades y ecosistemas de El Salvador.
-            Cada árbol que nazca de esto llevará tu huella.
-          </p>
-
-          <!-- Lo que lograste -->
-          <div class="bg-gray-50 rounded-xl p-5 mb-8">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 text-center">Lo que lograste hoy</p>
-            <div class="grid grid-cols-3 gap-4">
-              {[
-                { icon: '🌱', label: 'Plántulas hacia comunidades rurales' },
-                { icon: '💧', label: 'Cuencas monitoreadas protegidas' },
-                { icon: '🌍', label: 'CO₂ siendo capturado por la naturaleza' },
-              ].map(item => (
-                <div class="text-center">
-                  <div class="text-3xl mb-2">{item.icon}</div>
-                  <p class="text-gray-500 text-xs leading-tight">{item.label}</p>
-                </div>
-              ))}
+    <div class="thanks-body">
+      <div class="thanks-shell">
+        <div class="thanks-summary">
+          <div class="thanks-summary-card">
+            <div class="thanks-summary-text">
+              <p class="thanks-eyebrow thanks-eyebrow-dark">Lo que activaste hoy</p>
+              <h2>Tu apoyo se convierte en acciones visibles en territorio</h2>
+              <p>
+                Cada donacion impulsa plantulas, logistica, jornadas comunitarias y seguimiento tecnico. Esto no se queda en promesas: se convierte en trabajo real sobre la costa salvadorena.
+              </p>
             </div>
           </div>
 
-          <!-- Aviso recibo -->
-          <div class="flex items-start gap-3 bg-verde-50 border border-verde-100 rounded-lg px-4 py-3 mb-8">
-            <svg class="h-5 w-5 text-verde-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-verde-800 text-sm">
-              <strong>Revisa tu correo</strong> — recibirás el comprobante de tu donación válido para deducción fiscal (Art. 32, Ley de Renta de El Salvador).
-            </p>
+          <div class="thanks-impact-grid">
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12m0 0C12 7 8 4 4 5c0 4 3 7 8 7zm0 0c0-5 4-8 8-7-1 4-4 7-8 7" />
+                </svg>
+              </div>
+              <h3>Viveros y plantulas</h3>
+              <p>Preparacion de mangles nativos para restauracion y siembra comunitaria.</p>
+            </article>
+
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 19c2.5-4 5.5-6 8-6s5.5 2 8 6M5 9c1.5 2 3.8 3 7 3s5.5-1 7-3M12 4v15" />
+                </svg>
+              </div>
+              <h3>Jornadas en costa</h3>
+              <p>Movilizacion, herramientas y acompanamiento para sembrar en campo.</p>
+            </article>
+
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3a15.3 15.3 0 014 9 15.3 15.3 0 01-4 9 15.3 15.3 0 01-4-9 15.3 15.3 0 014-9z" />
+                </svg>
+              </div>
+              <h3>Proteccion costera</h3>
+              <p>Manglares mas fuertes significan ecosistemas mas vivos y comunidades mas resilientes.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="thanks-bottom">
+          <div class="thanks-receipt">
+            <h3>Revisa tu correo</h3>
+            <p>Recibiras el comprobante de tu donacion. Si necesitas respaldo fiscal, nuestro equipo puede apoyarte con el proceso.</p>
+            <a href="mailto:info@asistedcos.org">info@asistedcos.org</a>
           </div>
 
-          <!-- Compartir -->
-          <div class="mb-8">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider text-center mb-3">Comparte e inspira a otros</p>
-            <div class="flex gap-3 justify-center">
+          <div class="thanks-share">
+            <h3>Multiplica el impacto</h3>
+            <p>Comparte tu donacion e invita a mas personas a sumarse a esta causa.</p>
+            <div class="thanks-share-actions">
               <a
                 href="https://www.facebook.com/sharer/sharer.php?u=https://asistedcosong.vercel.app"
-                target="_blank" rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="thanks-share-btn"
               >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 Facebook
               </a>
               <a
-                href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundaci%C3%B3n%20ASISTEDCOS%20para%20reforestar%20El%20Salvador.%20%C3%BAnete%3A%20https://asistedcosong.vercel.app/donar"
-                target="_blank" rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundacion%20ASISTEDCOS%20para%20restaurar%20manglares.%20Sumate%20aqui:%20https://asistedcosong.vercel.app/donar"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="thanks-share-btn thanks-share-btn-wa"
               >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
                 WhatsApp
               </a>
             </div>
           </div>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row gap-3">
-            <a href="/" class="flex-1 flex items-center justify-center gap-2 bg-verde-700 hover:bg-verde-800 text-white font-bold py-3.5 rounded-lg transition-colors">
-              Volver al inicio
-            </a>
-            <a href="/proyectos" class="flex-1 flex items-center justify-center gap-2 border-2 border-gray-200 hover:border-verde-400 text-gray-700 hover:text-verde-700 font-bold py-3.5 rounded-lg transition-colors">
-              Ver proyectos
-            </a>
-          </div>
         </div>
 
-        <!-- Pie de tarjeta -->
-        <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-          <img src="/images/logo.png" alt="ASISTEDCOS" class="h-8 w-auto opacity-60" />
-          <p class="text-gray-400 text-xs">Fundación ASISTEDCOS · El Salvador</p>
+        <div class="thanks-footer">
+          <img src="/images/logo.png" alt="ASISTEDCOS" />
+          <p>Fundacion ASISTEDCOS · El Salvador · Desde 1997</p>
         </div>
       </div>
-
-      <!-- Dona de nuevo -->
-      <p class="text-center mt-6 text-gray-400 text-sm">
-        ¿Quieres donar de nuevo?
-        <a href="/donar" class="text-amber-500 hover:text-amber-600 font-semibold ml-1">Haz otra donación →</a>
-      </p>
-
     </div>
   </section>
-
 </Layout>
 
+<style>
+  :root {
+    --thanks-accent: #f59e0b;
+    --thanks-dark: #081509;
+    --thanks-ink: #111111;
+    --thanks-muted: #6b7280;
+    --thanks-shell: min(1180px, calc(100% - 3rem));
+  }
+
+  .hidden { display: none !important; }
+
+  .thanks-contact {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    padding: 2rem 1.5rem;
+  }
+  .thanks-contact-card {
+    width: min(560px, 100%);
+    background: #fff;
+    border-top: 4px solid var(--thanks-accent);
+    box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .thanks-contact-icon {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1.5rem;
+    border-radius: 999px;
+    background: rgba(22, 163, 74, 0.12);
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .thanks-contact-icon svg { width: 2rem; height: 2rem; }
+  .thanks-contact-card h1 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--thanks-dark);
+    margin-bottom: 0.8rem;
+  }
+  .thanks-contact-card p {
+    color: var(--thanks-muted);
+    line-height: 1.75;
+    margin-bottom: 1.8rem;
+  }
+  .thanks-contact-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--thanks-dark);
+    color: #fff;
+    padding: 0.95rem 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .thanks-page {
+    background: #f4f4f1;
+  }
+  .thanks-shell {
+    width: var(--thanks-shell);
+    margin: 0 auto;
+  }
+
+  .thanks-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0 5rem;
+    min-height: 76vh;
+  }
+  .thanks-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(8, 21, 9, 0.36) 0%, rgba(8, 21, 9, 0.18) 42%, rgba(8, 21, 9, 0.04) 100%),
+      linear-gradient(180deg, rgba(8, 21, 9, 0.05) 0%, rgba(8, 21, 9, 0.02) 58%, rgba(8, 21, 9, 0.14) 100%);
+    z-index: 1;
+  }
+  .thanks-hero-media {
+    position: absolute;
+    inset: 0;
+  }
+  .thanks-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: saturate(1.14) contrast(1.03) brightness(1.08);
+  }
+  .thanks-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .thanks-copy-card {
+    width: min(760px, 100%);
+    background: linear-gradient(145deg, rgba(7, 22, 10, 0.44) 0%, rgba(7, 22, 10, 0.24) 100%);
+    backdrop-filter: blur(10px) saturate(1.12);
+    -webkit-backdrop-filter: blur(10px) saturate(1.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    padding: clamp(1.5rem, 3vw, 2.6rem);
+  }
+  .thanks-copy {
+    max-width: 640px;
+  }
+  .thanks-eyebrow {
+    display: block;
+    margin-bottom: 0.9rem;
+    color: rgba(245, 158, 11, 0.96);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.74rem;
+    font-weight: 800;
+  }
+  .thanks-eyebrow-dark {
+    color: var(--thanks-accent);
+  }
+  .thanks-title {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(2.7rem, 6vw, 5.25rem);
+    line-height: 1.02;
+    font-weight: 800;
+    color: #fff;
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
+  }
+  .thanks-sub {
+    max-width: 560px;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.78;
+    font-size: 1.02rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+  }
+  .thanks-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .thanks-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    padding: 1rem 1.4rem;
+    background: var(--thanks-accent);
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 2px solid var(--thanks-accent);
+    transition: 0.2s ease;
+  }
+  .thanks-btn:hover {
+    background: #d97706;
+    border-color: #d97706;
+  }
+  .thanks-btn-ghost {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.26);
+    color: #fff;
+  }
+  .thanks-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.42);
+  }
+
+  .thanks-body {
+    padding: 4.5rem 0 5rem;
+  }
+  .thanks-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 2rem;
+    align-items: start;
+    margin-bottom: 2.6rem;
+  }
+  .thanks-summary-card {
+    background: #fff;
+    border: 1px solid #e7e5df;
+    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.06);
+    padding: 2rem;
+  }
+  .thanks-summary-text {
+    padding: 0;
+    border: 0;
+    margin: 0;
+  }
+  .thanks-summary-text h2 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    color: var(--thanks-ink);
+    line-height: 1.16;
+    margin-bottom: 1rem;
+  }
+  .thanks-summary-text p {
+    color: var(--thanks-muted);
+    line-height: 1.78;
+    font-size: 0.94rem;
+  }
+  .thanks-impact-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  .thanks-impact-card {
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    padding: 1.35rem;
+    box-shadow: 0 14px 38px rgba(15, 23, 42, 0.05);
+  }
+  .thanks-impact-icon {
+    width: 2.9rem;
+    height: 2.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--thanks-accent);
+    border: 1px solid rgba(245, 158, 11, 0.32);
+    background: rgba(245, 158, 11, 0.06);
+    margin-bottom: 1rem;
+  }
+  .thanks-impact-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  .thanks-impact-card h3 {
+    color: var(--thanks-ink);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.45rem;
+  }
+  .thanks-impact-card p {
+    color: var(--thanks-muted);
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+
+  .thanks-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: #dddcd6;
+    margin-bottom: 2.6rem;
+  }
+  .thanks-receipt,
+  .thanks-share {
+    background: #fff;
+    padding: 2rem;
+  }
+  .thanks-receipt {
+    border-left: 4px solid var(--thanks-accent);
+  }
+  .thanks-receipt h3,
+  .thanks-share h3 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--thanks-ink);
+    margin-bottom: 0.45rem;
+  }
+  .thanks-receipt p,
+  .thanks-share p {
+    color: var(--thanks-muted);
+    line-height: 1.72;
+    font-size: 0.86rem;
+  }
+  .thanks-receipt a {
+    display: inline-block;
+    margin-top: 0.9rem;
+    color: var(--thanks-accent);
+    font-weight: 800;
+  }
+  .thanks-share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.15rem;
+  }
+  .thanks-share-btn {
+    flex: 1;
+    min-width: 150px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #1877f2;
+    color: #fff;
+    padding: 0.85rem 1rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .thanks-share-btn-wa {
+    background: #25d366;
+  }
+
+  .thanks-footer {
+    padding-top: 2rem;
+    border-top: 1px solid #dfded7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .thanks-footer img {
+    height: 2rem;
+    width: auto;
+    opacity: 0.5;
+  }
+  .thanks-footer p {
+    color: #9ca3af;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 900px) {
+    .thanks-hero {
+      padding: 6.5rem 0 4rem;
+      min-height: auto;
+    }
+    .thanks-summary,
+    .thanks-bottom {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .thanks-shell {
+      width: min(100% - 2rem, 1180px);
+    }
+    .thanks-title {
+      font-size: clamp(2.2rem, 12vw, 3.6rem);
+    }
+    .thanks-actions,
+    .thanks-share-actions {
+      flex-direction: column;
+    }
+    .thanks-btn,
+    .thanks-share-btn {
+      width: 100%;
+      min-width: 0;
+    }
+    .thanks-copy-card,
+    .thanks-summary-card,
+    .thanks-impact-card,
+    .thanks-receipt,
+    .thanks-share {
+      padding: 1.4rem;
+    }
+    .thanks-footer {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
+
 <script>
-  if (new URLSearchParams(window.location.search).get('donated') === 'true') {
-    document.getElementById('state-contacto')!.classList.add('hidden');
-    document.getElementById('state-donacion')!.classList.remove('hidden');
+  const params = new URLSearchParams(window.location.search);
+  const isDonationSuccess = params.get('donated') === 'true';
+
+  if (isDonationSuccess) {
+    document.getElementById('state-contacto')?.classList.add('hidden');
+    document.getElementById('state-donacion')?.classList.remove('hidden');
+
+    const rawRef = params.get('identificadorEnlaceComercio');
+    const rawTx = params.get('idTransaccion');
+
+    const refTarget = document.getElementById('thanks-ref');
+    const txTarget = document.getElementById('thanks-tx');
+
+    if (refTarget && rawRef) {
+      refTarget.textContent = rawRef;
+    }
+
+    if (txTarget && rawTx) {
+      txTarget.textContent = rawTx.length > 18 ? `${rawTx.slice(0, 18)}...` : rawTx;
+      txTarget.title = rawTx;
+    }
   }
 </script>

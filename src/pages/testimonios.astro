@@ -11,6 +11,7 @@ const testimonios = [
     texto:
       'Participar en la jornada de reforestación con ASISTEDCOS fue una experiencia que cambió mi perspectiva. Ver a toda la comunidad unida plantando árboles nativos me llenó de esperanza. Ahora vuelvo cada año y traigo a mis hijos para que aprendan a cuidar la naturaleza.',
     año: '2024',
+    categoria: 'Voluntariado',
   },
   {
     nombre: 'Carlos Mejía',
@@ -20,6 +21,7 @@ const testimonios = [
     texto:
       'Gracias a las plántulas que nos distribuyeron mis parcelas ahora tienen más sombra y el suelo retiene mejor el agua. Mis cultivos mejoraron notablemente y pude generar ingresos adicionales vendiendo las plantas que sobraron. ASISTEDCOS no solo planta árboles, transforma vidas.',
     año: '2023',
+    categoria: 'Comunidad',
   },
   {
     nombre: 'Ana Sofía Villanueva',
@@ -29,6 +31,7 @@ const testimonios = [
     texto:
       'Realicé mis horas sociales monitoreando cuencas hidrográficas con el equipo técnico. La metodología que aplican es rigurosa y el impacto real. Me enseñaron a identificar especies indicadoras de calidad del agua. Fue la mejor experiencia de mi carrera universitaria.',
     año: '2024',
+    categoria: 'Academia',
   },
   {
     nombre: 'Roberto Castillo',
@@ -38,6 +41,7 @@ const testimonios = [
     texto:
       'Nuestra empresa apoya a ASISTEDCOS desde 2021 y el retorno en imagen y propósito es invaluable. Pero más allá del negocio, ver a nuestros empleados involucrados en las jornadas de limpieza de playa y sintiéndose parte del cambio es lo que más nos enorgullece.',
     año: '2023',
+    categoria: 'Empresa',
   },
   {
     nombre: 'Dra. Lucía Hernández',
@@ -47,6 +51,7 @@ const testimonios = [
     texto:
       'He colaborado con muchas ONGs ambientales en Centroamérica, y ASISTEDCOS destaca por su seriedad técnica y su profundo arraigo comunitario. Sus datos de monitoreo son confiables y han servido de referencia para tesis doctorales y reportes gubernamentales.',
     año: '2022',
+    categoria: 'Investigación',
   },
   {
     nombre: 'Familia López-Guardado',
@@ -56,13 +61,14 @@ const testimonios = [
     texto:
       'Recibimos 50 plántulas de árboles frutales y maderables. Nos enseñaron cómo cuidarlas y ahora tenemos un pequeño vivero en casa. Nuestros hijos aprendieron el valor de la naturaleza y nosotros tenemos frutas frescas cada temporada. Estamos muy agradecidos.',
     año: '2024',
+    categoria: 'Comunidad',
   },
 ];
 
 const alianzas = [
-  { nombre: 'Concentrix', tipo: 'Empresa aliada', testimonio: 'Un socio comprometido con el medio ambiente y las comunidades de El Salvador.' },
-  { nombre: 'Ministerio de Medio Ambiente', tipo: 'Entidad gubernamental', testimonio: 'ASISTEDCOS aporta datos técnicos clave para las políticas ambientales nacionales.' },
-  { nombre: 'Universidades locales', tipo: 'Academia', testimonio: 'Espacio invaluable para la formación práctica de nuevas generaciones de ambientalistas.' },
+  { nombre: 'Concentrix', tipo: 'Empresa aliada', testimonio: 'Un socio comprometido con el medio ambiente y las comunidades de El Salvador.', initials: 'CO' },
+  { nombre: 'Ministerio de Medio Ambiente', tipo: 'Entidad gubernamental', testimonio: 'ASISTEDCOS aporta datos técnicos clave para las políticas ambientales nacionales.', initials: 'MM' },
+  { nombre: 'Universidades locales', tipo: 'Academia', testimonio: 'Espacio invaluable para la formación práctica de nuevas generaciones de ambientalistas.', initials: 'UL' },
 ];
 
 const videos = [
@@ -95,186 +101,653 @@ const videos = [
   image="/images/voluntaria-plantando.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Testimonios</span>
-      </div>
-      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Voces reales</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Lo que dice nuestra comunidad</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Voluntarios, familias, investigadores y aliados comparten cómo el trabajo de ASISTEDCOS ha transformado su relación con el medio ambiente.
-      </p>
-    </div>
-  </section>
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section class="t-hero">
+  <div class="t-hero-bg"></div>
+  <div class="t-container t-hero-inner">
+    <nav class="t-breadcrumb">
+      <a href="/">Inicio</a>
+      <span>›</span>
+      <span>Testimonios</span>
+    </nav>
+    <p class="t-eyebrow">Voces reales</p>
+    <h1 class="t-h1">Lo que dice nuestra <span class="t-accent">comunidad</span></h1>
+    <p class="t-hero-sub">
+      Voluntarios, familias, investigadores y aliados comparten cómo el trabajo de ASISTEDCOS ha transformado su relación con el medio ambiente.
+    </p>
+  </div>
+  <div class="t-hero-scroll" aria-hidden="true">
+    <span></span>
+  </div>
+</section>
 
-  <!-- Stat strip -->
-  <section class="py-10 bg-verde-700">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-3 gap-4 text-center text-white">
-        {[
-          { value: '+500', label: 'Voluntarios formados' },
-          { value: '+50',  label: 'Comunidades beneficiadas' },
-          { value: '27+',  label: 'Años de confianza' },
-        ].map(stat => (
-          <div>
-            <p class="font-heading text-3xl md:text-4xl font-extrabold text-amber-400">{stat.value}</p>
-            <p class="text-sm text-verde-100 mt-1">{stat.label}</p>
+<!-- ══════════════════════════════════════════════
+     STATS BAR
+══════════════════════════════════════════════════ -->
+<section class="t-stats-bar">
+  {[
+    { value: '+500', label: 'Voluntarios formados' },
+    { value: '+50',  label: 'Comunidades beneficiadas' },
+    { value: '27+',  label: 'Años de confianza' },
+  ].map(stat => (
+    <div class="t-stat-item">
+      <p class="t-stat-value">{stat.value}</p>
+      <p class="t-stat-label">{stat.label}</p>
+    </div>
+  ))}
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TESTIMONIALS GRID
+══════════════════════════════════════════════════ -->
+<section class="t-section" style="background:#f7f7f7; position:relative;">
+  <div class="t-deco-num" aria-hidden="true">.01</div>
+  <div class="t-container">
+    <div class="t-section-head t-center">
+      <p class="t-eyebrow">Historias de impacto</p>
+      <h2 class="t-h2">Ellos lo <span class="t-accent">vivieron</span></h2>
+      <p class="t-section-sub">Cada testimonio es una muestra del impacto que generamos juntos en El Salvador.</p>
+    </div>
+
+    <div class="t-cards-grid">
+      {testimonios.map((t, i) => (
+        <article class="t-card">
+          <div class="t-card-img">
+            <img src={t.img} alt={`Actividad — ${t.nombre}`} loading="lazy" />
+            <span class="t-card-tag">{t.categoria}</span>
+            <span class="t-card-year">{t.año}</span>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial cards grid -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Historias de impacto</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Ellos lo vivieron</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Cada testimonio es una muestra del impacto que generamos juntos en El Salvador.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {testimonios.map(t => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col">
-            <!-- Photo -->
-            <div class="relative h-44 overflow-hidden">
-              <img
-                src={t.img}
-                alt={`Foto de actividad — ${t.nombre}`}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent"></div>
-              <span class="absolute bottom-3 right-3 text-xs text-white font-semibold bg-amber-500 px-2 py-0.5 rounded-full">{t.año}</span>
-            </div>
-
-            <div class="p-6 flex flex-col flex-1">
-              <!-- Quote icon -->
-              <svg class="h-6 w-6 text-amber-300 mb-3 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-              </svg>
-
-              <p class="text-gray-600 text-sm leading-relaxed flex-1">"{t.texto}"</p>
-
-              <!-- Author -->
-              <div class="mt-5 flex items-center gap-3 pt-4 border-t border-gray-100">
-                <div class="w-9 h-9 rounded-full bg-verde-100 flex items-center justify-center flex-shrink-0">
-                  <span class="text-verde-700 font-bold text-xs">{t.initials}</span>
-                </div>
-                <div>
-                  <p class="font-bold text-verde-900 text-sm">{t.nombre}</p>
-                  <p class="text-xs text-gray-400">{t.rol}</p>
-                </div>
+          <div class="t-card-body">
+            <svg class="t-quote-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+            <p class="t-card-text">"{t.texto}"</p>
+            <div class="t-card-author">
+              <div class="t-avatar">{t.initials}</div>
+              <div>
+                <p class="t-author-name">{t.nombre}</p>
+                <p class="t-author-role">{t.rol}</p>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </article>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Featured quote -->
-  <section class="py-20 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <svg class="h-12 w-12 text-amber-300 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-      </svg>
-      <blockquote class="font-heading text-2xl md:text-3xl font-extrabold text-verde-900 leading-snug mb-6">
-        "Cuando una comunidad cuida su entorno, el entorno cuida a la comunidad. ASISTEDCOS nos enseñó que la conservación empieza por las personas."
-      </blockquote>
-      <p class="text-amber-600 font-bold">Ing. Jorge Flores</p>
-      <p class="text-gray-400 text-sm">Coordinador municipal de medio ambiente — La Libertad</p>
+<!-- ══════════════════════════════════════════════
+     FEATURED QUOTE
+══════════════════════════════════════════════════ -->
+<section class="t-featured-quote">
+  <div class="t-container t-center">
+    <svg class="t-big-quote" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+    </svg>
+    <blockquote class="t-blockquote">
+      "Cuando una comunidad cuida su entorno, el entorno cuida a la comunidad. ASISTEDCOS nos enseñó que la conservación empieza por las personas."
+    </blockquote>
+    <div class="t-quote-divider"></div>
+    <p class="t-quote-author">Ing. Jorge Flores</p>
+    <p class="t-quote-role">Coordinador municipal de medio ambiente — La Libertad</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     VIDEOS
+══════════════════════════════════════════════════ -->
+<section class="t-section" style="background:#fff; position:relative;">
+  <div class="t-deco-num t-deco-right" aria-hidden="true">.02</div>
+  <div class="t-container">
+    <div class="t-section-head t-center">
+      <p class="t-eyebrow">Nuestro trabajo en video</p>
+      <h2 class="t-h2">Míralo con tus <span class="t-accent">propios ojos</span></h2>
+      <p class="t-section-sub">Documentamos cada jornada para que el impacto sea visible para toda la comunidad.</p>
     </div>
-  </section>
 
-  <!-- Videos YouTube -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestro trabajo en video</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Míralo con tus propios ojos</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Documentamos cada jornada para que el impacto sea visible para toda la comunidad.</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        {videos.map(v => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
-            <div class="relative aspect-video bg-gray-900">
-              <iframe
-                src={`https://www.youtube.com/embed/${v.youtubeId}`}
-                title={v.titulo}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy"
-                class="w-full h-full"
-              />
+    <div class="t-videos-grid">
+      {videos.map(v => (
+        <div class="t-video-card">
+          <div class="t-video-frame">
+            <iframe
+              src={`https://www.youtube.com/embed/${v.youtubeId}`}
+              title={v.titulo}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            />
+          </div>
+          <div class="t-video-info">
+            <div class="t-video-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <div class="p-5">
-              <h3 class="font-heading font-extrabold text-verde-900 text-base mb-1">{v.titulo}</h3>
-              <p class="text-gray-500 text-sm">{v.descripcion}</p>
+            <div>
+              <h3 class="t-video-title">{v.titulo}</h3>
+              <p class="t-video-desc">{v.descripcion}</p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Alianzas -->
-  <section class="py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Aliados que nos respaldan</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Lo que dicen nuestros socios</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-6">
-        {alianzas.map(a => (
-          <div class="bg-gray-50 rounded-lg border border-gray-100 shadow-sm hover:shadow-md hover:border-amber-300 transition-all duration-300 p-6">
-            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mb-4">
-              <svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-              </svg>
-            </div>
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">"{a.testimonio}"</p>
-            <p class="font-bold text-verde-900 text-sm">{a.nombre}</p>
-            <p class="text-xs text-gray-400">{a.tipo}</p>
-          </div>
-        ))}
-      </div>
+<!-- ══════════════════════════════════════════════
+     ALIANZAS
+══════════════════════════════════════════════════ -->
+<section class="t-section" style="background:#f7f7f7; position:relative;">
+  <div class="t-container">
+    <div class="t-section-head t-center">
+      <p class="t-eyebrow">Aliados que nos respaldan</p>
+      <h2 class="t-h2">Lo que dicen nuestros <span class="t-accent">socios</span></h2>
     </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="py-20 bg-gray-900 relative overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover opacity-15" />
-    </div>
-    <div class="relative max-w-3xl mx-auto px-4 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Tu voz importa</span>
-      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">¿Tienes una historia que compartir?</h2>
-      <p class="text-gray-300 text-lg mb-8">
-        Si has participado en nuestros proyectos o tu comunidad ha sido beneficiada, nos encantaría escucharte y compartir tu experiencia.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/contacto" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg text-lg">
-          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    <div class="t-alianzas-grid">
+      {alianzas.map(a => (
+        <div class="t-alianza-card">
+          <div class="t-alianza-avatar">{a.initials}</div>
+          <svg class="t-quote-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
           </svg>
-          Escríbenos
-        </a>
-        <a href="/donar" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors text-lg">
-          ♥ Donar ahora
-        </a>
-      </div>
+          <p class="t-alianza-text">"{a.testimonio}"</p>
+          <div class="t-alianza-footer">
+            <p class="t-alianza-name">{a.nombre}</p>
+            <p class="t-alianza-tipo">{a.tipo}</p>
+          </div>
+        </div>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     CTA FINAL
+══════════════════════════════════════════════════ -->
+<section class="t-cta">
+  <div class="t-container t-center">
+    <p class="t-eyebrow" style="color:rgba(245,158,11,0.8);">Tu voz importa</p>
+    <h2 class="t-h2" style="color:#fff;">¿Tienes una historia que <span class="t-accent">compartir</span>?</h2>
+    <p class="t-cta-sub">
+      Si has participado en nuestros proyectos o tu comunidad ha sido beneficiada, nos encantaría escucharte.
+    </p>
+    <div class="t-cta-actions">
+      <a href="/contacto" class="t-btn">Escríbenos</a>
+      <a href="/donar" class="t-btn-ghost">♥ Donar ahora</a>
+    </div>
+  </div>
+</section>
 
 </Layout>
+
+<style>
+  /* ══════════════════════════════════════
+     DESIGN TOKENS
+  ══════════════════════════════════════ */
+  :root {
+    --t-accent:  #f59e0b;
+    --t-dark:    #111111;
+    --t-forest:  #081509;
+    --t-heading: 'Poppins', system-ui, sans-serif;
+    --t-body:    'Inter', system-ui, sans-serif;
+    --t-shadow:  -6px -6px 20px rgba(0,0,0,0.07), 6px 6px 20px rgba(0,0,0,0.07);
+  }
+
+  /* ══════════════════════════════════════
+     LAYOUT HELPERS
+  ══════════════════════════════════════ */
+  .t-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .t-section {
+    padding: 6rem 0;
+    overflow: hidden;
+  }
+  .t-center { text-align: center; }
+  .t-section-head { margin-bottom: 3.5rem; }
+
+  /* ══════════════════════════════════════
+     TYPOGRAPHY
+  ══════════════════════════════════════ */
+  .t-eyebrow {
+    font-family: var(--t-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--t-accent);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .t-h1 {
+    font-family: var(--t-heading);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.07;
+    color: #fff;
+    margin-bottom: 1.25rem;
+  }
+  .t-h2 {
+    font-family: var(--t-heading);
+    font-weight: 800;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    line-height: 1.15;
+    color: var(--t-dark);
+    margin-bottom: 0.75rem;
+  }
+  .t-accent { color: var(--t-accent); }
+  .t-section-sub {
+    color: #666;
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0.5rem auto 0;
+    line-height: 1.7;
+  }
+
+  /* Decorative numbers */
+  .t-deco-num {
+    position: absolute;
+    top: 3rem; left: -1rem;
+    font-family: var(--t-heading);
+    font-size: clamp(7rem, 15vw, 14rem);
+    font-weight: 900;
+    color: rgba(0,0,0,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .t-deco-right { left: auto; right: -1rem; }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .t-hero {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 8rem 0 5rem;
+  }
+  .t-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(8,21,9,0.88) 0%, rgba(8,21,9,0.70) 60%, rgba(8,21,9,0.55) 100%),
+      url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80') center center / cover no-repeat;
+  }
+  .t-hero-inner { position: relative; z-index: 1; }
+  .t-breadcrumb {
+    display: flex; gap: 0.5rem; align-items: center;
+    font-size: 0.8rem; color: rgba(255,255,255,0.45);
+    margin-bottom: 1.5rem;
+  }
+  .t-breadcrumb a { color: rgba(255,255,255,0.45); text-decoration: none; }
+  .t-breadcrumb a:hover { color: var(--t-accent); }
+  .t-hero-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 1.1rem;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-top: 1rem;
+  }
+  /* Animated scroll indicator */
+  .t-hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .t-hero-scroll span {
+    display: block; width: 1px; height: 60px;
+    background: linear-gradient(to bottom, rgba(245,158,11,0.8), transparent);
+    animation: scroll-line 1.8s ease-in-out infinite;
+  }
+  @keyframes scroll-line {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ══════════════════════════════════════
+     STATS BAR
+  ══════════════════════════════════════ */
+  .t-stats-bar {
+    background: var(--t-forest);
+    display: flex;
+    justify-content: center;
+    gap: 0;
+  }
+  .t-stat-item {
+    flex: 1;
+    max-width: 240px;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .t-stat-item:last-child { border-right: none; }
+  .t-stat-value {
+    font-family: var(--t-heading);
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--t-accent);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .t-stat-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ══════════════════════════════════════
+     TESTIMONIAL CARDS
+  ══════════════════════════════════════ */
+  .t-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: #e5e5e5;
+  }
+  @media(max-width:900px){ .t-cards-grid { grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:560px){ .t-cards-grid { grid-template-columns: 1fr; } }
+
+  .t-card {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .t-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--t-shadow);
+    position: relative; z-index: 1;
+  }
+
+  .t-card-img {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+  }
+  .t-card-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .t-card:hover .t-card-img img { transform: scale(1.07); }
+
+  .t-card-tag {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--t-accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+  }
+  .t-card-year {
+    position: absolute; bottom: 1rem; right: 1rem;
+    background: rgba(8,21,9,0.75);
+    color: rgba(255,255,255,0.85);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .t-card-body {
+    padding: 1.75rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .t-quote-icon {
+    width: 1.5rem; height: 1.5rem;
+    color: var(--t-accent);
+    margin-bottom: 0.75rem;
+    flex-shrink: 0;
+  }
+  .t-card-text {
+    color: #555;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    flex: 1;
+  }
+  .t-card-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f0f0f0;
+  }
+  .t-avatar {
+    width: 2.25rem; height: 2.25rem;
+    background: var(--t-forest);
+    color: var(--t-accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .t-author-name {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--t-dark);
+  }
+  .t-author-role {
+    font-size: 0.72rem;
+    color: #999;
+    margin-top: 0.1rem;
+  }
+
+  /* ══════════════════════════════════════
+     FEATURED QUOTE
+  ══════════════════════════════════════ */
+  .t-featured-quote {
+    background:
+      linear-gradient(rgba(8,21,9,0.82), rgba(8,21,9,0.82)),
+      url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1920&q=80') center / cover no-repeat fixed;
+    padding: 7rem 0;
+    text-align: center;
+  }
+  .t-big-quote {
+    width: 3rem; height: 3rem;
+    color: var(--t-accent);
+    opacity: 0.7;
+    margin: 0 auto 2rem;
+  }
+  .t-blockquote {
+    font-family: var(--t-heading);
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.45;
+    max-width: 780px;
+    margin: 0 auto 2rem;
+  }
+  .t-quote-divider {
+    width: 3rem; height: 3px;
+    background: var(--t-accent);
+    margin: 0 auto 1.5rem;
+  }
+  .t-quote-author {
+    font-weight: 700;
+    color: var(--t-accent);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+  .t-quote-role {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+
+  /* ══════════════════════════════════════
+     VIDEOS
+  ══════════════════════════════════════ */
+  .t-videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media(max-width:700px){ .t-videos-grid { grid-template-columns: 1fr; } }
+
+  .t-video-card {
+    background: #fff;
+    box-shadow: var(--t-shadow);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .t-video-card:hover { transform: translateY(-4px); }
+
+  .t-video-frame {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+  .t-video-frame iframe {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .t-video-info {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    border-top: 2px solid var(--t-accent);
+  }
+  .t-video-icon {
+    width: 2.2rem; height: 2.2rem;
+    background: var(--t-accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .t-video-icon svg {
+    width: 1rem; height: 1rem;
+    color: #fff; fill: #fff;
+  }
+  .t-video-title {
+    font-family: var(--t-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--t-dark);
+    margin-bottom: 0.25rem;
+  }
+  .t-video-desc {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════
+     ALIANZAS
+  ══════════════════════════════════════ */
+  .t-alianzas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: #e5e5e5;
+  }
+  @media(max-width:700px){ .t-alianzas-grid { grid-template-columns: 1fr; } }
+
+  .t-alianza-card {
+    background: #fff;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+  }
+  .t-alianza-card:hover { transform: translateY(-3px); position: relative; z-index: 1; box-shadow: var(--t-shadow); }
+
+  .t-alianza-avatar {
+    width: 3rem; height: 3rem;
+    background: var(--t-forest);
+    color: var(--t-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: 0.05em;
+  }
+  .t-alianza-text {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    flex: 1;
+  }
+  .t-alianza-footer { border-top: 1px solid #f0f0f0; padding-top: 1rem; }
+  .t-alianza-name {
+    font-weight: 700;
+    color: var(--t-dark);
+    font-size: 0.9rem;
+  }
+  .t-alianza-tipo {
+    font-size: 0.72rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.15rem;
+  }
+
+  /* ══════════════════════════════════════
+     CTA
+  ══════════════════════════════════════ */
+  .t-cta {
+    background:
+      linear-gradient(rgba(8,21,9,0.88), rgba(8,21,9,0.88)),
+      url('/images/reforestacion-aerea.jpg') center / cover no-repeat fixed;
+    padding: 7rem 0;
+    text-align: center;
+  }
+  .t-cta-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 1.05rem;
+    max-width: 520px;
+    margin: 1.25rem auto 2.5rem;
+    line-height: 1.75;
+  }
+  .t-cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .t-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--t-accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.9rem 2.25rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: background 0.2s;
+  }
+  .t-btn:hover { background: #d97706; }
+  .t-btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 2px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.9rem 2.25rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .t-btn-ghost:hover { border-color: var(--t-accent); background: rgba(245,158,11,0.1); }
+
+  @media(max-width:640px){
+    .t-stats-bar { flex-direction: column; }
+    .t-stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .t-stat-item:last-child { border-bottom: none; }
+    .t-hero { min-height: auto; padding: 6rem 0 4rem; }
+  }
+</style>

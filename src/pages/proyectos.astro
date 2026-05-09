@@ -1,22 +1,13 @@
 ---
 export const prerender = false;
-
 import Layout from '../layouts/Layout.astro';
 
 const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
 
 interface Causa {
-  id: string;
-  titulo: string;
-  descripcion?: string;
-  tag?: string;
-  coverImage?: string;
-  ubicacion?: string;
-  estado: string;
-  meta: number;
-  recaudado: number;
-  active: boolean;
-  order: number;
+  id: string; titulo: string; descripcion?: string; tag?: string;
+  coverImage?: string; ubicacion?: string; estado: string;
+  meta: number; recaudado: number; active: boolean; order: number;
 }
 
 let causas: Causa[] = [];
@@ -24,26 +15,17 @@ let fetchError = false;
 
 try {
   const res = await fetch(`${ADMIN_URL}/api/public/causas`, { signal: AbortSignal.timeout(5000) });
-  if (res.ok) {
-    const json = await res.json();
-    causas = (json.data ?? []).filter((c: Causa) => c.active);
-  } else {
-    fetchError = true;
-  }
-} catch {
-  fetchError = true;
-}
+  if (res.ok) { const json = await res.json(); causas = (json.data ?? []).filter((c: Causa) => c.active); }
+  else fetchError = true;
+} catch { fetchError = true; }
 
-// Calculate percentage for each cause
 function getPct(meta: number, recaudado: number): number {
   if (!meta || meta === 0) return 0;
   return Math.min(100, Math.round((recaudado / meta) * 100));
 }
-
 function fmtUSD(n: number): string {
   return n.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 }
-
 const categorias = ['Todos', ...Array.from(new Set(causas.map(c => c.tag ?? 'General').filter(Boolean)))];
 ---
 
@@ -53,200 +35,332 @@ const categorias = ['Todos', ...Array.from(new Set(causas.map(c => c.tag ?? 'Gen
   image="/images/reforestacion-aerea.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/reforestacion-aerea.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Proyectos</span>
-      </div>
-      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Nuestro trabajo</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Proyectos</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Cada proyecto es una historia de transformación: ecosistemas que renacen y comunidades que prosperan.
-      </p>
-    </div>
-  </section>
+<!-- HERO -->
+<section class="proy-hero">
+  <div class="proy-hero-bg"></div>
+  <div class="proy-container">
+    <nav class="proy-breadcrumb">
+      <a href="/">Inicio</a><span>›</span><span>Proyectos</span>
+    </nav>
+    <p class="proy-eyebrow">Nuestro trabajo</p>
+    <h1 class="proy-h1">Proyectos en <span class="proy-accent">campo</span></h1>
+    <p class="proy-hero-sub">Cada proyecto es una historia de transformación: ecosistemas que renacen y comunidades que prosperan.</p>
+  </div>
+  <div class="proy-scroll" aria-hidden="true"><span></span></div>
+</section>
 
-  {/* ── Filter bar ── */}
-  {causas.length > 0 && categorias.length > 2 && (
-    <section class="bg-white border-b border-gray-100 sticky top-0 z-20 shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-2 py-4 overflow-x-auto scrollbar-none">
-          <span class="text-gray-500 text-sm font-medium mr-2 whitespace-nowrap flex-shrink-0">Filtrar:</span>
-          {categorias.map(cat => (
-            <button
-              class="filter-btn whitespace-nowrap flex-shrink-0 px-4 py-2 rounded-sm text-sm font-bold transition-all duration-200 border-2"
-              data-category={cat}
-              data-active={cat === 'Todos' ? 'true' : 'false'}
-            >
-              {cat}
-            </button>
-          ))}
+<!-- FILTER BAR -->
+{causas.length > 0 && categorias.length > 2 && (
+<div class="proy-filter-bar">
+  <div class="proy-container proy-filter-inner">
+    <span class="proy-filter-label">Filtrar:</span>
+    {categorias.map(cat => (
+      <button class="proy-filter-btn" data-category={cat} data-active={cat === 'Todos' ? 'true' : 'false'}>
+        {cat}
+      </button>
+    ))}
+  </div>
+</div>
+)}
+
+<!-- PROJECTS -->
+<section class="proy-section" style="background:#f7f7f7; position:relative;">
+  <div class="proy-deco-num" aria-hidden="true">.01</div>
+  <div class="proy-container">
+
+    {(fetchError || causas.length === 0) ? (
+      <div class="proy-empty">
+        <div class="proy-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+        </div>
+        <p class="proy-eyebrow">Próximamente</p>
+        <h2 class="proy-h2" style="color:#111;">Estamos preparando proyectos</h2>
+        <p style="color:#888;max-width:360px;margin:0.75rem auto 2rem;font-size:0.9rem;line-height:1.7;">Nuestros proyectos activos estarán disponibles pronto. Mientras tanto, puedes apoyar nuestra misión.</p>
+        <div class="proy-empty-actions">
+          <a href="/donar" class="proy-btn">♥ Donar ahora</a>
+          <a href="/" class="proy-btn-outline-dark">Volver al inicio</a>
         </div>
       </div>
-    </section>
-  )}
+    ) : (
+      <>
+        <div id="projects-grid" class="proy-grid">
+          {causas.map(c => {
+            const pct = getPct(Number(c.meta), Number(c.recaudado));
+            const restante = Math.max(0, Number(c.meta) - Number(c.recaudado));
+            const img = c.coverImage || '/images/reforestacion-aerea.jpg';
+            const tag = c.tag ?? 'Proyecto';
+            const estado = c.estado ?? 'Activo';
+            const estadoColor = estado === 'Activo' ? '#16a34a' : estado === 'Continuo' ? '#2563eb' : '#6b7280';
+            return (
+              <article class="proy-card project-card" data-category={tag}>
+                <div class="proy-card-img">
+                  <img src={img} alt={c.titulo} loading="lazy" />
+                  <span class="proy-card-tag">{tag}</span>
+                  <span class="proy-card-estado" style={`background:${estadoColor}`}>{estado}</span>
+                </div>
+                <div class="proy-card-body">
+                  {c.ubicacion && (
+                    <div class="proy-ubicacion">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      {c.ubicacion}
+                    </div>
+                  )}
+                  <h2 class="proy-card-title">{c.titulo}</h2>
+                  {c.descripcion && <p class="proy-card-desc">{c.descripcion}</p>}
 
-  {/* ── Projects grid ── */}
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  {Number(c.meta) > 0 && (
+                    <div class="proy-progress">
+                      <div class="proy-progress-head">
+                        <span>Recaudado: <strong>${fmtUSD(Number(c.recaudado))}</strong></span>
+                        <span class="proy-pct">{pct}%</span>
+                      </div>
+                      <div class="proy-bar-track">
+                        <div class="proy-bar-fill" style={`width:${pct}%`}></div>
+                      </div>
+                      <div class="proy-progress-foot">
+                        <span>Meta: ${fmtUSD(Number(c.meta))}</span>
+                        <span>${fmtUSD(restante)} restantes</span>
+                      </div>
+                    </div>
+                  )}
 
-      {(fetchError || causas.length === 0) ? (
-        <div class="text-center py-24">
-          <div class="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mx-auto mb-6">
-            <svg class="h-12 w-12 text-verde-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Próximamente</span>
-          <h2 class="font-heading text-2xl font-extrabold text-verde-900 mt-2 mb-3">Estamos preparando proyectos</h2>
-          <p class="text-gray-500 max-w-sm mx-auto leading-relaxed">
-            Nuestros proyectos activos estarán disponibles pronto. Mientras tanto, puedes apoyar nuestra misión.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-3 justify-center mt-8">
-            <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-6 py-3 rounded-sm transition-colors">
-              ♥ Donar ahora
-            </a>
-            <a href="/" class="inline-flex items-center justify-center gap-2 border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-6 py-3 rounded-sm transition-colors">
-              Volver al inicio
-            </a>
-          </div>
+                  <div class="proy-card-actions">
+                    <a href="/donar" class="proy-btn-sm">♥ Donar</a>
+                    <a href="/contacto" class="proy-btn-sm-ghost">Saber más</a>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
-      ) : (
-        <>
-          <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {causas.map(c => {
-              const pct = getPct(Number(c.meta), Number(c.recaudado));
-              const restante = Math.max(0, Number(c.meta) - Number(c.recaudado));
-              const img = c.coverImage || '/images/reforestacion-aerea.jpg';
-              const tag = c.tag ?? 'Proyecto';
-              const estado = c.estado ?? 'Activo';
-              const estadoColor = estado === 'Activo' ? 'bg-green-500' : estado === 'Continuo' ? 'bg-blue-500' : 'bg-gray-500';
-              return (
-                <article
-                  class="project-card bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 overflow-hidden flex flex-col"
-                  data-category={tag}
-                >
-                  {/* Image */}
-                  <div class="relative overflow-hidden aspect-[16/10]">
-                    <img src={img} alt={c.titulo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                    <div class="absolute top-3 left-3">
-                      <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wide">{tag}</span>
-                    </div>
-                    <div class="absolute top-3 right-3">
-                      <span class={`text-xs font-bold px-2.5 py-1 rounded-sm text-white ${estadoColor}`}>{estado}</span>
-                    </div>
-                  </div>
+        <div id="empty-state" class="hidden proy-empty" style="padding:4rem 0;">
+          <p style="color:#888;">No hay proyectos en esta categoría.</p>
+        </div>
+      </>
+    )}
+  </div>
+</section>
 
-                  {/* Content */}
-                  <div class="p-6 flex flex-col flex-1">
-                    {c.ubicacion && (
-                      <div class="flex items-center gap-1.5 text-xs text-gray-400 mb-2">
-                        <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        </svg>
-                        {c.ubicacion}
-                      </div>
-                    )}
-                    <h2 class="font-heading font-extrabold text-lg text-verde-900 mb-2">{c.titulo}</h2>
-                    {c.descripcion && (
-                      <p class="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{c.descripcion}</p>
-                    )}
-
-                    {/* Progress bar */}
-                    {Number(c.meta) > 0 && (
-                      <div class="mb-5">
-                        <div class="flex justify-between text-xs font-semibold mb-1.5">
-                          <span class="text-gray-500">Recaudado: <span class="text-verde-700">${fmtUSD(Number(c.recaudado))}</span></span>
-                          <span class="text-amber-600 font-bold">{pct}%</span>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-full h-2.5">
-                          <div class="bg-amber-500 h-2.5 rounded-full transition-all" style={`width: ${pct}%`}></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-400 mt-1">
-                          <span>Meta: ${fmtUSD(Number(c.meta))}</span>
-                          <span class="text-verde-600 font-semibold">${fmtUSD(restante)} restantes</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Buttons */}
-                    <div class="flex gap-2 mt-auto">
-                      <a href="/donar" class="flex-1 text-center bg-amber-500 hover:bg-amber-400 text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm">
-                        ♥ Donar
-                      </a>
-                      <a href="/contacto" class="flex-1 text-center border-2 border-verde-600 text-verde-700 hover:bg-verde-600 hover:text-white font-bold px-4 py-2.5 rounded-sm transition-colors text-sm">
-                        Saber más
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Empty filter state */}
-          <div id="empty-state" class="hidden text-center py-16">
-            <p class="text-gray-500 font-medium">No hay proyectos en esta categoría.</p>
-          </div>
-        </>
-      )}
+<!-- CTA -->
+<section class="proy-cta">
+  <div class="proy-container" style="text-align:center;">
+    <p class="proy-eyebrow" style="color:rgba(245,158,11,0.8);">Únete a la causa</p>
+    <h2 class="proy-h2" style="color:#fff;">¿Quieres apoyar <span class="proy-accent">estos proyectos</span>?</h2>
+    <p style="color:rgba(255,255,255,0.6);max-width:500px;margin:1rem auto 2.5rem;font-size:1rem;line-height:1.75;">Tu donación financia directamente el trabajo en campo: reforestación, monitoreo y comunidades que prosperan.</p>
+    <div class="proy-cta-btns">
+      <a href="/donar" class="proy-btn">♥ Donar ahora</a>
+      <a href="/contacto" class="proy-btn-outline">Ser voluntario &rarr;</a>
     </div>
-  </section>
-
-  {/* ── CTA ── */}
-  <section class="py-20 bg-gray-900 relative overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/evento-playa.jpg" alt="" class="w-full h-full object-cover opacity-20" />
-    </div>
-    <div class="relative max-w-3xl mx-auto px-4 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Únete a la causa</span>
-      <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2 mb-4">¿Quieres apoyar estos proyectos?</h2>
-      <p class="text-gray-300 mb-8 text-lg">Tu donación financia directamente el trabajo en campo: reforestación, monitoreo y comunidades que prosperan.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/donar" class="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 text-white font-bold px-8 py-4 rounded-sm transition-colors shadow-lg text-lg">
-          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
-          Donar ahora
-        </a>
-        <a href="/contacto" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold px-8 py-4 rounded-sm transition-colors text-lg">
-          Ser voluntario
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
 
 <style>
-  .filter-btn[data-active="true"] {
-    background-color: #2d7a3a;
-    color: white;
-    border-color: #2d7a3a;
+  :root {
+    --p-accent: #f59e0b;
+    --p-dark:   #111;
+    --p-forest: #081509;
+    --p-head:   'Poppins', system-ui, sans-serif;
+    --p-shadow: 0 8px 30px rgba(0,0,0,0.08);
   }
-  .filter-btn[data-active="false"] {
-    background-color: white;
-    color: #374151;
-    border-color: #e5e7eb;
+  .proy-container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+  .proy-section   { padding:5rem 0; overflow:hidden; }
+  .proy-eyebrow {
+    font-size:.72rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:.28em; color:var(--p-accent); display:block; margin-bottom:.75rem;
   }
-  .filter-btn[data-active="false"]:hover {
-    border-color: #2d7a3a;
-    color: #2d7a3a;
+  .proy-h1 {
+    font-family:var(--p-head); font-weight:800;
+    font-size:clamp(2.6rem,6vw,4.5rem); line-height:1.07; color:#fff; margin-bottom:1.25rem;
   }
-  .scrollbar-none::-webkit-scrollbar { display: none; }
-  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+  .proy-h2 {
+    font-family:var(--p-head); font-weight:800;
+    font-size:clamp(1.9rem,3.5vw,2.6rem); line-height:1.15; color:#111; margin-bottom:.75rem;
+  }
+  .proy-accent { color:var(--p-accent); }
+  .proy-deco-num {
+    position:absolute; top:3rem; left:-1rem;
+    font-family:var(--p-head); font-size:clamp(7rem,15vw,14rem);
+    font-weight:900; color:rgba(0,0,0,0.035); line-height:1;
+    pointer-events:none; user-select:none;
+  }
+
+  /* HERO */
+  .proy-hero {
+    position:relative; min-height:65vh; display:flex; align-items:center;
+    padding:8rem 0 5rem; overflow:hidden;
+  }
+  .proy-hero-bg {
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.5) 100%),
+      url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80') center/cover no-repeat;
+  }
+  .proy-hero .proy-container { position:relative; z-index:1; }
+  .proy-breadcrumb {
+    display:flex; gap:.5rem; align-items:center;
+    font-size:.8rem; color:rgba(255,255,255,.4); margin-bottom:1.5rem;
+  }
+  .proy-breadcrumb a { color:rgba(255,255,255,.4); text-decoration:none; }
+  .proy-breadcrumb a:hover { color:var(--p-accent); }
+  .proy-hero-sub { color:rgba(255,255,255,.72); font-size:1.1rem; max-width:560px; line-height:1.75; }
+  .proy-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
+  .proy-scroll span {
+    display:block; width:1px; height:60px;
+    background:linear-gradient(to bottom,rgba(245,158,11,.8),transparent);
+    animation:pscroll 1.8s ease-in-out infinite;
+  }
+  @keyframes pscroll {
+    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
+    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  /* FILTER */
+  .proy-filter-bar {
+    background:#fff; border-bottom:1px solid #eee;
+    position:sticky; top:0; z-index:20;
+  }
+  .proy-filter-inner {
+    display:flex; align-items:center; gap:.6rem;
+    padding:.9rem 1.5rem; overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .proy-filter-inner::-webkit-scrollbar { display:none; }
+  .proy-filter-label { font-size:.75rem; font-weight:700; color:#999; white-space:nowrap; }
+  .proy-filter-btn {
+    white-space:nowrap; flex-shrink:0;
+    padding:.35rem 1rem; font-size:.78rem; font-weight:700;
+    border:1.5px solid #e5e7eb; background:#fff; color:#555;
+    cursor:pointer; transition:all .2s; letter-spacing:.04em; text-transform:uppercase;
+  }
+  .proy-filter-btn[data-active="true"] { background:var(--p-forest); color:#fff; border-color:var(--p-forest); }
+  .proy-filter-btn[data-active="false"]:hover { border-color:var(--p-accent); color:var(--p-accent); }
+
+  /* GRID */
+  .proy-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1.5px; background:#e0e0e0;
+  }
+  @media(max-width:900px){ .proy-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .proy-grid{ grid-template-columns:1fr; } }
+
+  .proy-card {
+    background:#fff; display:flex; flex-direction:column;
+    transition:transform .3s;
+  }
+  .proy-card:hover { transform:translateY(-4px); z-index:1; box-shadow:var(--p-shadow); }
+
+  .proy-card-img {
+    position:relative; height:210px; overflow:hidden;
+  }
+  .proy-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; display:block; }
+  .proy-card:hover .proy-card-img img { transform:scale(1.06); }
+  .proy-card-tag {
+    position:absolute; top:1rem; left:1rem;
+    background:var(--p-accent); color:#fff;
+    font-size:.65rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.1em; padding:.25rem .65rem;
+  }
+  .proy-card-estado {
+    position:absolute; top:1rem; right:1rem;
+    color:#fff; font-size:.65rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em; padding:.25rem .65rem;
+  }
+
+  .proy-card-body { padding:1.5rem; flex:1; display:flex; flex-direction:column; }
+  .proy-ubicacion {
+    display:flex; align-items:center; gap:.4rem;
+    font-size:.72rem; color:#aaa; margin-bottom:.5rem;
+  }
+  .proy-ubicacion svg { width:.85rem; height:.85rem; flex-shrink:0; }
+  .proy-card-title {
+    font-family:var(--p-head); font-weight:700;
+    font-size:1rem; color:#111; margin-bottom:.5rem; line-height:1.35;
+  }
+  .proy-card-desc { font-size:.83rem; color:#777; line-height:1.65; flex:1; margin-bottom:1rem; }
+
+  .proy-progress { margin-bottom:1.25rem; }
+  .proy-progress-head {
+    display:flex; justify-content:space-between;
+    font-size:.72rem; color:#999; margin-bottom:.4rem;
+  }
+  .proy-progress-head strong { color:#333; }
+  .proy-pct { font-weight:700; color:var(--p-accent); }
+  .proy-bar-track { height:4px; background:#eee; }
+  .proy-bar-fill { height:100%; background:var(--p-accent); transition:width .4s; }
+  .proy-progress-foot {
+    display:flex; justify-content:space-between;
+    font-size:.7rem; color:#bbb; margin-top:.3rem;
+  }
+
+  .proy-card-actions { display:flex; gap:.6rem; margin-top:auto; }
+  .proy-btn-sm {
+    flex:1; text-align:center; background:var(--p-accent); color:#fff;
+    font-weight:700; font-size:.78rem; padding:.6rem .5rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.06em; transition:background .2s;
+  }
+  .proy-btn-sm:hover { background:#d97706; }
+  .proy-btn-sm-ghost {
+    flex:1; text-align:center; border:1.5px solid #111; color:#111;
+    font-weight:700; font-size:.78rem; padding:.6rem .5rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.06em; transition:all .2s;
+  }
+  .proy-btn-sm-ghost:hover { background:#111; color:#fff; }
+
+  /* EMPTY */
+  .proy-empty { text-align:center; padding:5rem 0; }
+  .proy-empty-icon {
+    width:4rem; height:4rem; background:#fff;
+    box-shadow:var(--p-shadow); display:flex; align-items:center;
+    justify-content:center; margin:0 auto 1.5rem;
+  }
+  .proy-empty-icon svg { width:2rem; height:2rem; stroke:#6b7280; }
+  .proy-empty-actions { display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap; margin-top:1.5rem; }
+
+  /* CTA */
+  .proy-cta {
+    background:
+      linear-gradient(rgba(8,21,9,.88),rgba(8,21,9,.88)),
+      url('/images/evento-playa.jpg') center/cover no-repeat fixed;
+    padding:7rem 0;
+  }
+  .proy-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+  /* SHARED BUTTONS */
+  .proy-btn {
+    display:inline-block; background:var(--p-accent); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:background .2s;
+  }
+  .proy-btn:hover { background:#d97706; }
+  .proy-btn-outline {
+    display:inline-block; border:2px solid rgba(255,255,255,.3); color:#fff;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .proy-btn-outline:hover { border-color:var(--p-accent); background:rgba(245,158,11,.1); }
+  .proy-btn-outline-dark {
+    display:inline-block; border:2px solid #333; color:#333;
+    font-weight:700; font-size:.85rem; padding:.9rem 2.25rem;
+    text-decoration:none; text-transform:uppercase; letter-spacing:.08em; transition:all .2s;
+  }
+  .proy-btn-outline-dark:hover { background:#111; color:#fff; border-color:#111; }
+
+  @media(max-width:640px){
+    .proy-hero { min-height:auto; padding:6rem 0 4rem; }
+  }
 </style>
 
 <script>
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.proy-filter-btn');
   const cards = document.querySelectorAll<HTMLElement>('.project-card');
   const emptyState = document.getElementById('empty-state');
-
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const category = btn.dataset.category ?? 'Todos';

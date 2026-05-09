@@ -1,6 +1,60 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+
+const valores = [
+  { icon: '01', titulo: 'Integridad', desc: 'Actuamos con honestidad y transparencia en cada proyecto, rendición de cuentas y relación con la comunidad.' },
+  { icon: '02', titulo: 'Compromiso', desc: 'Nos involucramos profundamente con cada comunidad, garantizando que el impacto sea real y duradero.' },
+  { icon: '03', titulo: 'Innovación', desc: 'Aplicamos metodologías técnicas actualizadas y enfoques creativos para maximizar el impacto ambiental.' },
+  { icon: '04', titulo: 'Colaboración', desc: 'Articulamos sectores público, privado y sociedad civil para construir soluciones compartidas.' },
+];
+
+const areas = [
+  {
+    titulo: 'Restauración de Ecosistemas',
+    desc: 'Rehabilitación de bosques, manglares y cuencas hidrográficas con especies nativas.',
+    num: '01',
+  },
+  {
+    titulo: 'Reforestación Comunitaria',
+    desc: 'Producción y distribución de plántulas a familias campesinas para restaurar cobertura vegetal.',
+    num: '02',
+  },
+  {
+    titulo: 'Monitoreo Ambiental',
+    desc: 'Seguimiento técnico de la salud de ríos, bosques y zonas costeras protegidas.',
+    num: '03',
+  },
+  {
+    titulo: 'Capacitación Técnica',
+    desc: 'Formación de líderes comunitarios en gestión ambiental y prácticas agroecológicas.',
+    num: '04',
+  },
+  {
+    titulo: 'Gestión de Alianzas',
+    desc: 'Articulación entre comunidades, empresas privadas, gobierno y cooperación internacional.',
+    num: '05',
+  },
+  {
+    titulo: 'Compensación Ambiental',
+    desc: 'Implementación de programas de compensación ecológica en áreas protegidas.',
+    num: '06',
+  },
+];
+
+const timeline = [
+  { year: '1997', titulo: 'Fundación', desc: 'ASISTEDCOS nace en el período de posguerra para atender los problemas socioambientales que dejó el conflicto armado en comunidades rurales.' },
+  { year: '2000s', titulo: 'Primeros Proyectos', desc: 'Inicio de programas de reforestación comunitaria y distribución de plántulas nativas a familias rurales de La Libertad.' },
+  { year: '2010s', titulo: 'Expansión y Alianzas', desc: 'Alianzas estratégicas con empresas privadas, municipalidades y organismos internacionales para ampliar el alcance territorial.' },
+  { year: '2020', titulo: 'Costa del Bálsamo', desc: 'Lanzamiento del área de conservación de manglares Costa del Bálsamo, en alianza con Concentrix — uno de los proyectos más emblemáticos.' },
+  { year: 'Hoy', titulo: '+27 Años', desc: 'Continuamos restaurando ecosistemas, formando comunidades y construyendo un El Salvador más verde para las generaciones futuras.' },
+];
+
+const legal = [
+  { label: 'Registro', value: 'Ministerio de Gobernación de El Salvador' },
+  { label: 'Tipo de entidad', value: 'Fundación sin fines de lucro' },
+  { label: 'Donaciones', value: 'Deducibles de impuestos — Art. 32 Ley de Renta' },
+];
 ---
 
 <Layout
@@ -9,207 +63,611 @@ import Layout from '../layouts/Layout.astro';
   image="/images/voluntaria-plantando.jpg"
 >
 
-  <!-- Hero -->
-  <section class="relative py-28 overflow-hidden">
-    <div class="absolute inset-0">
-      <img src="/images/voluntaria-plantando.jpg" alt="" class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-gray-900/60"></div>
+<!-- ══════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section class="n-hero">
+  <div class="n-hero-bg"></div>
+  <div class="n-container">
+    <nav class="n-breadcrumb">
+      <a href="/">Inicio</a>
+      <span>›</span>
+      <span>Quiénes Somos</span>
+    </nav>
+    <p class="n-eyebrow">Fundada en 1997</p>
+    <h1 class="n-h1">Quiénes <span class="n-accent">Somos</span></h1>
+    <p class="n-hero-sub">
+      Una organización apolítica y sin fines de lucro comprometida con la restauración ecológica y el desarrollo comunitario sostenible en El Salvador.
+    </p>
+  </div>
+  <div class="n-hero-scroll" aria-hidden="true"><span></span></div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     STATS
+══════════════════════════════════════════════════ -->
+<div class="n-stats-bar">
+  {[
+    { value: '1997', label: 'Año de fundación' },
+    { value: '+27',  label: 'Años de experiencia' },
+    { value: '+50',  label: 'Comunidades atendidas' },
+    { value: '100%', label: 'Sin fines de lucro' },
+  ].map(s => (
+    <div class="n-stat">
+      <p class="n-stat-val">{s.value}</p>
+      <p class="n-stat-lbl">{s.label}</p>
     </div>
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="flex items-center justify-center gap-2 text-gray-400 text-sm mb-4">
-        <a href="/" class="hover:text-amber-400 transition-colors">Inicio</a>
-        <span>›</span>
-        <span class="text-white">Quiénes Somos</span>
+  ))}
+</div>
+
+<!-- ══════════════════════════════════════════════
+     HISTORIA
+══════════════════════════════════════════════════ -->
+<section class="n-section" style="background:#fff; position:relative;">
+  <div class="n-deco-num" aria-hidden="true">.01</div>
+  <div class="n-container">
+    <div class="n-split">
+
+      <!-- Texto -->
+      <div class="n-split-text">
+        <p class="n-eyebrow">Nuestra historia</p>
+        <h2 class="n-h2">Más de 27 años transformando <span class="n-accent">El Salvador</span></h2>
+        <div class="n-historia-body">
+          <p class="n-historia-lead">
+            <strong>ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
+          </p>
+          <p class="n-historia-p">
+            Bajo la coordinación de la <strong>Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
+          </p>
+          <p class="n-historia-p">
+            Registrada oficialmente en el <strong>Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
+          </p>
+        </div>
+        <a href="/proyectos" class="n-btn">Ver nuestros proyectos &rarr;</a>
       </div>
-      <span class="inline-block text-amber-500 font-bold text-sm uppercase tracking-wider mb-3">Fundada en 1997</span>
-      <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-white mb-4">Quiénes Somos</h1>
-      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
-        Una organización apolítica y sin fines de lucro comprometida con la restauración ecológica y el desarrollo comunitario sostenible en El Salvador.
+
+      <!-- Fotos -->
+      <div class="n-split-photos">
+        <div class="n-photo-main">
+          <img src="/images/area-conservacion.jpg" alt="Área de conservación Costa del Bálsamo" loading="lazy" />
+          <div class="n-photo-badge">Costa del Bálsamo</div>
+        </div>
+        <div class="n-photo-row">
+          <div class="n-photo-sm">
+            <img src="/images/voluntaria-plantando.jpg" alt="Voluntaria plantando" loading="lazy" />
+          </div>
+          <div class="n-photo-sm">
+            <img src="/images/vivero-comunidad.jpg" alt="Vivero comunitario" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MISIÓN · VISIÓN · VALORES
+══════════════════════════════════════════════════ -->
+<section class="n-section" style="background:#f7f7f7; position:relative; overflow:hidden;">
+  <div class="n-deco-num n-deco-right" aria-hidden="true">.02</div>
+  <div class="n-container">
+    <div class="n-section-head n-center">
+      <p class="n-eyebrow">Nuestro propósito</p>
+      <h2 class="n-h2">Misión, Visión <span class="n-accent">y Valores</span></h2>
+    </div>
+
+    <div class="n-mvv-grid">
+      <!-- Misión -->
+      <div class="n-mvv-card n-mvv-featured">
+        <div class="n-mvv-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <p class="n-mvv-tag">Misión</p>
+        <p class="n-mvv-text">Proveer asistencia técnica especializada en gestión socioambiental a comunidades rurales, semi-rurales y urbanas de El Salvador, contribuyendo a la restauración de ecosistemas y al desarrollo sostenible de las familias.</p>
+      </div>
+
+      <!-- Visión -->
+      <div class="n-mvv-card">
+        <div class="n-mvv-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+        <p class="n-mvv-tag">Visión</p>
+        <p class="n-mvv-text">Promover la autosuficiencia y resiliencia de las comunidades salvadoreñas mediante enfoques innovadores que impulsen su bienestar integral y el equilibrio ambiental del país.</p>
+      </div>
+
+      <!-- Valores grid 2x2 -->
+      <div class="n-valores-grid">
+        {valores.map(v => (
+          <div class="n-valor-item">
+            <span class="n-valor-num">{v.icon}</span>
+            <h4 class="n-valor-title">{v.titulo}</h4>
+            <p class="n-valor-desc">{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ÁREAS DE TRABAJO
+══════════════════════════════════════════════════ -->
+<section class="n-section" style="background:#fff; position:relative;">
+  <div class="n-container">
+    <div class="n-section-head n-center">
+      <p class="n-eyebrow">Lo que hacemos</p>
+      <h2 class="n-h2">Áreas de <span class="n-accent">Trabajo</span></h2>
+      <p class="n-section-sub">Intervención integral desde la restauración ecológica hasta el fortalecimiento comunitario.</p>
+    </div>
+    <div class="n-areas-grid">
+      {areas.map(a => (
+        <div class="n-area-card">
+          <span class="n-area-num">{a.num}</span>
+          <h3 class="n-area-title">{a.titulo}</h3>
+          <p class="n-area-desc">{a.desc}</p>
+          <div class="n-area-line"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     TIMELINE
+══════════════════════════════════════════════════ -->
+<section class="n-timeline-section">
+  <div class="n-deco-num" style="color:rgba(255,255,255,0.03);" aria-hidden="true">.03</div>
+  <div class="n-container">
+    <div class="n-section-head n-center">
+      <p class="n-eyebrow" style="color:rgba(245,158,11,0.8);">Nuestra trayectoria</p>
+      <h2 class="n-h2" style="color:#fff;">Historia de <span class="n-accent">Impacto</span></h2>
+    </div>
+
+    <div class="n-timeline">
+      <div class="n-timeline-line"></div>
+      {timeline.map((item, i) => (
+        <div class={`n-timeline-item ${i % 2 === 0 ? 'n-tl-left' : 'n-tl-right'}`}>
+          <div class="n-tl-card">
+            <span class="n-tl-year">{item.year}</span>
+            <h3 class="n-tl-title">{item.titulo}</h3>
+            <p class="n-tl-desc">{item.desc}</p>
+          </div>
+          <div class="n-tl-dot"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     MARCO LEGAL
+══════════════════════════════════════════════════ -->
+<section class="n-legal-section">
+  <div class="n-container">
+    <div class="n-section-head n-center">
+      <p class="n-eyebrow" style="color:rgba(245,158,11,0.8);">Transparencia</p>
+      <h2 class="n-h2" style="color:#fff;">Marco <span class="n-accent">Legal</span></h2>
+      <p class="n-section-sub" style="color:rgba(255,255,255,0.55);">
+        Operamos bajo la <strong style="color:#fff;">Ley de Asociaciones y Fundaciones Sin Fines de Lucro</strong> (D.L. No. 894, 1996) de El Salvador, con registro activo en el Ministerio de Gobernación y Desarrollo Territorial.
       </p>
     </div>
-  </section>
-
-  <!-- Historia -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestra historia</span>
-          <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2 mb-8">Más de 27 años transformando El Salvador</h2>
-          <div class="space-y-5">
-            <p class="text-gray-700 leading-relaxed pl-5 border-l-4 border-amber-500">
-              <strong class="text-verde-800">ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra de El Salvador, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
-            </p>
-            <p class="text-gray-700 leading-relaxed">
-              Bajo la coordinación de la <strong class="text-verde-800">Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
-            </p>
-            <p class="text-gray-700 leading-relaxed">
-              Registrada oficialmente en el <strong class="text-verde-800">Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos socioambientales que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
-            </p>
-          </div>
+    <div class="n-legal-grid">
+      {legal.map(l => (
+        <div class="n-legal-card">
+          <p class="n-legal-label">{l.label}</p>
+          <p class="n-legal-value">{l.value}</p>
         </div>
-        <div class="space-y-4">
-          <img
-            src="/images/area-conservacion.jpg"
-            alt="Área de conservación Costa del Bálsamo, proyecto de ASISTEDCOS"
-            class="rounded-lg shadow-md w-full object-cover"
-            loading="lazy"
-          />
-          <div class="grid grid-cols-2 gap-4">
-            <img src="/images/voluntaria-plantando.jpg" alt="Voluntaria plantando en El Salvador" class="rounded-lg shadow-md w-full object-cover aspect-square" loading="lazy" />
-            <img src="/images/vivero-comunidad.jpg" alt="Vivero comunitario de ASISTEDCOS" class="rounded-lg shadow-md w-full object-cover aspect-square" loading="lazy" />
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Misión, Visión, Valores -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestro propósito</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Misión, Visión y Valores</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        {[
-          {
-            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
-            titulo: 'Misión',
-            texto: 'Proveer asistencia técnica especializada en gestión socioambiental a comunidades rurales, semi-rurales y urbanas de El Salvador, contribuyendo a la restauración de ecosistemas y al desarrollo sostenible de las familias.',
-          },
-          {
-            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>`,
-            titulo: 'Visión',
-            texto: 'Promover la autosuficiencia y resiliencia de las comunidades salvadoreñas mediante enfoques innovadores que impulsen su bienestar integral y el equilibrio ambiental del país.',
-          },
-          {
-            icon: `<svg class="h-8 w-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
-            titulo: 'Valores',
-            texto: 'Integridad, transparencia, compromiso comunitario, respeto a la naturaleza, innovación técnica y colaboración entre sectores público, privado y sociedad civil.',
-          },
-        ].map(item => (
-          <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1 p-8 border-t-4 border-t-amber-500">
-            <div class="mb-5" set:html={item.icon} />
-            <h3 class="font-heading text-xl font-extrabold text-verde-900 mb-3">{item.titulo}</h3>
-            <p class="text-gray-600 leading-relaxed text-sm">{item.texto}</p>
-          </div>
-        ))}
-      </div>
+<!-- ══════════════════════════════════════════════
+     CTA
+══════════════════════════════════════════════════ -->
+<section class="n-cta">
+  <div class="n-container n-center">
+    <p class="n-eyebrow" style="color:rgba(245,158,11,0.8);">Únete a la misión</p>
+    <h2 class="n-h2" style="color:#fff;">Sé parte del <span class="n-accent">cambio</span></h2>
+    <p class="n-cta-sub">Tu apoyo nos permite seguir restaurando ecosistemas y transformando comunidades en El Salvador.</p>
+    <div class="n-cta-actions">
+      <a href="/donar" class="n-btn-accent">♥ Donar ahora</a>
+      <a href="/contacto" class="n-btn-outline">Ser voluntario &rarr;</a>
     </div>
-  </section>
-
-  <!-- Áreas de trabajo -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Lo que hacemos</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-verde-900 mt-2">Áreas de Trabajo</h2>
-        <p class="text-gray-500 mt-3 max-w-lg mx-auto">Intervención integral desde la restauración ecológica hasta el fortalecimiento comunitario.</p>
-      </div>
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {[
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>`,
-            titulo: 'Restauración de Ecosistemas',
-            desc: 'Rehabilitación de bosques, manglares y cuencas hidrográficas con especies nativas.'
-          },
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
-            titulo: 'Reforestación Comunitaria',
-            desc: 'Producción y distribución de plántulas a familias campesinas para restaurar cobertura vegetal.'
-          },
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>`,
-            titulo: 'Monitoreo Ambiental',
-            desc: 'Seguimiento técnico de la salud de ríos, bosques y zonas costeras protegidas.'
-          },
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>`,
-            titulo: 'Capacitación Técnica',
-            desc: 'Formación de líderes comunitarios en gestión ambiental y prácticas agroecológicas.'
-          },
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>`,
-            titulo: 'Gestión de Alianzas',
-            desc: 'Articulación entre comunidades, empresas privadas, gobierno y cooperación internacional.'
-          },
-          {
-            icon: `<svg class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>`,
-            titulo: 'Compensación Ambiental',
-            desc: 'Implementación de programas de compensación ecológica en áreas protegidas.'
-          },
-        ].map(area => (
-          <div class="group flex gap-4 p-6 rounded-lg border border-gray-100 hover:border-amber-300 hover:shadow-md transition-all duration-300 bg-white">
-            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde-600 group-hover:bg-amber-500 transition-colors duration-300 flex items-center justify-center" set:html={area.icon} />
-            <div>
-              <h3 class="font-heading font-bold text-verde-900 mb-1">{area.titulo}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">{area.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Timeline -->
-  <section class="py-20 bg-gray-900">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-14">
-        <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Nuestra trayectoria</span>
-        <h2 class="font-heading text-3xl md:text-4xl font-extrabold text-white mt-2">Historia de Impacto</h2>
-      </div>
-      <div class="relative">
-        <!-- Vertical line -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-verde-700"></div>
-        <div class="space-y-12">
-          {[
-            { year: '1997', title: 'Fundación', desc: 'ASISTEDCOS nace en el período de posguerra de El Salvador para atender los problemas socioambientales que dejó el conflicto armado en comunidades rurales.' },
-            { year: '2000s', title: 'Primeros Proyectos', desc: 'Inicio de programas de reforestación comunitaria y distribución de plántulas nativas a familias rurales de La Libertad y zonas aledañas.' },
-            { year: '2010s', title: 'Expansión y Alianzas', desc: 'Establecimiento de alianzas estratégicas con empresas privadas, municipalidades y organismos internacionales para ampliar el alcance territorial.' },
-            { year: '2020', title: 'Costa del Bálsamo', desc: 'Lanzamiento del área de conservación de manglares Costa del Bálsamo en alianza con Concentrix, uno de los proyectos más emblemáticos.' },
-            { year: 'Hoy', title: 'Más de 27 Años', desc: 'Continuamos restaurando ecosistemas, formando comunidades y construyendo un El Salvador más verde y resiliente para las generaciones futuras.' },
-          ].map((item, index) => (
-            <div class={`flex items-center gap-8 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-              <div class={`w-5/12 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                <div class="bg-gray-800 border border-gray-700 rounded-lg p-5 inline-block text-left hover:border-amber-500 transition-colors duration-300">
-                  <span class="text-amber-500 font-bold text-sm">{item.year}</span>
-                  <h3 class="font-heading font-extrabold text-white mt-1 mb-2">{item.title}</h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-              <div class="flex-shrink-0 w-2/12 flex justify-center">
-                <div class="w-5 h-5 rounded-full bg-amber-500 border-4 border-gray-900 z-10"></div>
-              </div>
-              <div class="w-5/12"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Marco Legal -->
-  <section class="py-16 bg-verde-900 text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <span class="text-amber-500 font-bold text-sm uppercase tracking-wider">Transparencia</span>
-      <h2 class="font-heading text-2xl md:text-3xl font-extrabold mt-2 mb-4">Marco Legal</h2>
-      <p class="text-gray-300 mb-10 max-w-2xl mx-auto">
-        Operamos bajo la <strong class="text-white">Ley de Asociaciones y Fundaciones Sin Fines de Lucro</strong> (D.L. No. 894, 1996) de El Salvador, con registro activo en el Ministerio de Gobernación y Desarrollo Territorial.
-      </p>
-      <div class="grid sm:grid-cols-3 gap-6 text-sm">
-        {[
-          { label: 'Registro', value: 'Ministerio de Gobernación de El Salvador' },
-          { label: 'Tipo de entidad', value: 'Fundación sin fines de lucro' },
-          { label: 'Donaciones', value: 'Deducibles de impuestos (Art. 32 Ley de Renta)' },
-        ].map(item => (
-          <div class="bg-white/10 border border-white/20 rounded-lg p-5">
-            <p class="text-amber-400 text-xs uppercase tracking-wider mb-1">{item.label}</p>
-            <p class="text-white font-semibold">{item.value}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
 </Layout>
+
+<style>
+  /* ══════════════════════════════════════
+     TOKENS
+  ══════════════════════════════════════ */
+  :root {
+    --n-accent:  #f59e0b;
+    --n-dark:    #111111;
+    --n-forest:  #081509;
+    --n-head:    'Poppins', system-ui, sans-serif;
+    --n-shadow:  0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  /* ══════════════════════════════════════
+     LAYOUT
+  ══════════════════════════════════════ */
+  .n-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+  .n-section   { padding: 6rem 0; overflow: hidden; }
+  .n-center    { text-align: center; }
+  .n-section-head { margin-bottom: 3.5rem; }
+  .n-section-sub {
+    color: #666; font-size: 1rem; max-width: 500px;
+    margin: 0.5rem auto 0; line-height: 1.7;
+  }
+  .n-deco-num {
+    position: absolute; top: 3rem; left: -1rem;
+    font-family: var(--n-head); font-size: clamp(7rem,15vw,14rem);
+    font-weight: 900; color: rgba(0,0,0,0.035);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+  .n-deco-right { left: auto; right: -1rem; }
+
+  /* ══════════════════════════════════════
+     TYPOGRAPHY
+  ══════════════════════════════════════ */
+  .n-eyebrow {
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.28em;
+    color: var(--n-accent); display: block; margin-bottom: 0.75rem;
+  }
+  .n-h1 {
+    font-family: var(--n-head); font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.5rem);
+    line-height: 1.07; color: #fff; margin-bottom: 1.25rem;
+  }
+  .n-h2 {
+    font-family: var(--n-head); font-weight: 800;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    line-height: 1.15; color: var(--n-dark); margin-bottom: 0.75rem;
+  }
+  .n-accent { color: var(--n-accent); }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  .n-hero {
+    position: relative; min-height: 72vh;
+    display: flex; align-items: center;
+    padding: 8rem 0 5rem; overflow: hidden;
+  }
+  .n-hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(8,21,9,0.90) 0%, rgba(8,21,9,0.72) 60%, rgba(8,21,9,0.55) 100%),
+      url('https://images.unsplash.com/photo-1503785640985-f62e3aeee448?w=1920&q=80') center center / cover no-repeat;
+  }
+  .n-hero .n-container { position: relative; z-index: 1; }
+  .n-breadcrumb {
+    display: flex; gap: 0.5rem; align-items: center;
+    font-size: 0.8rem; color: rgba(255,255,255,0.4);
+    margin-bottom: 1.5rem;
+  }
+  .n-breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .n-breadcrumb a:hover { color: var(--n-accent); }
+  .n-hero-sub {
+    color: rgba(255,255,255,0.72); font-size: 1.1rem;
+    max-width: 580px; line-height: 1.75; margin-top: 1rem;
+  }
+  .n-hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%;
+    transform: translateX(-50%);
+  }
+  .n-hero-scroll span {
+    display: block; width: 1px; height: 60px;
+    background: linear-gradient(to bottom, rgba(245,158,11,0.8), transparent);
+    animation: n-scroll 1.8s ease-in-out infinite;
+  }
+  @keyframes n-scroll {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ══════════════════════════════════════
+     STATS BAR
+  ══════════════════════════════════════ */
+  .n-stats-bar {
+    background: var(--n-forest);
+    display: flex; justify-content: center;
+  }
+  .n-stat {
+    flex: 1; max-width: 220px; text-align: center;
+    padding: 2.5rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .n-stat:last-child { border-right: none; }
+  .n-stat-val {
+    font-family: var(--n-head); font-size: 2.4rem;
+    font-weight: 800; color: var(--n-accent); line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .n-stat-lbl {
+    font-size: 0.72rem; color: rgba(255,255,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.12em;
+  }
+
+  /* ══════════════════════════════════════
+     HISTORIA
+  ══════════════════════════════════════ */
+  .n-split {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  @media(max-width:900px){ .n-split { grid-template-columns: 1fr; gap: 3rem; } }
+
+  .n-split-text {}
+  .n-historia-lead {
+    font-size: 1rem; line-height: 1.8; color: #444;
+    border-left: 3px solid var(--n-accent);
+    padding-left: 1.25rem; margin: 1.5rem 0 1rem;
+  }
+  .n-historia-p {
+    font-size: 0.95rem; line-height: 1.8; color: #666;
+    margin-bottom: 1rem;
+  }
+  .n-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--n-accent); color: #fff;
+    font-weight: 700; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.85rem 2rem; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .n-btn:hover { background: #d97706; }
+
+  .n-photo-main {
+    position: relative; overflow: hidden;
+    aspect-ratio: 4/3; margin-bottom: 0.75rem;
+  }
+  .n-photo-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .n-photo-main:hover img { transform: scale(1.05); }
+  .n-photo-badge {
+    position: absolute; bottom: 1rem; left: 1rem;
+    background: rgba(8,21,9,0.82);
+    color: var(--n-accent); font-size: 0.7rem;
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; padding: 0.3rem 0.75rem;
+  }
+  .n-photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .n-photo-sm { overflow: hidden; aspect-ratio: 1; }
+  .n-photo-sm img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .n-photo-sm:hover img { transform: scale(1.07); }
+
+  /* ══════════════════════════════════════
+     MISIÓN · VISIÓN · VALORES
+  ══════════════════════════════════════ */
+  .n-mvv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5px; background: #e0e0e0;
+  }
+  @media(max-width:900px){ .n-mvv-grid { grid-template-columns: 1fr; } }
+
+  .n-mvv-card {
+    background: #fff; padding: 2.5rem 2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: transform 0.3s; position: relative;
+  }
+  .n-mvv-card:hover { transform: translateY(-4px); z-index: 1; box-shadow: var(--n-shadow); }
+  .n-mvv-featured { border-top: 3px solid var(--n-accent); }
+
+  .n-mvv-icon {
+    width: 3rem; height: 3rem;
+    background: var(--n-forest);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .n-mvv-icon svg { width: 1.4rem; height: 1.4rem; stroke: var(--n-accent); }
+  .n-mvv-tag {
+    font-family: var(--n-head); font-size: 1.2rem;
+    font-weight: 800; color: var(--n-dark);
+  }
+  .n-mvv-text { font-size: 0.88rem; color: #666; line-height: 1.75; }
+
+  .n-valores-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5px; background: #e0e0e0;
+  }
+  .n-valor-item {
+    background: #fff; padding: 1.75rem 1.5rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    transition: background 0.2s;
+  }
+  .n-valor-item:hover { background: #fefce8; }
+  .n-valor-num {
+    font-family: var(--n-head); font-size: 0.65rem;
+    font-weight: 800; color: var(--n-accent);
+    letter-spacing: 0.15em;
+  }
+  .n-valor-title {
+    font-family: var(--n-head); font-size: 0.95rem;
+    font-weight: 700; color: var(--n-dark);
+  }
+  .n-valor-desc { font-size: 0.78rem; color: #888; line-height: 1.6; }
+
+  /* ══════════════════════════════════════
+     ÁREAS DE TRABAJO
+  ══════════════════════════════════════ */
+  .n-areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: #e0e0e0;
+  }
+  @media(max-width:900px){ .n-areas-grid { grid-template-columns: repeat(2,1fr); } }
+  @media(max-width:560px){ .n-areas-grid { grid-template-columns: 1fr; } }
+
+  .n-area-card {
+    background: #fff; padding: 2rem 1.75rem;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .n-area-card:hover { transform: translateY(-3px); z-index: 1; box-shadow: var(--n-shadow); }
+  .n-area-num {
+    display: block; font-family: var(--n-head);
+    font-size: 0.65rem; font-weight: 800;
+    color: var(--n-accent); letter-spacing: 0.2em;
+    margin-bottom: 0.75rem;
+  }
+  .n-area-title {
+    font-family: var(--n-head); font-size: 1rem;
+    font-weight: 700; color: var(--n-dark);
+    margin-bottom: 0.5rem;
+  }
+  .n-area-desc { font-size: 0.83rem; color: #777; line-height: 1.65; }
+  .n-area-line {
+    position: absolute; bottom: 0; left: 0;
+    height: 2px; width: 0; background: var(--n-accent);
+    transition: width 0.4s ease;
+  }
+  .n-area-card:hover .n-area-line { width: 100%; }
+
+  /* ══════════════════════════════════════
+     TIMELINE
+  ══════════════════════════════════════ */
+  .n-timeline-section {
+    background: var(--n-forest);
+    padding: 6rem 0; position: relative; overflow: hidden;
+  }
+  .n-timeline {
+    position: relative; margin-top: 1rem;
+    display: flex; flex-direction: column; gap: 3rem;
+  }
+  .n-timeline-line {
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 1px; background: rgba(245,158,11,0.2);
+    transform: translateX(-50%);
+  }
+  .n-timeline-item {
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 2rem;
+    position: relative;
+  }
+  .n-tl-left  .n-tl-card { grid-column: 1; text-align: right; }
+  .n-tl-left  .n-tl-dot  { grid-column: 2; justify-self: start; }
+  .n-tl-right .n-tl-card { grid-column: 2; grid-row: 1; text-align: left; }
+  .n-tl-right .n-tl-dot  { grid-column: 1; grid-row: 1; justify-self: end; }
+
+  .n-tl-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1.5rem 1.75rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .n-tl-card:hover {
+    border-color: rgba(245,158,11,0.4);
+    background: rgba(245,158,11,0.05);
+  }
+  .n-tl-year {
+    font-family: var(--n-head); font-size: 0.7rem;
+    font-weight: 800; color: var(--n-accent);
+    text-transform: uppercase; letter-spacing: 0.2em;
+    display: block; margin-bottom: 0.4rem;
+  }
+  .n-tl-title {
+    font-family: var(--n-head); font-size: 1rem;
+    font-weight: 700; color: #fff; margin-bottom: 0.5rem;
+  }
+  .n-tl-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+  .n-tl-dot {
+    width: 0.75rem; height: 0.75rem;
+    background: var(--n-accent);
+    border: 3px solid var(--n-forest);
+    outline: 1px solid var(--n-accent);
+    border-radius: 50%;
+    position: relative; z-index: 1;
+  }
+
+  @media(max-width:700px){
+    .n-timeline-line { display: none; }
+    .n-timeline-item { grid-template-columns: 1fr; }
+    .n-tl-left .n-tl-card,
+    .n-tl-right .n-tl-card { grid-column: 1; text-align: left; }
+    .n-tl-dot { display: none; }
+  }
+
+  /* ══════════════════════════════════════
+     MARCO LEGAL
+  ══════════════════════════════════════ */
+  .n-legal-section {
+    background:
+      linear-gradient(rgba(8,21,9,0.85), rgba(8,21,9,0.85)),
+      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center / cover no-repeat fixed;
+    padding: 5rem 0;
+  }
+  .n-legal-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.5px; background: rgba(255,255,255,0.1);
+    margin-top: 2rem;
+  }
+  @media(max-width:700px){ .n-legal-grid { grid-template-columns: 1fr; } }
+  .n-legal-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2rem 1.75rem;
+    transition: border-color 0.3s;
+  }
+  .n-legal-card:hover { border-color: rgba(245,158,11,0.4); }
+  .n-legal-label {
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    color: var(--n-accent); margin-bottom: 0.5rem;
+  }
+  .n-legal-value { font-size: 0.9rem; color: #fff; font-weight: 600; line-height: 1.5; }
+
+  /* ══════════════════════════════════════
+     CTA
+  ══════════════════════════════════════ */
+  .n-cta {
+    background:
+      linear-gradient(rgba(8,21,9,0.90), rgba(8,21,9,0.90)),
+      url('/images/reforestacion-aerea.jpg') center / cover no-repeat fixed;
+    padding: 7rem 0; text-align: center;
+  }
+  .n-cta-sub {
+    color: rgba(255,255,255,0.6); font-size: 1.05rem;
+    max-width: 500px; margin: 1.25rem auto 2.5rem; line-height: 1.75;
+  }
+  .n-cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .n-btn-accent {
+    display: inline-block;
+    background: var(--n-accent); color: #fff;
+    font-weight: 700; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.9rem 2.25rem; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .n-btn-accent:hover { background: #d97706; }
+  .n-btn-outline {
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.3); color: #fff;
+    font-weight: 700; font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 0.9rem 2.25rem; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .n-btn-outline:hover { border-color: var(--n-accent); background: rgba(245,158,11,0.1); }
+
+  @media(max-width:640px){
+    .n-stats-bar { flex-direction: column; }
+    .n-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); max-width: 100%; }
+    .n-stat:last-child { border-bottom: none; }
+    .n-hero { min-height: auto; padding: 6rem 0 4rem; }
+    .n-valores-grid { grid-template-columns: 1fr; }
+  }
+</style>
