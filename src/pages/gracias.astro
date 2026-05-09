@@ -4,335 +4,606 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="¡Gracias!" description="Gracias por apoyar a Fundación ASISTEDCOS.">
-
-  <!-- Estado: contacto (default) -->
-  <section id="state-contacto" class="min-h-[70vh] flex items-center justify-center bg-gray-50">
-    <div class="text-center max-w-lg mx-auto px-4">
-      <div class="w-20 h-20 bg-verde-100 rounded-full flex items-center justify-center mx-auto mb-6">
-        <svg class="h-10 w-10 text-verde-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+  <section id="state-contacto" class="thanks-contact">
+    <div class="thanks-contact-card">
+      <div class="thanks-contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       </div>
-      <h1 class="font-heading text-3xl font-bold text-verde-900 mb-3">¡Gracias por escribirnos!</h1>
-      <p class="text-gray-500 mb-8">Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
-      <a href="/" class="inline-flex items-center gap-2 bg-verde-600 hover:bg-verde-700 text-white font-semibold px-8 py-3 rounded-full transition-colors">
-        Volver al inicio
-      </a>
+      <h1>¡Gracias por escribirnos!</h1>
+      <p>Hemos recibido tu mensaje y te responderemos a la brevedad posible.</p>
+      <a href="/" class="thanks-contact-btn">Volver al inicio</a>
     </div>
   </section>
 
-  <!-- Estado: donación exitosa -->
-  <section id="state-donacion" class="hidden gr-page">
-
-    <!-- Hero banner -->
-    <div class="gr-hero">
-      <div class="gr-hero-bg"></div>
-      <div class="gr-hero-content">
-        <div class="gr-confirmed-badge">
-          <svg class="gr-confirmed-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-          </svg>
-        </div>
-        <p class="gr-eyebrow">Donación confirmada</p>
-        <h1 class="gr-h1">¡Eres parte<br/>del cambio!</h1>
-        <p class="gr-hero-sub">Tu apoyo ya está en camino a las comunidades y ecosistemas de El Salvador.</p>
+  <section id="state-donacion" class="thanks-page hidden">
+    <div class="thanks-hero">
+      <div class="thanks-hero-media" aria-hidden="true">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg" alt="" loading="eager" />
       </div>
-      <div class="gr-scroll" aria-hidden="true"><span></span></div>
+
+      <div class="thanks-shell">
+        <div class="thanks-grid">
+          <div class="thanks-copy">
+            <p class="thanks-eyebrow">Donación confirmada</p>
+            <h1 class="thanks-title">Tu aporte ya es parte de la restauración</h1>
+            <p class="thanks-sub">
+              Gracias por sumarte a Fundación ASISTEDCOS. Tu donación nos acerca a proteger manglares, fortalecer comunidades costeras y sembrar futuro en El Salvador.
+            </p>
+
+            <div class="thanks-actions">
+              <a href="/proyectos" class="thanks-btn">Ver proyectos</a>
+              <a href="/donar" class="thanks-btn thanks-btn-ghost">Donar de nuevo</a>
+            </div>
+          </div>
+
+          <aside class="thanks-panel">
+            <div class="thanks-panel-head">
+              <span>Confirmación</span>
+              <strong>Pago exitoso</strong>
+            </div>
+
+            <div class="thanks-panel-grid">
+              <div>
+                <span>Estado</span>
+                <strong>Confirmado</strong>
+              </div>
+              <div>
+                <span>Campaña</span>
+                <strong>1 Millón</strong>
+              </div>
+            </div>
+
+            <div class="thanks-detail-list">
+              <div class="thanks-detail-item">
+                <span>Referencia</span>
+                <strong id="thanks-ref">Se generará al confirmar</strong>
+              </div>
+              <div class="thanks-detail-item">
+                <span>Transacción</span>
+                <strong id="thanks-tx">Se generará al confirmar</strong>
+              </div>
+              <div class="thanks-detail-item">
+                <span>Comprobante</span>
+                <strong>Recibirás confirmación por correo</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
     </div>
 
-    <!-- Contenido principal -->
-    <div class="gr-body">
-      <div class="gr-container">
-
-        <!-- Mensaje de impacto -->
-        <div class="gr-message-row">
-          <div class="gr-message-text">
-            <p class="gr-eyebrow-dark">Tu huella</p>
-            <h2 class="gr-h2">Cada árbol que nazca<br/>llevará <span class="gr-accent">tu nombre</span></h2>
-            <p class="gr-desc">Tu donación se convierte en plántulas, en cuencas monitoreadas, en familias rurales con ingresos dignos. El Salvador necesita más personas como tú.</p>
+    <div class="thanks-body">
+      <div class="thanks-shell">
+        <div class="thanks-summary">
+          <div class="thanks-summary-text">
+            <p class="thanks-eyebrow thanks-eyebrow-dark">Lo que activaste hoy</p>
+            <h2>Tu apoyo se convierte en acciones visibles en territorio</h2>
+            <p>
+              Cada donación impulsa plántulas, logística, jornadas comunitarias y seguimiento técnico. Esto no se queda en promesas: se convierte en trabajo real sobre la costa salvadoreña.
+            </p>
           </div>
-          <div class="gr-impact-list">
-            {[
-              {
-                label: 'Plántulas hacia comunidades rurales',
-                svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12m0 0C12 7 8 4 4 5c0 4 3 7 8 7zm0 0c0-5 4-8 8-7-1 4-4 7-8 7"/></svg>`,
-                color: '#16a34a'
-              },
-              {
-                label: 'Cuencas monitoreadas y protegidas',
-                svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>`,
-                color: '#2563eb'
-              },
-              {
-                label: 'CO₂ siendo capturado por la naturaleza',
-                svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3a6 6 0 00-6 6c0 3 1.5 4.5 3 6h6c1.5-1.5 3-3 3-6a6 6 0 00-6-6z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 21h6M12 18v3"/></svg>`,
-                color: '#f59e0b'
-              },
-            ].map(item => (
-              <div class="gr-impact-item">
-                <div class="gr-impact-icon" style={`color:${item.color}; border-color:${item.color}22;`} set:html={item.svg} />
-                <p class="gr-impact-label">{item.label}</p>
+
+          <div class="thanks-impact-grid">
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12m0 0C12 7 8 4 4 5c0 4 3 7 8 7zm0 0c0-5 4-8 8-7-1 4-4 7-8 7" />
+                </svg>
               </div>
-            ))}
+              <h3>Viveros y plántulas</h3>
+              <p>Preparación de mangles nativos para restauración y siembra comunitaria.</p>
+            </article>
+
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 19c2.5-4 5.5-6 8-6s5.5 2 8 6M5 9c1.5 2 3.8 3 7 3s5.5-1 7-3M12 4v15" />
+                </svg>
+              </div>
+              <h3>Jornadas en costa</h3>
+              <p>Movilización, herramientas y acompañamiento para sembrar en campo.</p>
+            </article>
+
+            <article class="thanks-impact-card">
+              <div class="thanks-impact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3a15.3 15.3 0 014 9 15.3 15.3 0 01-4 9 15.3 15.3 0 01-4-9 15.3 15.3 0 014-9z" />
+                </svg>
+              </div>
+              <h3>Protección costera</h3>
+              <p>Manglares más fuertes significan ecosistemas más vivos y comunidades más resilientes.</p>
+            </article>
           </div>
         </div>
 
-        <!-- Aviso recibo + compartir en dos columnas -->
-        <div class="gr-bottom-row">
-
-          <!-- Aviso comprobante -->
-          <div class="gr-receipt-card">
-            <div class="gr-receipt-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="gr-receipt-title">Revisa tu correo</p>
-              <p class="gr-receipt-desc">Recibirás el comprobante de tu donación, válido para deducción fiscal según el <strong>Art. 32 de la Ley de Renta de El Salvador</strong>.</p>
-            </div>
+        <div class="thanks-bottom">
+          <div class="thanks-receipt">
+            <h3>Revisa tu correo</h3>
+            <p>Recibirás el comprobante de tu donación. Si necesitas respaldo fiscal, nuestro equipo puede apoyarte con el proceso.</p>
+            <a href="mailto:info@asistedcos.org">info@asistedcos.org</a>
           </div>
 
-          <!-- Compartir -->
-          <div class="gr-share-card">
-            <p class="gr-share-title">Inspira a otros</p>
-            <p class="gr-share-desc">Comparte y multiplica el impacto.</p>
-            <div class="gr-share-btns">
+          <div class="thanks-share">
+            <h3>Multiplica el impacto</h3>
+            <p>Comparte tu donación e invita a más personas a sumarse a esta causa.</p>
+            <div class="thanks-share-actions">
               <a
                 href="https://www.facebook.com/sharer/sharer.php?u=https://asistedcosong.vercel.app"
-                target="_blank" rel="noopener noreferrer"
-                class="gr-share-fb"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="thanks-share-btn"
               >
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 Facebook
               </a>
               <a
-                href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundaci%C3%B3n%20ASISTEDCOS%20para%20reforestar%20El%20Salvador.%20%C3%BAnete%3A%20https://asistedcosong.vercel.app/donar"
-                target="_blank" rel="noopener noreferrer"
-                class="gr-share-wa"
+                href="https://wa.me/?text=Acabo%20de%20donar%20a%20Fundaci%C3%B3n%20ASISTEDCOS%20para%20restaurar%20manglares.%20S%C3%BAmate%20aqu%C3%AD:%20https://asistedcosong.vercel.app/donar"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="thanks-share-btn thanks-share-btn-wa"
               >
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
                 WhatsApp
               </a>
             </div>
           </div>
         </div>
 
-        <!-- CTAs -->
-        <div class="gr-ctas">
-          <a href="/" class="gr-btn-primary">Volver al inicio</a>
-          <a href="/proyectos" class="gr-btn-outline">Ver proyectos &rarr;</a>
-          <a href="/donar" class="gr-btn-ghost">Hacer otra donación</a>
+        <div class="thanks-footer">
+          <img src="/images/logo.png" alt="ASISTEDCOS" />
+          <p>Fundación ASISTEDCOS · El Salvador · Desde 1997</p>
         </div>
-
-        <!-- Firma -->
-        <div class="gr-footer">
-          <img src="/images/logo.png" alt="ASISTEDCOS" class="gr-logo" />
-          <p class="gr-footer-text">Fundación ASISTEDCOS · El Salvador · Desde 1997</p>
-        </div>
-
       </div>
     </div>
   </section>
-
 </Layout>
 
 <style>
   :root {
-    --gr-accent: #f59e0b;
-    --gr-dark:   #111;
-    --gr-forest: #081509;
-    --gr-head:   'Poppins', system-ui, sans-serif;
-    --gr-shadow: 0 8px 30px rgba(0,0,0,.08);
+    --thanks-accent: #f59e0b;
+    --thanks-dark: #081509;
+    --thanks-ink: #111111;
+    --thanks-muted: #6b7280;
+    --thanks-shell: min(1180px, calc(100% - 3rem));
   }
 
-  .gr-page { background:#f7f7f7; }
-  .gr-container { max-width:900px; margin:0 auto; padding:0 1.5rem; }
+  .hidden { display: none !important; }
 
-  .gr-eyebrow {
-    font-size:.72rem; font-weight:700; text-transform:uppercase;
-    letter-spacing:.28em; color:rgba(245,158,11,.75); display:block; margin-bottom:.75rem;
+  .thanks-contact {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    padding: 2rem 1.5rem;
   }
-  .gr-eyebrow-dark {
-    font-size:.72rem; font-weight:700; text-transform:uppercase;
-    letter-spacing:.28em; color:var(--gr-accent); display:block; margin-bottom:.75rem;
+  .thanks-contact-card {
+    width: min(560px, 100%);
+    background: #fff;
+    border-top: 4px solid var(--thanks-accent);
+    box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+    padding: 3rem 2rem;
+    text-align: center;
   }
-  .gr-accent { color:var(--gr-accent); }
+  .thanks-contact-icon {
+    width: 5rem;
+    height: 5rem;
+    margin: 0 auto 1.5rem;
+    border-radius: 999px;
+    background: rgba(22, 163, 74, 0.12);
+    color: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .thanks-contact-icon svg { width: 2rem; height: 2rem; }
+  .thanks-contact-card h1 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    color: var(--thanks-dark);
+    margin-bottom: 0.8rem;
+  }
+  .thanks-contact-card p {
+    color: var(--thanks-muted);
+    line-height: 1.75;
+    margin-bottom: 1.8rem;
+  }
+  .thanks-contact-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--thanks-dark);
+    color: #fff;
+    padding: 0.95rem 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
 
-  /* ── HERO ── */
-  .gr-hero {
-    position:relative; min-height:60vh;
-    display:flex; align-items:center; justify-content:center;
-    padding:8rem 1.5rem 5rem; overflow:hidden; text-align:center;
+  .thanks-page {
+    background: #f4f4f1;
   }
-  .gr-hero-bg {
-    position:absolute; inset:0;
+  .thanks-shell {
+    width: var(--thanks-shell);
+    margin: 0 auto;
+  }
+
+  .thanks-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0 5rem;
+    min-height: 76vh;
+  }
+  .thanks-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background:
-      linear-gradient(to bottom, rgba(8,21,9,.88) 0%, rgba(8,21,9,.70) 100%),
-      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center/cover no-repeat;
+      linear-gradient(90deg, rgba(8,21,9,0.92) 0%, rgba(8,21,9,0.70) 44%, rgba(8,21,9,0.38) 100%),
+      linear-gradient(180deg, rgba(8,21,9,0.22) 0%, rgba(8,21,9,0.08) 55%, rgba(8,21,9,0.40) 100%);
+    z-index: 1;
   }
-  .gr-hero-content { position:relative; z-index:1; max-width:640px; }
+  .thanks-hero-media {
+    position: absolute;
+    inset: 0;
+  }
+  .thanks-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: saturate(1.08) contrast(1.05);
+  }
+  .thanks-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.78fr);
+    gap: 3rem;
+    align-items: center;
+  }
+  .thanks-copy {
+    max-width: 640px;
+  }
+  .thanks-eyebrow {
+    display: block;
+    margin-bottom: 0.9rem;
+    color: rgba(245,158,11,0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.74rem;
+    font-weight: 800;
+  }
+  .thanks-eyebrow-dark {
+    color: var(--thanks-accent);
+  }
+  .thanks-title {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(2.7rem, 6vw, 5.25rem);
+    line-height: 1.02;
+    font-weight: 800;
+    color: #fff;
+    max-width: 700px;
+    margin-bottom: 1.25rem;
+  }
+  .thanks-sub {
+    max-width: 560px;
+    color: rgba(255,255,255,0.76);
+    line-height: 1.78;
+    font-size: 1.02rem;
+    margin-bottom: 2rem;
+  }
+  .thanks-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .thanks-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    padding: 1rem 1.4rem;
+    background: var(--thanks-accent);
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 2px solid var(--thanks-accent);
+    transition: 0.2s ease;
+  }
+  .thanks-btn:hover {
+    background: #d97706;
+    border-color: #d97706;
+  }
+  .thanks-btn-ghost {
+    background: transparent;
+    border-color: rgba(255,255,255,0.28);
+    color: #fff;
+  }
+  .thanks-btn-ghost:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.42);
+  }
 
-  .gr-confirmed-badge {
-    width:5rem; height:5rem; margin:0 auto 1.75rem;
-    background:rgba(245,158,11,.15);
-    border:2px solid rgba(245,158,11,.4);
-    display:flex; align-items:center; justify-content:center;
+  .thanks-panel {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(145deg, rgba(13,31,16,0.70) 0%, rgba(6,13,8,0.54) 58%, rgba(28,19,7,0.60) 100%);
+    backdrop-filter: blur(10px) saturate(1.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    color: #fff;
+    padding: 2rem;
+    border-top: 4px solid var(--thanks-accent);
+    border-right: 1px solid rgba(245,158,11,0.18);
+    border-bottom: 1px solid rgba(245,158,11,0.14);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.36);
   }
-  .gr-confirmed-icon { width:2.25rem; height:2.25rem; stroke:var(--gr-accent); }
+  .thanks-panel-head span,
+  .thanks-panel-grid span,
+  .thanks-detail-item span {
+    display: block;
+    color: rgba(255,255,255,0.48);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+  .thanks-panel-head strong {
+    display: block;
+    margin-top: 0.55rem;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1;
+    color: #fff;
+  }
+  .thanks-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin: 1.5rem 0;
+    background: rgba(255,255,255,0.10);
+  }
+  .thanks-panel-grid div {
+    background: rgba(255,255,255,0.08);
+    padding: 1rem 0.9rem;
+  }
+  .thanks-panel-grid strong {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--thanks-accent);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+  .thanks-detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .thanks-detail-item {
+    padding: 0.9rem 1rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .thanks-detail-item strong {
+    display: block;
+    margin-top: 0.35rem;
+    color: #fff;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    word-break: break-word;
+  }
 
-  .gr-h1 {
-    font-family:var(--gr-head); font-weight:900;
-    font-size:clamp(2.4rem,6vw,4rem); line-height:1.1;
-    color:#fff; margin-bottom:1rem;
+  .thanks-body {
+    padding: 4.5rem 0 5rem;
   }
-  .gr-hero-sub {
-    color:rgba(255,255,255,.65); font-size:1.05rem; line-height:1.75; max-width:480px; margin:0 auto;
+  .thanks-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 1.5px;
+    background: #dddcd6;
+    margin-bottom: 1.5px;
+  }
+  .thanks-summary-text {
+    background: #fff;
+    padding: 2.8rem 2.2rem;
+  }
+  .thanks-summary-text h2 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    color: var(--thanks-ink);
+    line-height: 1.16;
+    margin-bottom: 1rem;
+  }
+  .thanks-summary-text p {
+    color: var(--thanks-muted);
+    line-height: 1.78;
+    font-size: 0.94rem;
+  }
+  .thanks-impact-grid {
+    background: var(--thanks-dark);
+    padding: 2.2rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .thanks-impact-card {
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    padding: 1.2rem;
+  }
+  .thanks-impact-icon {
+    width: 2.9rem;
+    height: 2.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--thanks-accent);
+    border: 1px solid rgba(245,158,11,0.28);
+    margin-bottom: 1rem;
+  }
+  .thanks-impact-icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+  .thanks-impact-card h3 {
+    color: #fff;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.45rem;
+  }
+  .thanks-impact-card p {
+    color: rgba(255,255,255,0.68);
+    font-size: 0.84rem;
+    line-height: 1.65;
   }
 
-  .gr-scroll { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); }
-  .gr-scroll span {
-    display:block; width:1px; height:50px;
-    background:linear-gradient(to bottom, rgba(245,158,11,.7), transparent);
-    animation:gr-scroll-anim 1.8s ease-in-out infinite;
+  .thanks-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: #dddcd6;
+    margin-bottom: 2.6rem;
   }
-  @keyframes gr-scroll-anim {
-    0%   { transform:scaleY(0); transform-origin:top    }
-    50%  { transform:scaleY(1); transform-origin:top    }
-    51%  { transform:scaleY(1); transform-origin:bottom }
-    100% { transform:scaleY(0); transform-origin:bottom }
+  .thanks-receipt,
+  .thanks-share {
+    background: #fff;
+    padding: 2rem;
+  }
+  .thanks-receipt {
+    border-left: 4px solid var(--thanks-accent);
+  }
+  .thanks-receipt h3,
+  .thanks-share h3 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--thanks-ink);
+    margin-bottom: 0.45rem;
+  }
+  .thanks-receipt p,
+  .thanks-share p {
+    color: var(--thanks-muted);
+    line-height: 1.72;
+    font-size: 0.86rem;
+  }
+  .thanks-receipt a {
+    display: inline-block;
+    margin-top: 0.9rem;
+    color: var(--thanks-accent);
+    font-weight: 800;
+  }
+  .thanks-share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.15rem;
+  }
+  .thanks-share-btn {
+    flex: 1;
+    min-width: 150px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #1877f2;
+    color: #fff;
+    padding: 0.85rem 1rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .thanks-share-btn-wa {
+    background: #25d366;
   }
 
-  /* ── BODY ── */
-  .gr-body { padding:4rem 0 5rem; }
+  .thanks-footer {
+    padding-top: 2rem;
+    border-top: 1px solid #dfded7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .thanks-footer img {
+    height: 2rem;
+    width: auto;
+    opacity: 0.5;
+  }
+  .thanks-footer p {
+    color: #9ca3af;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+  }
 
-  /* Mensaje + impacto */
-  .gr-message-row {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:1.5px; background:#e0e0e0;
-    margin-bottom:1.5px;
+  @media (max-width: 900px) {
+    .thanks-hero {
+      padding: 6.5rem 0 4rem;
+      min-height: auto;
+    }
+    .thanks-grid,
+    .thanks-summary,
+    .thanks-bottom {
+      grid-template-columns: 1fr;
+    }
   }
-  @media(max-width:680px) { .gr-message-row { grid-template-columns:1fr; } }
-
-  .gr-message-text { background:#fff; padding:2.5rem 2rem; }
-  .gr-h2 {
-    font-family:var(--gr-head); font-weight:800;
-    font-size:clamp(1.5rem,3vw,2rem); line-height:1.2;
-    color:var(--gr-dark); margin-bottom:1rem;
-  }
-  .gr-desc { font-size:.9rem; color:#777; line-height:1.8; }
-
-  .gr-impact-list {
-    background:var(--gr-forest); padding:2.5rem 2rem;
-    display:flex; flex-direction:column; gap:1.5rem;
-  }
-  .gr-impact-item { display:flex; align-items:center; gap:1rem; }
-  .gr-impact-icon {
-    width:2.75rem; height:2.75rem; flex-shrink:0;
-    border:1.5px solid; display:flex; align-items:center; justify-content:center;
-  }
-  .gr-impact-icon svg { width:1.35rem; height:1.35rem; }
-  .gr-impact-label { font-size:.82rem; color:rgba(255,255,255,.7); line-height:1.5; font-weight:500; }
-
-  /* Recibo + compartir */
-  .gr-bottom-row {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:1.5px; background:#e0e0e0;
-    margin-bottom:2.5rem;
-  }
-  @media(max-width:680px) { .gr-bottom-row { grid-template-columns:1fr; } }
-
-  .gr-receipt-card {
-    background:#fff; padding:2rem;
-    display:flex; gap:1.25rem; align-items:flex-start;
-    border-left:4px solid var(--gr-accent);
-  }
-  .gr-receipt-icon {
-    width:2.5rem; height:2.5rem; flex-shrink:0;
-    color:var(--gr-accent);
-  }
-  .gr-receipt-icon svg { width:100%; height:100%; }
-  .gr-receipt-title {
-    font-family:var(--gr-head); font-weight:700;
-    font-size:.9rem; color:var(--gr-dark); margin-bottom:.4rem;
-  }
-  .gr-receipt-desc { font-size:.82rem; color:#777; line-height:1.7; }
-
-  .gr-share-card {
-    background:#fff; padding:2rem;
-  }
-  .gr-share-title {
-    font-family:var(--gr-head); font-weight:700;
-    font-size:.9rem; color:var(--gr-dark); margin-bottom:.25rem;
-    text-transform:uppercase; letter-spacing:.08em;
-  }
-  .gr-share-desc { font-size:.8rem; color:#aaa; margin-bottom:1.25rem; }
-  .gr-share-btns { display:flex; gap:.75rem; flex-wrap:wrap; }
-
-  .gr-share-fb, .gr-share-wa {
-    flex:1; display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-    font-weight:700; font-size:.78rem; text-decoration:none;
-    text-transform:uppercase; letter-spacing:.06em;
-    padding:.75rem 1rem; transition:opacity .2s;
-  }
-  .gr-share-fb:hover, .gr-share-wa:hover { opacity:.85; }
-  .gr-share-fb svg, .gr-share-wa svg { width:1rem; height:1rem; }
-
-  .gr-share-fb { background:#1877f2; color:#fff; }
-  .gr-share-wa { background:#25d366; color:#fff; }
-
-  /* CTAs */
-  .gr-ctas { display:flex; gap:.75rem; flex-wrap:wrap; margin-bottom:3rem; }
-
-  .gr-btn-primary {
-    flex:1; display:inline-flex; align-items:center; justify-content:center;
-    background:var(--gr-forest); color:#fff;
-    font-family:var(--gr-head); font-weight:700; font-size:.85rem;
-    text-transform:uppercase; letter-spacing:.08em;
-    padding:1rem 1.5rem; text-decoration:none;
-    transition:background .2s;
-  }
-  .gr-btn-primary:hover { background:#0f2b10; }
-
-  .gr-btn-outline {
-    flex:1; display:inline-flex; align-items:center; justify-content:center;
-    border:2px solid var(--gr-accent); color:var(--gr-accent);
-    font-family:var(--gr-head); font-weight:700; font-size:.85rem;
-    text-transform:uppercase; letter-spacing:.08em;
-    padding:1rem 1.5rem; text-decoration:none;
-    transition:all .2s;
-  }
-  .gr-btn-outline:hover { background:var(--gr-accent); color:#fff; }
-
-  .gr-btn-ghost {
-    flex:1; display:inline-flex; align-items:center; justify-content:center;
-    border:2px solid #ddd; color:#888;
-    font-family:var(--gr-head); font-weight:700; font-size:.85rem;
-    text-transform:uppercase; letter-spacing:.08em;
-    padding:1rem 1.5rem; text-decoration:none;
-    transition:all .2s;
-  }
-  .gr-btn-ghost:hover { border-color:#aaa; color:#555; }
-
-  /* Footer */
-  .gr-footer {
-    display:flex; align-items:center; justify-content:center;
-    gap:1rem; padding-top:2rem;
-    border-top:1px solid #e5e5e5;
-  }
-  .gr-logo { height:2rem; width:auto; opacity:.45; }
-  .gr-footer-text { font-size:.72rem; color:#bbb; letter-spacing:.06em; }
-
-  @media(max-width:640px) {
-    .gr-hero { min-height:auto; padding:6rem 1.5rem 4rem; }
-    .gr-ctas { flex-direction:column; }
-    .gr-btn-primary, .gr-btn-outline, .gr-btn-ghost { flex:unset; }
+  @media (max-width: 640px) {
+    .thanks-shell {
+      width: min(100% - 2rem, 1180px);
+    }
+    .thanks-title {
+      font-size: clamp(2.2rem, 12vw, 3.6rem);
+    }
+    .thanks-actions,
+    .thanks-share-actions {
+      flex-direction: column;
+    }
+    .thanks-btn,
+    .thanks-share-btn {
+      width: 100%;
+      min-width: 0;
+    }
+    .thanks-panel,
+    .thanks-summary-text,
+    .thanks-impact-grid,
+    .thanks-receipt,
+    .thanks-share {
+      padding: 1.4rem;
+    }
+    .thanks-panel-grid {
+      grid-template-columns: 1fr;
+    }
+    .thanks-footer {
+      flex-direction: column;
+      text-align: center;
+    }
   }
 </style>
 
 <script>
-  if (new URLSearchParams(window.location.search).get('donated') === 'true') {
-    document.getElementById('state-contacto')!.classList.add('hidden');
-    document.getElementById('state-donacion')!.classList.remove('hidden');
+  const params = new URLSearchParams(window.location.search);
+  const isDonationSuccess = params.get('donated') === 'true';
+
+  if (isDonationSuccess) {
+    document.getElementById('state-contacto')?.classList.add('hidden');
+    document.getElementById('state-donacion')?.classList.remove('hidden');
+
+    const rawRef = params.get('identificadorEnlaceComercio');
+    const rawTx = params.get('idTransaccion');
+
+    const refTarget = document.getElementById('thanks-ref');
+    const txTarget = document.getElementById('thanks-tx');
+
+    if (refTarget && rawRef) {
+      refTarget.textContent = rawRef;
+    }
+
+    if (txTarget && rawTx) {
+      txTarget.textContent = rawTx.length > 18 ? `${rawTx.slice(0, 18)}...` : rawTx;
+      txTarget.title = rawTx;
+    }
   }
 </script>
