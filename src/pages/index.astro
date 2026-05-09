@@ -165,6 +165,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
         {campaignAmounts.map(amount => (
           <a href={`/donar?monto=${amount}&campania=mangles-1m`}>${amount}</a>
         ))}
+        <a href="/donar?campania=mangles-1m">Otro monto</a>
       </div>
     </div>
   </div>
@@ -1115,7 +1116,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
   }
   .campaign-amounts {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
   }
   .campaign-amounts a {
@@ -1150,7 +1151,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
   @media(max-width:560px){
     .campaign-panel { padding: 1.35rem; }
     .campaign-stats { grid-template-columns: 1fr; }
-    .campaign-amounts { grid-template-columns: repeat(3, 1fr); }
+    .campaign-amounts { grid-template-columns: repeat(2, 1fr); }
   }
 
   .ds-stats-bar {
