@@ -984,11 +984,53 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     color: var(--ds-dark);
   }
   .campaign-panel {
-    background: rgba(255,255,255,0.94);
-    color: var(--ds-dark);
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(145deg, rgba(13,31,16,0.98) 0%, rgba(5,13,7,0.96) 58%, rgba(28,19,7,0.98) 100%);
+    color: #fff;
     padding: 2rem;
     border-top: 4px solid var(--ds-accent);
-    box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+    border-right: 1px solid rgba(245,158,11,0.22);
+    border-bottom: 1px solid rgba(245,158,11,0.18);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 24px 70px rgba(0,0,0,0.45),
+      0 0 0 1px rgba(255,255,255,0.04) inset,
+      0 0 42px rgba(245,158,11,0.14);
+    overflow: hidden;
+    animation: campaign-panel-float 5.5s ease-in-out infinite;
+  }
+  .campaign-panel::before {
+    content: '';
+    position: absolute;
+    inset: -35% -18% auto auto;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(245,158,11,0.24), transparent 62%);
+    z-index: -1;
+    animation: campaign-glow 4.8s ease-in-out infinite alternate;
+  }
+  .campaign-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 42%, transparent 58%);
+    transform: translateX(-140%);
+    animation: campaign-sheen 6.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes campaign-panel-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes campaign-glow {
+    from { opacity: 0.45; transform: scale(0.92); }
+    to { opacity: 0.9; transform: scale(1.08); }
+  }
+  @keyframes campaign-sheen {
+    0%, 42% { transform: translateX(-140%); }
+    62%, 100% { transform: translateX(140%); }
   }
   .campaign-panel-top p,
   .campaign-panel-top span {
@@ -996,36 +1038,49 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    color: #777;
+    color: rgba(255,255,255,0.45);
   }
   .campaign-panel-top strong {
     display: block;
     font-family: var(--ds-heading);
     font-size: clamp(2.6rem, 5vw, 4.25rem);
     line-height: 1;
-    color: var(--ds-dark);
+    color: #fff;
+    text-shadow: 0 0 32px rgba(245,158,11,0.22);
     margin: 0.55rem 0 0.35rem;
   }
   .campaign-progress {
     height: 5px;
-    background: #e5e7eb;
+    background: rgba(255,255,255,0.13);
     margin: 1.6rem 0;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
   }
   .campaign-progress span {
     display: block;
     height: 100%;
     background: var(--ds-accent);
+    box-shadow: 0 0 18px rgba(245,158,11,0.65);
+    animation: campaign-progress-pulse 2.8s ease-in-out infinite;
+  }
+  @keyframes campaign-progress-pulse {
+    0%, 100% { opacity: 0.82; }
+    50% { opacity: 1; }
   }
   .campaign-stats {
     display: grid;
     grid-template-columns: repeat(3,1fr);
     gap: 1px;
-    background: #e5e7eb;
+    background: rgba(255,255,255,0.11);
     margin-bottom: 1.5rem;
   }
   .campaign-stats div {
-    background: #fff;
+    background: rgba(255,255,255,0.065);
     padding: 1rem 0.8rem;
+    transition: background-color 0.25s, transform 0.25s;
+  }
+  .campaign-stats div:hover {
+    background: rgba(245,158,11,0.12);
+    transform: translateY(-2px);
   }
   .campaign-stats strong {
     display: block;
@@ -1041,7 +1096,7 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #777;
+    color: rgba(255,255,255,0.45);
     line-height: 1.4;
   }
   .campaign-amounts {
@@ -1051,9 +1106,10 @@ const campaignAmounts = [10, 25, 50, 100, 250];
   }
   .campaign-amounts a {
     text-align: center;
-    border: 1px solid #e5e7eb;
+    border: 1px solid rgba(255,255,255,0.14);
     padding: 0.7rem 0.25rem;
-    color: var(--ds-dark);
+    color: rgba(255,255,255,0.88);
+    background: rgba(255,255,255,0.04);
     font-weight: 800;
     transition: all 0.2s;
   }
@@ -1061,6 +1117,16 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     background: var(--ds-accent);
     border-color: var(--ds-accent);
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(245,158,11,0.22);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .campaign-panel,
+    .campaign-panel::before,
+    .campaign-panel::after,
+    .campaign-progress span {
+      animation: none;
+    }
   }
   @media(max-width:900px){
     .campaign-feature { padding: 5rem 0; }
