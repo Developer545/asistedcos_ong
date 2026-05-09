@@ -3,11 +3,11 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 
 const impactos = [
-  { amount: 10,  logro: '5 plántulas nativas',    desc: 'Para familias campesinas que reforestarán sus terrenos.' },
-  { amount: 25,  logro: '15 árboles plantados',   desc: 'En zonas costeras degradadas que recuperan cobertura vegetal.' },
-  { amount: 50,  logro: '1 jornada comunitaria',  desc: 'Materiales y logística para un evento de reforestación.' },
-  { amount: 100, logro: 'Monitoreo mensual',       desc: 'Equipamiento para monitorear una cuenca hidrográfica.' },
-  { amount: 250, logro: 'Establecer un vivero',   desc: 'Infraestructura para que una comunidad produzca sus plántulas.' },
+  { amount: 10,  logro: 'Kit de vivero comunitario', desc: 'Insumos para preparar plántulas de mangle antes de la jornada.' },
+  { amount: 25,  logro: 'Siembra familiar',          desc: 'Apoya plantas, transporte y materiales para una familia voluntaria.' },
+  { amount: 50,  logro: 'Brigada de manglar',        desc: 'Logística básica para una jornada de restauración costera.' },
+  { amount: 100, logro: 'Punto de hidratación',      desc: 'Agua, sombra y seguridad para voluntarios en campo.' },
+  { amount: 250, logro: 'Cuadrilla completa',        desc: 'Movilización y herramientas para sembrar en zonas priorizadas.' },
 ];
 ---
 
@@ -24,9 +24,9 @@ const impactos = [
     <nav class="don-breadcrumb">
       <a href="/">Inicio</a><span>›</span><span>Donar</span>
     </nav>
-    <p class="don-eyebrow">Haz la diferencia</p>
-    <h1 class="don-h1">Tu donación <span class="don-accent">restaura vidas</span></h1>
-    <p class="don-hero-sub">Tu aporte financia directamente proyectos de reforestación, conservación y desarrollo comunitario en El Salvador.</p>
+    <p class="don-eyebrow">Campaña activa · 26 de mayo de 2026</p>
+    <h1 class="don-h1">Dona para sembrar <span class="don-accent">1,000,000 de mangles</span></h1>
+    <p class="don-hero-sub">Tu aporte impulsa viveros, transporte, herramientas y jornadas comunitarias para restaurar manglares en El Salvador.</p>
     <div class="don-badge">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
       Donaciones deducibles de impuestos — Art. 32, Ley de Renta de El Salvador
@@ -36,6 +36,22 @@ const impactos = [
 </section>
 
 <!-- FORM DONACIÓN -->
+<!-- CAMPAÑA -->
+<section class="don-campaign-strip">
+  <div class="don-container don-campaign-grid">
+    <div>
+      <span class="don-campaign-date">26 mayo 2026</span>
+      <h2>Siembra de 1,000,000 de mangles</h2>
+      <p>Simulación visual de campaña: el módulo final se administrará después desde ONG Admin.</p>
+    </div>
+    <div class="don-campaign-metrics">
+      <div><strong>1M</strong><span>mangles</span></div>
+      <div><strong>$25</strong><span>aporte sugerido</span></div>
+      <div><strong>18%</strong><span>inicio simulado</span></div>
+    </div>
+  </div>
+</section>
+
 <section id="donar-monto" class="don-section" style="background:#f7f7f7; position:relative;">
   <div class="don-deco-num" aria-hidden="true">.01</div>
   <div class="don-container">
@@ -43,9 +59,9 @@ const impactos = [
 
       <!-- FORM -->
       <div class="don-form-col">
-        <p class="don-eyebrow">Elige tu impacto</p>
-        <h2 class="don-h2">¿Cuánto quieres <span class="don-accent">donar</span>?</h2>
-        <p class="don-form-sub">Selecciona un monto o escribe el tuyo</p>
+        <p class="don-eyebrow">Elige tu aporte</p>
+        <h2 class="don-h2">¿Cuánto quieres <span class="don-accent">sembrar</span>?</h2>
+        <p class="don-form-sub">Selecciona un monto para la campaña de manglares</p>
 
         <div class="don-form-card">
           <!-- Montos -->
@@ -114,7 +130,7 @@ const impactos = [
       <!-- IMPACTO -->
       <div class="don-impact-col">
         <p class="don-eyebrow">Tu donación en acción</p>
-        <h2 class="don-h2">¿Qué logra <span class="don-accent">cada monto</span>?</h2>
+        <h2 class="don-h2">¿Qué activa <span class="don-accent">cada monto</span>?</h2>
         <div class="don-impacts">
           {impactos.map(item => (
             <div class="don-impact-card impact-card" data-amount={item.amount}>
@@ -226,7 +242,7 @@ const impactos = [
     position:absolute; inset:0;
     background:
       linear-gradient(to right,rgba(8,21,9,.92) 0%,rgba(8,21,9,.72) 60%,rgba(8,21,9,.55) 100%),
-      url('/images/evento-playa.jpg') center/cover no-repeat;
+      url('/images/area-conservacion.jpg') center/cover no-repeat;
   }
   .don-breadcrumb {
     display:flex; gap:.5rem; align-items:center;
@@ -250,6 +266,75 @@ const impactos = [
   @keyframes dscroll {
     0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
     51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+
+  .don-campaign-strip {
+    background:var(--don-forest);
+    color:#fff;
+    border-top:1px solid rgba(245,158,11,.28);
+    border-bottom:1px solid rgba(245,158,11,.28);
+    padding:2rem 0;
+  }
+  .don-campaign-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:2rem;
+    align-items:center;
+  }
+  .don-campaign-date {
+    display:block;
+    color:var(--don-accent);
+    font-size:.68rem;
+    font-weight:800;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:.45rem;
+  }
+  .don-campaign-grid h2 {
+    font-family:var(--don-head);
+    font-size:clamp(1.5rem,3vw,2.4rem);
+    line-height:1.1;
+    font-weight:800;
+    margin-bottom:.45rem;
+  }
+  .don-campaign-grid p {
+    color:rgba(255,255,255,.58);
+    font-size:.88rem;
+    line-height:1.65;
+  }
+  .don-campaign-metrics {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(255,255,255,.12);
+    min-width:430px;
+  }
+  .don-campaign-metrics div {
+    background:rgba(255,255,255,.06);
+    padding:1rem 1.25rem;
+  }
+  .don-campaign-metrics strong {
+    display:block;
+    color:var(--don-accent);
+    font-family:var(--don-head);
+    font-size:1.35rem;
+    line-height:1;
+  }
+  .don-campaign-metrics span {
+    display:block;
+    margin-top:.4rem;
+    color:rgba(255,255,255,.48);
+    font-size:.62rem;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+  }
+  @media(max-width:880px){
+    .don-campaign-grid { grid-template-columns:1fr; }
+    .don-campaign-metrics { min-width:0; }
+  }
+  @media(max-width:560px){
+    .don-campaign-metrics { grid-template-columns:1fr; }
   }
 
   /* SPLIT */
@@ -457,6 +542,17 @@ const impactos = [
       document.getElementById('donar-monto')?.scrollIntoView({ behavior:'smooth' });
     });
   });
+
+  const initialAmount = Number(new URLSearchParams(window.location.search).get('monto'));
+  if (initialAmount && initialAmount >= 1) {
+    const matchingButton = Array.from(amountBtns).find(btn => Number(btn.dataset.amount) === initialAmount);
+    if (matchingButton) {
+      matchingButton.click();
+    } else {
+      customInput.value = String(initialAmount);
+      updateUI(initialAmount);
+    }
+  }
 
   wompiBtn.addEventListener('click', async () => {
     if (!selectedAmount || selectedAmount < 1) return;
