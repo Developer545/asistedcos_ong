@@ -102,13 +102,26 @@ const campaignRemainingDays = hasCampaignDate
     <div class="don-campaign-metrics">
       <div><strong>{campaignGoalLabel}</strong><span>{campaignUnitLabel}</span></div>
       <div><strong>${campaignSuggestedAmount}</strong><span>aporte sugerido</span></div>
-      <div>
-        <strong class="don-countdown" data-countdown={campaignEndsAt}>
-          <span data-unit="days">{campaignRemainingDays}</span>d
-          <span data-unit="hours">00</span>h
-          <span data-unit="minutes">00</span>m
-        </strong>
-        <span>{campaignProgressPercent}% activo</span>
+      <div class="don-countdown-card">
+        <p class="don-countdown-label">{campaignProgressPercent}% activo</p>
+        <div class="don-countdown-grid don-countdown" data-countdown={campaignEndsAt}>
+          <div class="don-countdown-unit">
+            <strong data-unit="days">{campaignRemainingDays}</strong>
+            <small>Días</small>
+          </div>
+          <div class="don-countdown-unit">
+            <strong data-unit="hours">00</strong>
+            <small>Horas</small>
+          </div>
+          <div class="don-countdown-unit">
+            <strong data-unit="minutes">00</strong>
+            <small>Min</small>
+          </div>
+          <div class="don-countdown-unit">
+            <strong data-unit="seconds">00</strong>
+            <small>Seg</small>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -402,12 +415,49 @@ const campaignRemainingDays = hasCampaignDate
     letter-spacing:.12em;
     text-transform:uppercase;
   }
+  .don-countdown-card {
+    min-width: 0;
+  }
+  .don-countdown-label {
+    margin: 0 0 .7rem;
+    color: rgba(255,255,255,.56);
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .don-countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .45rem;
+  }
+  .don-countdown-unit {
+    min-width: 0;
+    padding: .65rem .25rem;
+    text-align: center;
+    background: rgba(0,0,0,.12);
+    border: 1px solid rgba(245,158,11,.16);
+  }
+  .don-countdown-unit strong {
+    color: #fff;
+    font-size: 1.15rem;
+  }
+  .don-countdown-unit small {
+    display: block;
+    margin-top: .35rem;
+    color: var(--don-accent);
+    font-size: .55rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
   @media(max-width:880px){
     .don-campaign-grid { grid-template-columns:1fr; }
     .don-campaign-metrics { min-width:0; }
   }
   @media(max-width:560px){
     .don-campaign-metrics { grid-template-columns:1fr; }
+    .don-countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   /* SPLIT */
@@ -651,7 +701,7 @@ const campaignRemainingDays = hasCampaignDate
         if (strong) strong.textContent = `$${suggestedAmount}`;
       }
       if (metricBlocks[2] && progressPercent) {
-        const status = metricBlocks[2].querySelector('span:last-child');
+        const status = metricBlocks[2].querySelector('.don-countdown-label');
         if (status) status.textContent = `${progressPercent}% activo`;
       }
     }
@@ -674,20 +724,23 @@ const campaignRemainingDays = hasCampaignDate
       const daysEl = root.querySelector<HTMLElement>('[data-unit="days"]');
       const hoursEl = root.querySelector<HTMLElement>('[data-unit="hours"]');
       const minutesEl = root.querySelector<HTMLElement>('[data-unit="minutes"]');
+      const secondsEl = root.querySelector<HTMLElement>('[data-unit="seconds"]');
 
       const paint = () => {
         const diff = Math.max(0, endMs - Date.now());
-        const totalMinutes = Math.floor(diff / 60000);
-        const days = Math.floor(totalMinutes / (60 * 24));
-        const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
-        const minutes = totalMinutes % 60;
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
         if (daysEl) daysEl.textContent = String(days);
         if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
         if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
       };
 
       paint();
-      window.setInterval(paint, 30000);
+      window.setInterval(paint, 1000);
     });
   }
 
