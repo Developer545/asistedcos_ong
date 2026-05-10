@@ -51,7 +51,36 @@ const teamMembers = [
   { photo: 'https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=600&q=80', nombre: 'Campo y Monitoreo', cargo: 'Reforestación' },
   { photo: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80', nombre: 'Voluntarios', cargo: 'Colaboradores activos' },
 ];
-const campaignAmounts = [10, 25, 50, 100, 250];
+const fallbackCampaignImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg';
+const campaignActive = (siteContent['campaign__active'] ?? 'true') !== 'false';
+const campaignSlug = siteContent['campaign__slug'] || 'mangles-1m';
+const campaignBadge = siteContent['campaign__badge'] || '26 mayo 2026';
+const campaignTitle = siteContent['campaign__title'] || 'Siembra de 1 Millón de mangles';
+const campaignDescription = siteContent['campaign__description'] || 'Una movilización nacional para restaurar manglares, proteger nuestras costas y unir a comunidades, empresas y donantes en una meta real, visible y transformadora.';
+const campaignImage = siteContent['campaign__image'] || fallbackCampaignImage;
+const campaignGoalLabel = siteContent['campaign__goalLabel'] || '1 Millón';
+const campaignGoalFigure = siteContent['campaign__goalFigure'] || '1,000,000';
+const campaignUnitLabel = siteContent['campaign__unitLabel'] || 'mangles nativos';
+const campaignProgressPercent = Math.min(100, Math.max(0, Number(siteContent['campaign__progressPercent'] || '18')));
+const campaignImpactLabel = siteContent['campaign__impactLabel'] || 'Impulso inicial';
+const campaignSuggestedAmount = Math.max(1, Number(siteContent['campaign__suggestedAmount'] || '25'));
+const campaignVolunteerUrl = siteContent['campaign__volunteerUrl'] || `/contacto?campania=${campaignSlug}`;
+const campaignEndsAt = siteContent['campaign__endsAt'] || '';
+const campaignAmountsParsed = (siteContent['campaign__amounts'] || '10,25,50,100,250')
+  .split(',')
+  .map((value) => Number(value.trim()))
+  .filter((value) => Number.isFinite(value) && value > 0);
+const campaignAmounts = campaignAmountsParsed.length ? campaignAmountsParsed : [10, 25, 50, 100, 250];
+const campaignDate = campaignEndsAt ? new Date(campaignEndsAt) : new Date('2026-05-26T23:59:59');
+const hasCampaignDate = !Number.isNaN(campaignDate.getTime());
+const campaignDay = hasCampaignDate ? campaignDate.getDate().toString().padStart(2, '0') : '26';
+const campaignMonth = hasCampaignDate
+  ? campaignDate.toLocaleDateString('es-SV', { month: 'long' }).replace(/^./, (value) => value.toUpperCase())
+  : 'Mayo';
+const campaignYear = hasCampaignDate ? String(campaignDate.getFullYear()) : '2026';
+const campaignRemainingDays = hasCampaignDate
+  ? Math.max(0, Math.ceil((campaignDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+  : 30;
 ---
 
 <Layout
@@ -109,20 +138,37 @@ const campaignAmounts = [10, 25, 50, 100, 250];
      STATS BAR
 ══════════════════════════════════════════════════ -->
 <!-- CAMPAÑA DESTACADA — Simulación visual -->
-<section class="campaign-feature" id="campania-mangles">
+<section
+  class="campaign-feature"
+  id="campania-mangles"
+  data-active={campaignActive ? 'true' : 'false'}
+  data-badge={campaignBadge}
+  data-title={campaignTitle}
+  data-description={campaignDescription}
+  data-goal-label={campaignGoalLabel}
+  data-goal-figure={campaignGoalFigure}
+  data-unit-label={campaignUnitLabel}
+  data-progress-percent={String(campaignProgressPercent)}
+  data-impact-label={campaignImpactLabel}
+  data-suggested-amount={String(campaignSuggestedAmount)}
+  data-volunteer-url={campaignVolunteerUrl}
+  data-campaign-slug={campaignSlug}
+  data-campaign-ends-at={campaignEndsAt}
+>
   <div class="campaign-media" aria-hidden="true">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg" alt="" loading="lazy" />
+    <img src={campaignImage} alt="" loading="lazy" />
   </div>
 
   <div class="ds-container campaign-grid">
     <div class="campaign-copy">
       <div class="campaign-date">
-        <span>26</span>
+        <span>{campaignDay}</span>
         <div>
-          <strong>Mayo</strong>
-          <small>2026</small>
+          <strong>{campaignMonth}</strong>
+          <small>{campaignYear}</small>
         </div>
       </div>
+      <span class="don-campaign-date campaign-badge-dynamic">{campaignBadge}</span>
       <h2 class="campaign-title">
         Siembra de<br />
         <span>1 Millón</span><br />
@@ -145,19 +191,23 @@ const campaignAmounts = [10, 25, 50, 100, 250];
         <span>mangles nativos</span>
       </div>
       <div class="campaign-progress" aria-label="Progreso simulado de campaña">
-        <span style="width: 18%;"></span>
+        <span style={`width: ${campaignProgressPercent}%;`}></span>
       </div>
       <div class="campaign-stats">
         <div>
-          <strong>18%</strong>
+          <strong>{campaignProgressPercent}%</strong>
           <span>Impulso inicial</span>
         </div>
         <div>
-          <strong>30</strong>
+          <strong class="campaign-countdown" data-countdown={campaignEndsAt}>
+            <span data-unit="days">{campaignRemainingDays}</span>d
+            <span data-unit="hours">00</span>h
+            <span data-unit="minutes">00</span>m
+          </strong>
           <span>Días de activación</span>
         </div>
         <div>
-          <strong>$25</strong>
+          <strong>${campaignSuggestedAmount}</strong>
           <span>Aporte sugerido</span>
         </div>
       </div>
@@ -966,6 +1016,10 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     margin-bottom: 1.4rem;
   }
   .campaign-title span { color: var(--ds-accent); }
+  .campaign-badge-dynamic {
+    margin-bottom: 0.9rem;
+    display: inline-block;
+  }
   .campaign-sub {
     max-width: 610px;
     color: rgba(226,244,229,0.76);
@@ -2026,8 +2080,93 @@ const campaignAmounts = [10, 25, 50, 100, 250];
     });
   }
 
+  function initCampaignFeature() {
+    const root = document.getElementById('campania-mangles');
+    if (!root) return;
+
+    const active = root.getAttribute('data-active');
+    if (active === 'false') {
+      root.style.display = 'none';
+      return;
+    }
+
+    const title = root.getAttribute('data-title') || '';
+    const description = root.getAttribute('data-description') || '';
+    const badge = root.getAttribute('data-badge') || '';
+    const goalLabel = root.getAttribute('data-goal-label') || '';
+    const goalFigure = root.getAttribute('data-goal-figure') || '';
+    const unitLabel = root.getAttribute('data-unit-label') || '';
+    const progressPercent = root.getAttribute('data-progress-percent') || '0';
+    const impactLabel = root.getAttribute('data-impact-label') || '';
+    const suggestedAmount = root.getAttribute('data-suggested-amount') || '25';
+    const volunteerUrl = root.getAttribute('data-volunteer-url') || '/contacto';
+    const campaignSlug = root.getAttribute('data-campaign-slug') || 'campania';
+    const campaignEndsAt = root.getAttribute('data-campaign-ends-at') || '';
+
+    const titleEl = root.querySelector<HTMLElement>('.campaign-title');
+    const descriptionEl = root.querySelector<HTMLElement>('.campaign-sub');
+    const badgeEl = root.querySelector<HTMLElement>('.campaign-badge-dynamic');
+    const donateLink = root.querySelector<HTMLAnchorElement>('.campaign-actions .ds-btn');
+    const volunteerLink = root.querySelector<HTMLAnchorElement>('.campaign-actions .ds-btn-ghost');
+    const goalLabelEl = root.querySelector<HTMLElement>('.campaign-panel-top strong');
+    const goalFigureEl = root.querySelector<HTMLElement>('.campaign-panel-top small');
+    const unitLabelEl = root.querySelector<HTMLElement>('.campaign-panel-top span');
+    const progressFill = root.querySelector<HTMLElement>('.campaign-progress span');
+    const progressValueEl = root.querySelector<HTMLElement>('.campaign-stats div:first-child strong');
+    const impactLabelEl = root.querySelector<HTMLElement>('.campaign-stats div:first-child span');
+    const suggestedAmountEl = root.querySelector<HTMLElement>('.campaign-stats div:last-child strong');
+    const countdownRoot = root.querySelector<HTMLElement>('.campaign-countdown');
+    const amountLinks = root.querySelectorAll<HTMLAnchorElement>('.campaign-amounts a');
+
+    if (titleEl && title) titleEl.innerHTML = title.replace(/\n/g, '<br />');
+    if (descriptionEl && description) descriptionEl.textContent = description;
+    if (badgeEl && badge) badgeEl.textContent = badge;
+    if (goalLabelEl && goalLabel) goalLabelEl.textContent = goalLabel;
+    if (goalFigureEl && goalFigure) goalFigureEl.textContent = goalFigure;
+    if (unitLabelEl && unitLabel) unitLabelEl.textContent = unitLabel;
+    if (progressFill) progressFill.style.width = `${progressPercent}%`;
+    if (progressValueEl) progressValueEl.textContent = `${progressPercent}%`;
+    if (impactLabelEl && impactLabel) impactLabelEl.textContent = impactLabel;
+    if (suggestedAmountEl) suggestedAmountEl.textContent = `$${suggestedAmount}`;
+    if (donateLink) donateLink.href = `/donar?monto=${suggestedAmount}&campania=${campaignSlug}`;
+    if (volunteerLink) volunteerLink.href = volunteerUrl;
+
+    amountLinks.forEach((link, index) => {
+      const amount = link.textContent?.replace('$', '').trim() || '';
+      if (index === amountLinks.length - 1) {
+        link.href = `/donar?campania=${campaignSlug}`;
+      } else if (amount) {
+        link.href = `/donar?monto=${amount}&campania=${campaignSlug}`;
+      }
+    });
+
+    if (countdownRoot && campaignEndsAt) {
+      const daysEl = countdownRoot.querySelector<HTMLElement>('[data-unit="days"]');
+      const hoursEl = countdownRoot.querySelector<HTMLElement>('[data-unit="hours"]');
+      const minutesEl = countdownRoot.querySelector<HTMLElement>('[data-unit="minutes"]');
+      const endMs = new Date(campaignEndsAt).getTime();
+
+      const paint = () => {
+        const diff = Math.max(0, endMs - Date.now());
+        const totalMinutes = Math.floor(diff / 60000);
+        const days = Math.floor(totalMinutes / (60 * 24));
+        const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+        const minutes = totalMinutes % 60;
+        if (daysEl) daysEl.textContent = String(days);
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      };
+
+      if (!Number.isNaN(endMs)) {
+        paint();
+        window.setInterval(paint, 30000);
+      }
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initCounters();
     initFaq();
+    initCampaignFeature();
   });
 </script>

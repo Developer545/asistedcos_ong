@@ -1,6 +1,20 @@
 ---
-export const prerender = true;
+export const prerender = false;
 import Layout from '../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
+let siteContent: Record<string, string> = {};
+
+await fetch(`${ADMIN_URL}/api/public/contenido`, { signal: AbortSignal.timeout(5000) })
+  .then(r => r.ok ? r.json() : null)
+  .then(d => {
+    if (d?.data) {
+      d.data.forEach((item: { section: string; key: string; value: string }) => {
+        siteContent[`${item.section}__${item.key}`] = item.value;
+      });
+    }
+  })
+  .catch(() => null);
 
 const impactos = [
   { amount: 10,  logro: 'Kit de vivero comunitario', desc: 'Insumos para preparar plántulas de mangle antes de la jornada.' },
@@ -9,6 +23,30 @@ const impactos = [
   { amount: 100, logro: 'Punto de hidratación',      desc: 'Agua, sombra y seguridad para voluntarios en campo.' },
   { amount: 250, logro: 'Cuadrilla completa',        desc: 'Movilización y herramientas para sembrar en zonas priorizadas.' },
 ];
+const fallbackCampaignImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg';
+const campaignSlug = siteContent['campaign__slug'] || 'mangles-1m';
+const campaignBadge = siteContent['campaign__badge'] || '26 mayo 2026';
+const campaignTitle = siteContent['campaign__title'] || 'Siembra de 1 Millón de mangles';
+const campaignDescription = siteContent['campaign__description'] || 'Tu aporte impulsa viveros, transporte, herramientas y jornadas comunitarias para restaurar manglares en El Salvador, con una meta nacional clara y visible.';
+const campaignImage = siteContent['campaign__image'] || fallbackCampaignImage;
+const campaignGoalLabel = siteContent['campaign__goalLabel'] || '1 Millón';
+const campaignUnitLabel = siteContent['campaign__unitLabel'] || 'de mangles';
+const campaignProgressPercent = Math.min(100, Math.max(0, Number(siteContent['campaign__progressPercent'] || '18')));
+const campaignSuggestedAmount = Math.max(1, Number(siteContent['campaign__suggestedAmount'] || '25'));
+const campaignAmountsParsed = (siteContent['campaign__amounts'] || '10,25,50,100,250')
+  .split(',')
+  .map((value) => Number(value.trim()))
+  .filter((value) => Number.isFinite(value) && value > 0);
+const campaignAmounts = campaignAmountsParsed.length ? campaignAmountsParsed : [10, 25, 50, 100, 250];
+const campaignEndsAt = siteContent['campaign__endsAt'] || '';
+const campaignDate = campaignEndsAt ? new Date(campaignEndsAt) : new Date('2026-05-26T23:59:59');
+const hasCampaignDate = !Number.isNaN(campaignDate.getTime());
+const campaignDateLong = hasCampaignDate
+  ? campaignDate.toLocaleDateString('es-SV', { day: 'numeric', month: 'long', year: 'numeric' })
+  : '26 de mayo de 2026';
+const campaignRemainingDays = hasCampaignDate
+  ? Math.max(0, Math.ceil((campaignDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+  : 30;
 ---
 
 <Layout
@@ -18,8 +56,23 @@ const impactos = [
 >
 
 <!-- HERO -->
-<section class="don-hero">
-  <div class="don-hero-bg"></div>
+<section
+  class="don-hero"
+  data-campaign-ends-at={campaignEndsAt}
+  data-campaign-date-long={campaignDateLong}
+  data-campaign-title={campaignTitle}
+  data-campaign-description={campaignDescription}
+  data-campaign-goal-label={campaignGoalLabel}
+  data-campaign-unit-label={campaignUnitLabel}
+  data-campaign-suggested-amount={String(campaignSuggestedAmount)}
+  data-campaign-progress-percent={String(campaignProgressPercent)}
+  data-campaign-badge={campaignBadge}
+  data-campaign-slug={campaignSlug}
+>
+  <div class="don-hero-bg" style={`background:
+      linear-gradient(to right,rgba(8,21,9,.54) 0%,rgba(8,21,9,.30) 48%,rgba(8,21,9,.14) 100%),
+      linear-gradient(to bottom,rgba(8,21,9,.10) 0%,rgba(8,21,9,.04) 55%,rgba(8,21,9,.16) 100%),
+      url('${campaignImage}') center/cover no-repeat;`}></div>
   <div class="don-container" style="position:relative;z-index:1;">
     <div class="don-hero-card">
     <nav class="don-breadcrumb">
@@ -42,14 +95,21 @@ const impactos = [
 <section class="don-campaign-strip">
   <div class="don-container don-campaign-grid">
     <div>
-      <span class="don-campaign-date">26 mayo 2026</span>
-      <h2>Siembra de 1 Mill&oacute;n de mangles</h2>
-      <p>Simulación visual de campaña: el módulo final se administrará después desde ONG Admin.</p>
+      <span class="don-campaign-date">{campaignBadge}</span>
+      <h2>{campaignTitle}</h2>
+      <p>{campaignDescription}</p>
     </div>
     <div class="don-campaign-metrics">
-      <div><strong>1 Mill&oacute;n</strong><span>de mangles</span></div>
-      <div><strong>$25</strong><span>aporte sugerido</span></div>
-      <div><strong>18%</strong><span>inicio simulado</span></div>
+      <div><strong>{campaignGoalLabel}</strong><span>{campaignUnitLabel}</span></div>
+      <div><strong>${campaignSuggestedAmount}</strong><span>aporte sugerido</span></div>
+      <div>
+        <strong class="don-countdown" data-countdown={campaignEndsAt}>
+          <span data-unit="days">{campaignRemainingDays}</span>d
+          <span data-unit="hours">00</span>h
+          <span data-unit="minutes">00</span>m
+        </strong>
+        <span>{campaignProgressPercent}% activo</span>
+      </div>
     </div>
   </div>
 </section>
@@ -70,7 +130,7 @@ const impactos = [
           <div class="don-amounts-section">
             <p class="don-amounts-label">Montos sugeridos</p>
             <div class="don-amounts-grid">
-              {[10, 25, 50, 100, 250].map(n => (
+              {campaignAmounts.map(n => (
                 <button class="amount-btn" data-amount={n}>
                   <span class="don-amt-val">${n}</span>
                   <span class="don-amt-cur">USD</span>
@@ -557,6 +617,80 @@ const impactos = [
   });
 
   const initialAmount = Number(new URLSearchParams(window.location.search).get('monto'));
+  const heroCampaignRoot = document.querySelector<HTMLElement>('.don-hero');
+  if (heroCampaignRoot) {
+    const dateLong = heroCampaignRoot.dataset.campaignDateLong;
+    const title = heroCampaignRoot.dataset.campaignTitle;
+    const description = heroCampaignRoot.dataset.campaignDescription;
+    const goalLabel = heroCampaignRoot.dataset.campaignGoalLabel;
+    const unitLabel = heroCampaignRoot.dataset.campaignUnitLabel;
+    const suggestedAmount = heroCampaignRoot.dataset.campaignSuggestedAmount;
+    const progressPercent = heroCampaignRoot.dataset.campaignProgressPercent;
+    const campaignSlug = heroCampaignRoot.dataset.campaignSlug;
+    const eyebrowEl = heroCampaignRoot.querySelector<HTMLElement>('.don-eyebrow');
+    const accentEl = heroCampaignRoot.querySelector<HTMLElement>('.don-accent');
+    const heroSubEl = heroCampaignRoot.querySelector<HTMLElement>('.don-hero-sub');
+    const stripEl = document.querySelector<HTMLElement>('.don-campaign-strip');
+
+    if (eyebrowEl && dateLong) eyebrowEl.textContent = `Campaña activa · ${dateLong}`;
+    if (accentEl && title) accentEl.textContent = title;
+    if (heroSubEl && description) heroSubEl.textContent = description;
+
+    if (stripEl) {
+      const stripParagraph = stripEl.querySelector<HTMLElement>('.don-campaign-grid p');
+      const metricBlocks = stripEl.querySelectorAll<HTMLElement>('.don-campaign-metrics div');
+      if (stripParagraph && description) stripParagraph.textContent = description;
+      if (metricBlocks[0] && goalLabel) {
+        const strong = metricBlocks[0].querySelector('strong');
+        const span = metricBlocks[0].querySelector('span');
+        if (strong) strong.textContent = goalLabel;
+        if (span && unitLabel) span.textContent = unitLabel;
+      }
+      if (metricBlocks[1] && suggestedAmount) {
+        const strong = metricBlocks[1].querySelector('strong');
+        if (strong) strong.textContent = `$${suggestedAmount}`;
+      }
+      if (metricBlocks[2] && progressPercent) {
+        const status = metricBlocks[2].querySelector('span:last-child');
+        if (status) status.textContent = `${progressPercent}% activo`;
+      }
+    }
+
+    const amountLinks = document.querySelectorAll<HTMLElement>('.amount-btn');
+    amountLinks.forEach((button) => {
+      const amount = button.getAttribute('data-amount');
+      if (!amount || !campaignSlug) return;
+      button.setAttribute('data-campaign', campaignSlug);
+    });
+  }
+
+  function initDonateCountdown() {
+    document.querySelectorAll<HTMLElement>('.don-countdown').forEach((root) => {
+      const endsAt = root.dataset.countdown;
+      if (!endsAt) return;
+      const endMs = new Date(endsAt).getTime();
+      if (Number.isNaN(endMs)) return;
+
+      const daysEl = root.querySelector<HTMLElement>('[data-unit="days"]');
+      const hoursEl = root.querySelector<HTMLElement>('[data-unit="hours"]');
+      const minutesEl = root.querySelector<HTMLElement>('[data-unit="minutes"]');
+
+      const paint = () => {
+        const diff = Math.max(0, endMs - Date.now());
+        const totalMinutes = Math.floor(diff / 60000);
+        const days = Math.floor(totalMinutes / (60 * 24));
+        const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
+        const minutes = totalMinutes % 60;
+        if (daysEl) daysEl.textContent = String(days);
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      };
+
+      paint();
+      window.setInterval(paint, 30000);
+    });
+  }
+
   if (initialAmount && initialAmount >= 1) {
     const matchingButton = Array.from(amountBtns).find(btn => Number(btn.dataset.amount) === initialAmount);
     if (matchingButton) {
@@ -591,4 +725,6 @@ const impactos = [
       wompiLabel.textContent = `Donar $${selectedAmount} con Wompi`;
     }
   });
+
+  initDonateCountdown();
 </script>
