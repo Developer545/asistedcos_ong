@@ -65,13 +65,14 @@ const campaignProgressPercent = Math.min(100, Math.max(0, Number(siteContent['ca
 const campaignImpactLabel = siteContent['campaign__impactLabel'] || 'Impulso inicial';
 const campaignSuggestedAmount = Math.max(1, Number(siteContent['campaign__suggestedAmount'] || '25'));
 const campaignVolunteerUrl = siteContent['campaign__volunteerUrl'] || `/contacto?campania=${campaignSlug}`;
-const campaignEndsAt = siteContent['campaign__endsAt'] || '';
+const fallbackCampaignEndsAt = '2026-05-26T23:59:59';
+const campaignEndsAt = siteContent['campaign__endsAt'] || fallbackCampaignEndsAt;
 const campaignAmountsParsed = (siteContent['campaign__amounts'] || '10,25,50,100,250')
   .split(',')
   .map((value) => Number(value.trim()))
   .filter((value) => Number.isFinite(value) && value > 0);
 const campaignAmounts = campaignAmountsParsed.length ? campaignAmountsParsed : [10, 25, 50, 100, 250];
-const campaignDate = campaignEndsAt ? new Date(campaignEndsAt) : new Date('2026-05-26T23:59:59');
+const campaignDate = new Date(campaignEndsAt);
 const hasCampaignDate = !Number.isNaN(campaignDate.getTime());
 const campaignDay = hasCampaignDate ? campaignDate.getDate().toString().padStart(2, '0') : '26';
 const campaignMonth = hasCampaignDate

@@ -38,8 +38,9 @@ const campaignAmountsParsed = (siteContent['campaign__amounts'] || '10,25,50,100
   .map((value) => Number(value.trim()))
   .filter((value) => Number.isFinite(value) && value > 0);
 const campaignAmounts = campaignAmountsParsed.length ? campaignAmountsParsed : [10, 25, 50, 100, 250];
-const campaignEndsAt = siteContent['campaign__endsAt'] || '';
-const campaignDate = campaignEndsAt ? new Date(campaignEndsAt) : new Date('2026-05-26T23:59:59');
+const fallbackCampaignEndsAt = '2026-05-26T23:59:59';
+const campaignEndsAt = siteContent['campaign__endsAt'] || fallbackCampaignEndsAt;
+const campaignDate = new Date(campaignEndsAt);
 const hasCampaignDate = !Number.isNaN(campaignDate.getTime());
 const campaignDateLong = hasCampaignDate
   ? campaignDate.toLocaleDateString('es-SV', { day: 'numeric', month: 'long', year: 'numeric' })
