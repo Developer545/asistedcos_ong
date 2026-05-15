@@ -549,23 +549,24 @@ const legal = [
   ══════════════════════════════════════ */
   .n-timeline-section {
     position: relative; overflow: hidden;
-    padding: 6rem 0;
+    padding: 7rem 0;
     background:
-      linear-gradient(rgba(8,21,9,0.35), rgba(8,21,9,0.35)),
+      linear-gradient(rgba(8,21,9,0.22), rgba(8,21,9,0.22)),
       url('/images/reforestacion-aerea.jpg') center / cover no-repeat fixed;
   }
   .n-timeline {
     position: relative; margin-top: 1rem;
-    display: flex; flex-direction: column; gap: 3rem;
+    display: flex; flex-direction: column; gap: 2.5rem;
   }
   .n-timeline-line {
     position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 1px; background: rgba(245,158,11,0.2);
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(245,158,11,0.7) 20%, rgba(245,158,11,0.7) 80%, transparent);
     transform: translateX(-50%);
   }
   .n-timeline-item {
     display: grid; grid-template-columns: 1fr 1fr;
-    align-items: center; gap: 2rem;
+    align-items: center; gap: 2.5rem;
     position: relative;
   }
   .n-tl-left  .n-tl-card { grid-column: 1; text-align: right; }
@@ -574,16 +575,16 @@ const legal = [
   .n-tl-right .n-tl-dot  { grid-column: 1; grid-row: 1; justify-self: end; }
 
   .n-tl-card {
-    background: rgba(8,21,9,0.82);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: #fff;
+    border-radius: 10px;
     padding: 1.5rem 1.75rem;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: border-color 0.3s, background 0.3s;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+    border-top: 3px solid var(--n-accent);
+    transition: transform 0.25s, box-shadow 0.25s;
   }
   .n-tl-card:hover {
-    border-color: rgba(245,158,11,0.5);
-    background: rgba(8,21,9,0.90);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.12);
   }
   .n-tl-year {
     font-family: var(--n-head); font-size: 0.7rem;
@@ -593,14 +594,14 @@ const legal = [
   }
   .n-tl-title {
     font-family: var(--n-head); font-size: 1rem;
-    font-weight: 700; color: #fff; margin-bottom: 0.5rem;
+    font-weight: 700; color: #111; margin-bottom: 0.5rem;
   }
-  .n-tl-desc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+  .n-tl-desc { font-size: 0.84rem; color: #555; line-height: 1.65; }
   .n-tl-dot {
-    width: 0.75rem; height: 0.75rem;
+    width: 1rem; height: 1rem;
     background: var(--n-accent);
-    border: 3px solid var(--n-forest);
-    outline: 1px solid var(--n-accent);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px var(--n-accent);
     border-radius: 50%;
     position: relative; z-index: 1;
   }
