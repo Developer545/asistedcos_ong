@@ -1,6 +1,37 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
+
+interface GalleryItem { url: string; title?: string; }
+
+const fallbackPhotos = [
+  { src: '/images/reforestacion-aerea.jpg',  alt: 'Vista aérea de reforestación',       span: true  },
+  { src: '/images/vivero-comunidad.jpg',     alt: 'Vivero comunitario',                 span: false },
+  { src: '/images/transporte-plantas.jpg',   alt: 'Transporte de plantas al campo',     span: false },
+  { src: '/images/evento-playa.jpg',         alt: 'Jornada comunitaria en playa',       span: false },
+  { src: '/images/voluntaria-plantando.jpg', alt: 'Voluntaria plantando árboles',       span: false },
+  { src: '/images/area-conservacion.jpg',    alt: 'Costa del Bálsamo — área protegida', span: true  },
+];
+
+let photos = fallbackPhotos;
+
+try {
+  const res = await fetch(`${ADMIN_URL}/api/public/galeria`, { signal: AbortSignal.timeout(5000) });
+  if (res.ok) {
+    const data = await res.json();
+    const items: GalleryItem[] = data.data ?? [];
+    if (items.length >= 3) {
+      const slice = items.slice(0, 6);
+      photos = slice.map((item, i) => ({
+        src: item.url,
+        alt: item.title || 'Proyecto ASISTEDCOS',
+        span: i === 0 || i === slice.length - 1,
+      }));
+    }
+  }
+} catch {}
 ---
 
 <Layout
@@ -148,14 +179,7 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="imp-h2" style="color:#fff;">Nuestro Trabajo <span class="imp-accent">en Imágenes</span></h2>
     </div>
     <div class="imp-photo-grid">
-      {[
-        { src: '/images/reforestacion-aerea.jpg',  alt: 'Vista aérea de reforestación',           span: true  },
-        { src: '/images/vivero-comunidad.jpg',     alt: 'Vivero comunitario',                     span: false },
-        { src: '/images/transporte-plantas.jpg',   alt: 'Transporte de plantas al campo',         span: false },
-        { src: '/images/evento-playa.jpg',         alt: 'Jornada comunitaria en playa',           span: false },
-        { src: '/images/voluntaria-plantando.jpg', alt: 'Voluntaria plantando árboles',           span: false },
-        { src: '/images/area-conservacion.jpg',    alt: 'Costa del Bálsamo — área protegida',     span: true  },
-      ].map(photo => (
+      {photos.map(photo => (
         <div class={`imp-photo${photo.span ? ' imp-photo--wide' : ''}`}>
           <img src={photo.src} alt={photo.alt} loading="lazy" />
           <div class="imp-photo-overlay">
