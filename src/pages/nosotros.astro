@@ -103,24 +103,25 @@ const legal = [
 <!-- ══════════════════════════════════════════════
      HISTORIA
 ══════════════════════════════════════════════════ -->
-<section class="n-section" style="background:#fff; position:relative;">
-  <div class="n-deco-num" aria-hidden="true">.01</div>
-  <div class="n-container">
+<section class="n-section n-historia-section" style="position:relative;">
+  <div class="n-historia-bg"></div>
+  <div class="n-deco-num" style="color:rgba(255,255,255,0.03);" aria-hidden="true">.01</div>
+  <div class="n-container" style="position:relative; z-index:1;">
     <div class="n-split">
 
       <!-- Texto -->
       <div class="n-split-text">
         <p class="n-eyebrow">Nuestra historia</p>
-        <h2 class="n-h2">Más de 27 años transformando <span class="n-accent">El Salvador</span></h2>
+        <h2 class="n-h2" style="color:#fff;">Más de 27 años transformando <span class="n-accent">El Salvador</span></h2>
         <div class="n-historia-body">
-          <p class="n-historia-lead">
+          <p class="n-historia-lead" style="color:rgba(255,255,255,0.90);">
             <strong>ASISTEDCOS</strong> — Fundación de Asistencia Técnica para el Desarrollo Comunal Salvadoreño — nació en <strong>1997</strong>, en el período de posguerra, para atender los problemas socioambientales que dejó el conflicto armado en las comunidades rurales del país.
           </p>
-          <p class="n-historia-p">
-            Bajo la coordinación de la <strong>Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
+          <p class="n-historia-p" style="color:rgba(255,255,255,0.75);">
+            Bajo la coordinación de la <strong style="color:#fff;">Lic. Blanca Estela Juárez</strong>, la fundación se enfocó desde sus inicios en brindar asistencia técnica especializada en gestión socioambiental, reconociendo que la conservación de la biodiversidad solo es efectiva cuando se involucra activamente a las comunidades que dependen de los recursos naturales.
           </p>
-          <p class="n-historia-p">
-            Registrada oficialmente en el <strong>Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
+          <p class="n-historia-p" style="color:rgba(255,255,255,0.75);">
+            Registrada oficialmente en el <strong style="color:#fff;">Ministerio de Gobernación y Desarrollo Territorial</strong>, ASISTEDCOS ha desarrollado planes, programas y proyectos que contribuyen tanto a la rehabilitación de ecosistemas como a la mejora de la economía familiar de las poblaciones locales.
           </p>
         </div>
         <a href="/proyectos" class="n-btn">Ver nuestros proyectos &rarr;</a>
@@ -302,6 +303,13 @@ const legal = [
   ══════════════════════════════════════ */
   .n-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
   .n-section   { padding: 6rem 0; overflow: hidden; }
+  .n-historia-section { position: relative; }
+  .n-historia-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(8,21,9,0.72) 0%, rgba(8,21,9,0.55) 55%, rgba(8,21,9,0.35) 100%),
+      url('/images/monitoreo-rio.jpg') center / cover no-repeat;
+  }
   .n-center    { text-align: center; }
   .n-section-head { margin-bottom: 3.5rem; }
   .n-section-sub {
@@ -605,7 +613,7 @@ const legal = [
   ══════════════════════════════════════ */
   .n-legal-section {
     background:
-      linear-gradient(rgba(8,21,9,0.52), rgba(8,21,9,0.52)),
+      linear-gradient(rgba(8,21,9,0.30), rgba(8,21,9,0.30)),
       url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1920&q=80') center / cover no-repeat fixed;
     padding: 5rem 0;
   }
