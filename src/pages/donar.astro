@@ -91,20 +91,52 @@ const campaignRemainingDays = hasCampaignDate
   <div class="don-scroll" aria-hidden="true"><span></span></div>
 </section>
 
-<!-- FORM DONACIÓN -->
-<!-- CAMPAÑA -->
+<!-- CAMPAÑA STRIP -->
 <section class="don-campaign-strip">
-  <div class="don-container don-campaign-grid">
-    <div>
+  <div class="don-campaign-strip-bg"></div>
+  <div class="don-container don-campaign-inner">
+
+    <!-- Left: Info -->
+    <div class="don-campaign-info">
       <span class="don-campaign-date">{campaignBadge}</span>
-      <h2>{campaignTitle}</h2>
-      <p>{campaignDescription}</p>
+      <h2 class="don-campaign-title">{campaignTitle}</h2>
+      <p class="don-campaign-desc">{campaignDescription}</p>
+
+      <!-- Progress bar -->
+      <div class="don-progress-wrap">
+        <div class="don-progress-bar">
+          <div class="don-progress-fill" style={`width:${campaignProgressPercent}%`}></div>
+        </div>
+        <div class="don-progress-labels">
+          <span class="don-progress-pct">{campaignProgressPercent}% alcanzado</span>
+          <span class="don-progress-goal">Meta: {campaignGoalLabel} {campaignUnitLabel}</span>
+        </div>
+      </div>
     </div>
-    <div class="don-campaign-metrics">
-      <div><strong>{campaignGoalLabel}</strong><span>{campaignUnitLabel}</span></div>
-      <div><strong>${campaignSuggestedAmount}</strong><span>aporte sugerido</span></div>
+
+    <!-- Divider -->
+    <div class="don-campaign-divider"></div>
+
+    <!-- Right: Metrics + Countdown -->
+    <div class="don-campaign-right">
+      <div class="don-campaign-metrics">
+        <div class="don-metric">
+          <strong>{campaignGoalLabel}</strong>
+          <span>{campaignUnitLabel}</span>
+        </div>
+        <div class="don-metric">
+          <strong>${campaignSuggestedAmount}</strong>
+          <span>aporte sugerido</span>
+        </div>
+        <div class="don-metric">
+          <strong>{campaignRemainingDays}</strong>
+          <span>días restantes</span>
+        </div>
+      </div>
+
+      <!-- Countdown -->
       <div class="don-countdown-card">
-        <p class="don-countdown-label">{campaignProgressPercent}% activo</p>
+        <p class="don-countdown-label">Tiempo restante</p>
         <div class="don-countdown-grid don-countdown" data-countdown={campaignEndsAt}>
           <div class="don-countdown-unit">
             <strong data-unit="days">{campaignRemainingDays}</strong>
@@ -124,7 +156,10 @@ const campaignRemainingDays = hasCampaignDate
           </div>
         </div>
       </div>
+
+      <a href="#donar-monto" class="don-campaign-cta">Donar ahora &darr;</a>
     </div>
+
   </div>
 </section>
 
@@ -355,110 +390,114 @@ const campaignRemainingDays = hasCampaignDate
     51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
   }
 
+  /* ── CAMPAIGN STRIP ── */
   .don-campaign-strip {
-    background:var(--don-forest);
-    color:#fff;
-    border-top:1px solid rgba(245,158,11,.28);
-    border-bottom:1px solid rgba(245,158,11,.28);
-    padding:2rem 0;
+    position: relative; overflow: hidden;
+    padding: 4rem 0; color: #fff;
   }
-  .don-campaign-grid {
-    display:grid;
-    grid-template-columns:minmax(0,1fr) auto;
-    gap:2rem;
-    align-items:center;
+  .don-campaign-strip-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(8,21,9,0.90) 0%, rgba(8,21,9,0.78) 50%, rgba(8,21,9,0.62) 100%),
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Mangroves_%2853575624549%29.jpg/3840px-Mangroves_%2853575624549%29.jpg') center/cover no-repeat;
+  }
+  .don-campaign-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 3rem; align-items: center;
   }
   .don-campaign-date {
-    display:block;
-    color:var(--don-accent);
-    font-size:.68rem;
-    font-weight:800;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    margin-bottom:.45rem;
+    display: inline-block; color: var(--don-accent);
+    font-size: .65rem; font-weight: 800;
+    letter-spacing: .22em; text-transform: uppercase;
+    background: rgba(245,158,11,.12);
+    border: 1px solid rgba(245,158,11,.3);
+    padding: .3rem .75rem; margin-bottom: 1rem;
   }
-  .don-campaign-grid h2 {
-    font-family:var(--don-head);
-    font-size:clamp(1.5rem,3vw,2.4rem);
-    line-height:1.1;
-    font-weight:800;
-    margin-bottom:.45rem;
+  .don-campaign-title {
+    font-family: var(--don-head); font-weight: 800;
+    font-size: clamp(1.4rem,2.5vw,2rem);
+    line-height: 1.15; margin-bottom: .75rem; color: #fff;
   }
-  .don-campaign-grid p {
-    color:rgba(255,255,255,.58);
-    font-size:.88rem;
-    line-height:1.65;
+  .don-campaign-desc {
+    color: rgba(255,255,255,.6); font-size: .88rem;
+    line-height: 1.7; margin-bottom: 1.5rem;
   }
+  .don-progress-wrap { margin-top: .5rem; }
+  .don-progress-bar {
+    height: 6px; background: rgba(255,255,255,.12);
+    border-radius: 3px; overflow: hidden; margin-bottom: .6rem;
+  }
+  .don-progress-fill {
+    height: 100%; background: var(--don-accent);
+    border-radius: 3px;
+  }
+  .don-progress-labels {
+    display: flex; justify-content: space-between;
+    font-size: .68rem; font-weight: 700;
+  }
+  .don-progress-pct { color: var(--don-accent); }
+  .don-progress-goal { color: rgba(255,255,255,.4); }
+  .don-campaign-divider {
+    width: 1px; height: 180px;
+    background: linear-gradient(to bottom, transparent, rgba(245,158,11,.4) 30%, rgba(245,158,11,.4) 70%, transparent);
+  }
+  .don-campaign-right { display: flex; flex-direction: column; gap: 1.25rem; }
   .don-campaign-metrics {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:1px;
-    background:rgba(255,255,255,.12);
-    min-width:430px;
+    display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem;
   }
-  .don-campaign-metrics div {
-    background:rgba(255,255,255,.06);
-    padding:1rem 1.25rem;
+  .don-metric {
+    text-align: center; padding: .85rem .5rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 6px;
   }
-  .don-campaign-metrics strong {
-    display:block;
-    color:var(--don-accent);
-    font-family:var(--don-head);
-    font-size:1.22rem;
-    line-height:1;
+  .don-metric strong {
+    display: block; color: var(--don-accent);
+    font-family: var(--don-head); font-size: 1.2rem;
+    font-weight: 800; line-height: 1;
   }
-  .don-campaign-metrics span {
-    display:block;
-    margin-top:.4rem;
-    color:rgba(255,255,255,.48);
-    font-size:.62rem;
-    font-weight:800;
-    letter-spacing:.12em;
-    text-transform:uppercase;
+  .don-metric span {
+    display: block; margin-top: .3rem;
+    color: rgba(255,255,255,.45);
+    font-size: .58rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
   }
-  .don-countdown-card {
-    min-width: 0;
-  }
+  .don-countdown-card { }
   .don-countdown-label {
-    margin: 0 0 .7rem;
-    color: rgba(255,255,255,.56);
-    font-size: .62rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+    font-size: .6rem; font-weight: 800; letter-spacing: .15em;
+    text-transform: uppercase; color: rgba(255,255,255,.45);
+    margin-bottom: .5rem;
   }
   .don-countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: .45rem;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: .4rem;
   }
   .don-countdown-unit {
-    min-width: 0;
-    padding: .65rem .25rem;
-    text-align: center;
-    background: rgba(0,0,0,.12);
-    border: 1px solid rgba(245,158,11,.16);
+    padding: .6rem .25rem; text-align: center;
+    background: rgba(0,0,0,.2);
+    border: 1px solid rgba(245,158,11,.18); border-radius: 4px;
   }
-  .don-countdown-unit strong {
-    color: #fff;
-    font-size: 1.15rem;
-  }
+  .don-countdown-unit strong { color: #fff; font-size: 1.1rem; font-weight: 800; }
   .don-countdown-unit small {
-    display: block;
-    margin-top: .35rem;
-    color: var(--don-accent);
-    font-size: .55rem;
-    font-weight: 800;
-    letter-spacing: .12em;
-    text-transform: uppercase;
+    display: block; margin-top: .25rem; color: var(--don-accent);
+    font-size: .5rem; font-weight: 800;
+    letter-spacing: .1em; text-transform: uppercase;
   }
-  @media(max-width:880px){
-    .don-campaign-grid { grid-template-columns:1fr; }
-    .don-campaign-metrics { min-width:0; }
+  .don-campaign-cta {
+    display: block; text-align: center;
+    background: var(--don-accent); color: #fff;
+    font-weight: 700; font-size: .8rem; padding: .75rem;
+    text-decoration: none; text-transform: uppercase;
+    letter-spacing: .1em; border-radius: 4px;
+    transition: background .2s;
+  }
+  .don-campaign-cta:hover { background: #d97706; }
+  @media(max-width:900px){
+    .don-campaign-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .don-campaign-divider { display: none; }
   }
   @media(max-width:560px){
-    .don-campaign-metrics { grid-template-columns:1fr; }
-    .don-countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .don-campaign-metrics { grid-template-columns: repeat(3,1fr); }
+    .don-countdown-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   }
 
   /* SPLIT */
