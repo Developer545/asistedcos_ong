@@ -149,12 +149,12 @@ import Layout from '../layouts/Layout.astro';
     </div>
     <div class="imp-photo-grid">
       {[
-        { src: '/images/area-conservacion.jpg',    alt: 'Área de conservación Costa del Bálsamo', span: true  },
+        { src: '/images/reforestacion-aerea.jpg',  alt: 'Vista aérea de reforestación',           span: true  },
+        { src: '/images/vivero-comunidad.jpg',     alt: 'Vivero comunitario',                     span: false },
+        { src: '/images/transporte-plantas.jpg',   alt: 'Transporte de plantas al campo',         span: false },
+        { src: '/images/evento-playa.jpg',         alt: 'Jornada comunitaria en playa',           span: false },
         { src: '/images/voluntaria-plantando.jpg', alt: 'Voluntaria plantando árboles',           span: false },
-        { src: '/images/reforestacion-aerea.jpg',  alt: 'Vista aérea de reforestación',           span: false },
-        { src: '/images/distribucion-plantas.jpg', alt: 'Distribución de plántulas',              span: false },
-        { src: '/images/monitoreo-rio.jpg',        alt: 'Monitoreo de cuencas',                   span: false },
-        { src: '/images/vivero-comunidad.jpg',     alt: 'Vivero comunitario',                     span: true  },
+        { src: '/images/area-conservacion.jpg',    alt: 'Costa del Bálsamo — área protegida',     span: true  },
       ].map(photo => (
         <div class={`imp-photo${photo.span ? ' imp-photo--wide' : ''}`}>
           <img src={photo.src} alt={photo.alt} loading="lazy" />
@@ -441,7 +441,7 @@ import Layout from '../layouts/Layout.astro';
   .imp-cta {
     background:
       linear-gradient(rgba(8,21,9,.52), rgba(8,21,9,.52)),
-      url('/images/voluntaria-plantando.jpg') center/cover no-repeat fixed;
+      url('/images/transporte-plantas.jpg') center/cover no-repeat fixed;
     padding:7rem 0;
   }
   .imp-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
