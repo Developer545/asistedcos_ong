@@ -1,6 +1,26 @@
 ---
-export const prerender = true;
+export const prerender = false;
 import Layout from '../layouts/Layout.astro';
+
+const ADMIN_URL = import.meta.env.PUBLIC_ADMIN_URL || 'https://asistedcosadmin.vercel.app';
+
+type Campaign = {
+  id: string; titulo: string; descripcion?: string;
+  fechaEvento?: string; fechaFin?: string;
+  metaUnidades: number; recaudadoUnidades: number;
+  unidadLabel: string; aporteSugerido: number; coverImage?: string;
+};
+
+let campaign: Campaign | null = null;
+try {
+  const r = await fetch(`${ADMIN_URL}/api/public/campana`, { signal: AbortSignal.timeout(5000) });
+  if (r.ok) { const d = await r.json(); campaign = d.data ?? null; }
+} catch { campaign = null; }
+
+const fechaEvento = campaign?.fechaEvento ? new Date(campaign.fechaEvento) : null;
+const pct = campaign && campaign.metaUnidades > 0
+  ? Math.min(Math.round((campaign.recaudadoUnidades / campaign.metaUnidades) * 100), 100)
+  : 0;
 
 const impactos = [
   { amount: 10,  logro: '5 plántulas nativas',    desc: 'Para familias campesinas que reforestarán sus terrenos.' },
@@ -34,6 +54,88 @@ const impactos = [
   </div>
   <div class="don-scroll" aria-hidden="true"><span></span></div>
 </section>
+
+<!-- CAMPAÑA ACTIVA -->
+{campaign && (
+<section class="camp-section" style={campaign.coverImage ? `background-image:url('${campaign.coverImage}')` : ''}>
+  <div class="camp-overlay"></div>
+  <div class="camp-container">
+
+    <!-- LEFT: Info campaña -->
+    <div class="camp-left">
+      {fechaEvento && (
+        <div class="camp-date">
+          <div class="camp-date-bar"></div>
+          <div class="camp-date-content">
+            <span class="camp-day">{fechaEvento.getDate()}</span>
+            <div class="camp-date-labels">
+              <span class="camp-month">{fechaEvento.toLocaleDateString('es-SV',{month:'long'}).toUpperCase()}</span>
+              <span class="camp-year">{fechaEvento.getFullYear()}</span>
+              <span class="camp-full">{fechaEvento.toLocaleDateString('es-SV',{day:'numeric',month:'long',year:'numeric'})}</span>
+            </div>
+          </div>
+        </div>
+      )}
+      <h1 class="camp-title">{campaign.titulo}</h1>
+      {campaign.descripcion && <p class="camp-desc">{campaign.descripcion}</p>}
+      <div class="camp-actions">
+        <a href="#donar-monto" class="camp-btn-primary">Donar a la campaña</a>
+        <a href="/contacto" class="camp-btn-ghost">Quiero participar</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: Widget donación -->
+    <div class="camp-widget">
+      <p class="camp-widget-label">META DE SIEMBRA</p>
+      <div class="camp-meta-num">{campaign.metaUnidades >= 1000000
+        ? `${(campaign.metaUnidades/1000000).toFixed(0)} Millón`
+        : campaign.metaUnidades.toLocaleString('es-SV')
+      }</div>
+      <div class="camp-meta-sub">{campaign.metaUnidades.toLocaleString('es-SV')}</div>
+      <div class="camp-meta-unit">{campaign.unidadLabel.toUpperCase()}</div>
+
+      <div class="camp-progress-bar">
+        <div class="camp-progress-fill" style={`width:${pct}%`}></div>
+      </div>
+
+      <div class="camp-stats">
+        <div class="camp-stat">
+          <span class="camp-stat-val">{pct}%</span>
+          <span class="camp-stat-lbl">IMPULSO INICIAL</span>
+        </div>
+        <div class="camp-stat-sep"></div>
+        <div class="camp-stat">
+          <span class="camp-stat-val camp-stat-gold">${Number(campaign.aporteSugerido)}</span>
+          <span class="camp-stat-lbl">APORTE SUGERIDO</span>
+        </div>
+      </div>
+
+      {campaign.fechaFin && (
+        <div class="camp-countdown-box">
+          <div class="camp-countdown-head">
+            <span class="camp-live"><span class="camp-live-dot"></span>EN VIVO</span>
+            <span class="camp-countdown-label">TIEMPO RESTANTE DE CAMPAÑA</span>
+          </div>
+          <div class="camp-countdown" id="camp-countdown" data-end={campaign.fechaFin}>
+            <div class="camp-unit"><span class="camp-num" id="cd-days">00</span><span class="camp-uname">DÍAS</span></div>
+            <div class="camp-unit"><span class="camp-num" id="cd-hours">00</span><span class="camp-uname">HORAS</span></div>
+            <div class="camp-unit"><span class="camp-num" id="cd-mins">00</span><span class="camp-uname">MIN</span></div>
+            <div class="camp-unit"><span class="camp-num" id="cd-secs">00</span><span class="camp-uname">SEG</span></div>
+          </div>
+        </div>
+      )}
+
+      <div class="camp-amounts">
+        {[10,25,50,100,250].map(n => (
+          <button class="camp-amt" data-amount={n}>${n}</button>
+        ))}
+        <button class="camp-amt camp-amt-other" id="camp-otro">Otro monto</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+)}
 
 <!-- FORM DONACIÓN -->
 <section id="donar-monto" class="don-section" style="background:#f7f7f7; position:relative;">
@@ -399,6 +501,85 @@ const impactos = [
     .don-hero{ min-height:auto; padding:6rem 0 4rem; }
     .don-amounts-grid{ grid-template-columns:repeat(3,1fr); }
   }
+
+  /* ── Campaña activa ─────────────────────────────── */
+  .camp-section {
+    position: relative; min-height: 92vh;
+    background: #0b1a0d url('/images/reforestacion-aerea.jpg') center/cover no-repeat;
+    display: flex; align-items: center;
+  }
+  .camp-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg, rgba(5,15,6,0.82) 50%, rgba(5,15,6,0.55) 100%);
+  }
+  .camp-container {
+    position: relative; z-index: 1; width: 100%; max-width: 1200px;
+    margin: 0 auto; padding: 5rem 2rem;
+    display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
+  }
+  .camp-date { display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+  .camp-date-bar { width: 4px; height: 64px; background: #f59e0b; border-radius: 2px; flex-shrink: 0; }
+  .camp-date-content { display: flex; align-items: center; gap: 14px; }
+  .camp-day { font-size: 3.5rem; font-weight: 800; color: #f59e0b; line-height: 1; font-family: 'Poppins', sans-serif; }
+  .camp-date-labels { display: flex; flex-direction: column; gap: 1px; }
+  .camp-month { font-size: 0.85rem; font-weight: 700; color: #fff; letter-spacing: .12em; }
+  .camp-year { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+  .camp-full { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+  .camp-title { font-size: clamp(2.2rem,5vw,4rem); font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 1.2rem; font-family: 'Poppins', sans-serif; }
+  .camp-desc { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.7; max-width: 500px; margin-bottom: 2rem; }
+  .camp-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .camp-btn-primary {
+    padding: .85rem 2rem; background: #f59e0b; color: #000; font-weight: 700;
+    font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+    border-radius: 3px; transition: background .2s;
+  }
+  .camp-btn-primary:hover { background: #fbbf24; }
+  .camp-btn-ghost {
+    padding: .85rem 2rem; background: transparent; color: #fff; font-weight: 600;
+    font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.35); border-radius: 3px; transition: border-color .2s;
+  }
+  .camp-btn-ghost:hover { border-color: #fff; }
+
+  /* Widget derecho */
+  .camp-widget {
+    background: rgba(10,20,11,0.88); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 2rem 1.75rem;
+  }
+  .camp-widget-label { font-size: .65rem; letter-spacing: .15em; color: rgba(255,255,255,0.45); margin-bottom: .5rem; text-transform: uppercase; }
+  .camp-meta-num { font-size: 2.8rem; font-weight: 900; color: #fff; line-height: 1; font-family: 'Poppins', sans-serif; }
+  .camp-meta-sub { font-size: .78rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .camp-meta-unit { font-size: .65rem; letter-spacing: .12em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 1rem; }
+  .camp-progress-bar { height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; margin-bottom: 1rem; overflow: hidden; }
+  .camp-progress-fill { height: 100%; background: #f59e0b; border-radius: 2px; transition: width 1s ease; }
+  .camp-stats { display: flex; align-items: center; gap: 1rem; padding: .75rem 1rem; background: rgba(255,255,255,0.05); border-radius: 6px; margin-bottom: 1rem; }
+  .camp-stat { display: flex; flex-direction: column; gap: 2px; }
+  .camp-stat-val { font-size: 1.1rem; font-weight: 800; color: #f59e0b; }
+  .camp-stat-gold { color: #f59e0b; }
+  .camp-stat-lbl { font-size: .58rem; letter-spacing: .1em; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+  .camp-stat-sep { width: 1px; height: 2rem; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+  .camp-countdown-box { background: #0d1f0f; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+  .camp-countdown-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: .75rem; }
+  .camp-live { display: flex; align-items: center; gap: 5px; font-size: .65rem; font-weight: 700; color: #4ade80; letter-spacing: .08em; }
+  .camp-live-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: pulse-dot 1.4s infinite; }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+  .camp-countdown-label { font-size: .58rem; letter-spacing: .1em; color: rgba(255,255,255,0.35); text-transform: uppercase; }
+  .camp-countdown { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+  .camp-unit { display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.06); border-radius: 6px; padding: .6rem .3rem; }
+  .camp-num { font-size: 1.6rem; font-weight: 800; color: #4ade80; font-variant-numeric: tabular-nums; font-family: 'Poppins', sans-serif; }
+  .camp-uname { font-size: .5rem; letter-spacing: .1em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-top: 2px; }
+  .camp-amounts { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+  .camp-amt {
+    padding: .6rem; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8); font-weight: 600; font-size: .85rem; border-radius: 6px;
+    cursor: pointer; transition: background .15s, border-color .15s;
+  }
+  .camp-amt:hover, .camp-amt.selected { background: rgba(245,158,11,0.2); border-color: #f59e0b; color: #f59e0b; }
+  .camp-amt-other { font-size: .75rem; color: rgba(255,255,255,0.5); }
+  @media(max-width:900px) {
+    .camp-container { grid-template-columns: 1fr; }
+    .camp-section { min-height: auto; }
+  }
 </style>
 
 <script>
@@ -455,6 +636,46 @@ const impactos = [
       card.classList.add('selected');
       updateUI(amount);
       document.getElementById('donar-monto')?.scrollIntoView({ behavior:'smooth' });
+    });
+  });
+
+  /* ── Countdown campaña ─────────────────────────────── */
+  const countdownEl = document.getElementById('camp-countdown');
+  if (countdownEl) {
+    const endDate = new Date(countdownEl.dataset.end!).getTime();
+    function tick() {
+      const diff = endDate - Date.now();
+      const d = document.getElementById('cd-days')!;
+      const h = document.getElementById('cd-hours')!;
+      const m = document.getElementById('cd-mins')!;
+      const s = document.getElementById('cd-secs')!;
+      if (diff <= 0) { d.textContent = h.textContent = m.textContent = s.textContent = '00'; return; }
+      const days  = Math.floor(diff / 86400000);
+      const hours = Math.floor((diff % 86400000) / 3600000);
+      const mins  = Math.floor((diff % 3600000) / 60000);
+      const secs  = Math.floor((diff % 60000) / 1000);
+      d.textContent = String(days).padStart(2,'0');
+      h.textContent = String(hours).padStart(2,'0');
+      m.textContent = String(mins).padStart(2,'0');
+      s.textContent = String(secs).padStart(2,'0');
+    }
+    tick(); setInterval(tick, 1000);
+  }
+
+  /* ── Botones monto campaña ─────────────────────────── */
+  document.querySelectorAll<HTMLButtonElement>('.camp-amt').forEach(btn => {
+    if (btn.id === 'camp-otro') {
+      btn.addEventListener('click', () => document.getElementById('donar-monto')?.scrollIntoView({behavior:'smooth'}));
+      return;
+    }
+    btn.addEventListener('click', () => {
+      const amount = Number(btn.dataset.amount);
+      document.querySelectorAll('.camp-amt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('donar-monto')?.scrollIntoView({behavior:'smooth'});
+      setTimeout(() => {
+        (document.querySelector(`.amount-btn[data-amount="${amount}"]`) as HTMLButtonElement)?.click();
+      }, 400);
     });
   });
 
