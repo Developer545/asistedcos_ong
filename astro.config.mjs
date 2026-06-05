@@ -4,7 +4,7 @@ import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   site: 'https://asistedcos.org',
-  output: 'static',
+  output: 'server',
   adapter: vercel(),
   integrations: [
     tailwind(),

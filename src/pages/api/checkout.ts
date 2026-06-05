@@ -9,6 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const amount = Number(body.amount);
+    const origin = new URL(request.url).origin;
 
     if (!amount || amount < 1 || amount > 50000) {
       return new Response(JSON.stringify({ error: 'Monto inválido' }), {
@@ -33,8 +34,8 @@ export const POST: APIRoute = async ({ request }) => {
         },
       ],
       mode: 'payment',
-      success_url: 'https://asistedcosong.vercel.app/gracias?donated=true',
-      cancel_url: 'https://asistedcosong.vercel.app/donar',
+      success_url: `${origin}/gracias?donated=true`,
+      cancel_url: `${origin}/donar`,
       metadata: { source: 'website_donation' },
     });
 
